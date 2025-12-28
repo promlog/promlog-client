@@ -1,7 +1,8 @@
 import { useNavigate } from 'react-router-dom';
 import { Icon } from '../Icon/Icon';
+import type { LogoProps } from './Logo.types';
 
-const IconLogo = ({ ...restProps }) => {
+const IconLogo = ({ ...restProps }: LogoProps) => {
   return (
     <div
       className="w-8 h-8 bg-gradient-to-br from-purple-600 to-indigo-600 rounded-lg flex items-center justify-center"
@@ -13,13 +14,14 @@ const IconLogo = ({ ...restProps }) => {
 
 IconLogo.displayName = 'Logo.Icon';
 
-const BasicLogo = () => {
+const BasicLogo = ({ ...restProps }: LogoProps) => {
   const navigate = useNavigate();
 
   return (
     <div
       className="flex items-center gap-2 hover:opacity-80 transition-opacity cursor-pointer"
-      onClick={() => navigate('/')}>
+      onClick={() => navigate('/')}
+      {...restProps}>
       <IconLogo />
       <span className="text-xl text-gray-900">프롬로그</span>
     </div>
