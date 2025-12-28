@@ -55,7 +55,7 @@ ${iconEntries}
   await fs.mkdir(path.dirname(OUTPUT_FILE), { recursive: true });
   await fs.writeFile(OUTPUT_FILE, fileContent, 'utf8');
 
-  console.log(`iconMap이 정상적으로 생성되었습니다. total: ${tsxFiles.length}개`);
+  console.log(`iconMap이 정상적으로 생성되었습니다.`);
 }
 
 generateIconMap().catch((err) => {
