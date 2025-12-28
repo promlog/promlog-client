@@ -1,12 +1,11 @@
-import type { ComponentPropsWithRef, RefObject } from 'react';
+import type { ComponentPropsWithRef } from 'react';
 
 type ButtonStyleVariant = {
   variant?: 'solid' | 'primary';
 };
 
-interface ButtonBaseProps extends ComponentPropsWithRef<'button'> {
+interface ButtonBaseProps extends Omit<ComponentPropsWithRef<'button'>, 'children'> {
   children: React.ReactNode;
-  ref?: RefObject<HTMLButtonElement>;
 }
 
 export type ButtonProps = ButtonBaseProps & ButtonStyleVariant;
