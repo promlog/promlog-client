@@ -13,7 +13,7 @@ const Button = ({
 }: ButtonProps) => {
   return (
     <button
-      className={`inline-flex items-center justify-center px-4 py-2 text-white rounded-lg transition-all ${
+      className={`inline-flex gap-2 items-center justify-center px-4 py-2 text-white rounded-lg transition-all ${
         buttonVariants[variant]
       } ${className ?? ''}`}
       {...restProps}>
