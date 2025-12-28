@@ -21,7 +21,7 @@ async function generateIconMap() {
     return;
   }
 
-  const importLines = `import * as Icon from './generated/index.tsx'`;
+  const importLines = `import * as Icon from './generated/index';`;
 
   const iconEntries = tsxFiles
     .filter((file) => file.replace(/\.tsx$/, '') !== 'index')

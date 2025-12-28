@@ -1,7 +1,7 @@
 // 자동으로 생성된 파일입니다. 수정을 금지합니다.
-// 마지막 수정 일시 Sun Dec 28 2025 18:53:54 GMT+0900 (대한민국 표준시)
+// 마지막 수정 일시 Sun Dec 28 2025 20:40:11 GMT+0900 (대한민국 표준시)
 
-import * as Icon from './generated/index.tsx';
+import * as Icon from './generated/index';
 
 export const sizeMap = {
   xs: 12,
