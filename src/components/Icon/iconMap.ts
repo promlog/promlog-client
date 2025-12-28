@@ -1,7 +1,15 @@
 // 자동으로 생성된 파일입니다. 수정을 금지합니다.
-// 마지막 수정 일시 Sun Dec 28 2025 18:44:25 GMT+0900 (대한민국 표준시)
+// 마지막 수정 일시 Sun Dec 28 2025 18:53:54 GMT+0900 (대한민국 표준시)
 
 import * as Icon from './generated/index.tsx';
+
+export const sizeMap = {
+  xs: 12,
+  sm: 16,
+  md: 20,
+  lg: 24,
+  xl: 32,
+} as const;
 
 export const iconMap = {
   addLine: Icon.AddLine,
@@ -11,5 +19,3 @@ export const iconMap = {
   link: Icon.Link,
   logo: Icon.Logo,
 } as const;
-
-export type IconName = keyof typeof iconMap;

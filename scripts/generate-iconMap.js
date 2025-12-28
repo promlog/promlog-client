@@ -28,7 +28,7 @@ async function generateIconMap() {
       const componentName = file.replace(/\.tsx$/, '');
       const key = toIconKey(file);
 
-      if (componentName === 'index') return '';
+      if (componentName === 'index') return;
 
       return `  ${key}: Icon.${componentName},`;
     })
@@ -40,11 +40,17 @@ async function generateIconMap() {
 
 ${importLines}
 
+export const sizeMap = {
+  xs: 12,
+  sm: 16,
+  md: 20,
+  lg: 24,
+  xl: 32,
+} as const;
+
 export const iconMap = {
 ${iconEntries}
 } as const;
-
-export type IconName = keyof typeof iconMap;
 `;
 
   await fs.mkdir(path.dirname(OUTPUT_FILE), { recursive: true });
