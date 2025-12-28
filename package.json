@@ -12,7 +12,10 @@
     "test:watch": "vitest --watch",
     "test:ui": "vitest --ui",
     "test:coverage": "vitest --coverage",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "build:icons": "svgr --config .svgrrc.json src/assets/icons --out-dir src/components/Icon/generated --typescript --ext tsx",
+    "gen:iconMap": "node ./scripts/generate-iconMap.js",
+    "build:icons:all": "npm run build:icons && npm run gen:iconMap"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.18",
@@ -24,6 +27,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",
+    "@svgr/cli": "^8.1.0",
     "@testing-library/jest-dom": "^6.9.1",
     "@testing-library/react": "^16.3.1",
     "@testing-library/user-event": "^14.6.1",
