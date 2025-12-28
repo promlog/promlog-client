@@ -13,7 +13,9 @@
     "test:ui": "vitest --ui",
     "test:coverage": "vitest --coverage",
     "type-check": "tsc --noEmit",
-    "build:icons": "svgr ./.svgrrc.json src/assets/icons --out-dir src/components/Icon/generated --typescript --ext tsx"
+    "build:icons": "svgr ./.svgrrc.json src/assets/icons --out-dir src/components/Icon/generated --typescript --ext tsx",
+    "gen:iconMap": "node --experimental-modules ./scripts/generate-iconMap.js",
+    "build:icons:all": "npm run build:icons && npm run gen:iconMap"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.18",
