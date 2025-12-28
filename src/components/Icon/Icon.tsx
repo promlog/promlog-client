@@ -11,7 +11,7 @@ export const Icon = ({ name, size = 'md', color, ...rest }: IconProps) => {
     <IconComponent
       width={pixelSize}
       height={pixelSize}
-      style={{ color: color ?? '#000' }}
+      style={color ? { color } : undefined}
       {...rest}
     />
   );
