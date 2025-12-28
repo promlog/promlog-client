@@ -8,7 +8,7 @@ const Button = ({
   children,
   className,
   icon,
-  size,
+  iconSize,
   ...restProps
 }: ButtonProps) => {
   return (
@@ -17,7 +17,7 @@ const Button = ({
         buttonVariants[variant]
       } ${className ?? ''}`}
       {...restProps}>
-      {icon && <Icon name={icon} size={size} />}
+      {icon && <Icon name={icon} size={iconSize} />}
       {children}
     </button>
   );

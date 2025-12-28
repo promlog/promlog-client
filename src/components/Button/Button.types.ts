@@ -2,7 +2,7 @@ import type { ComponentPropsWithRef } from 'react';
 import type { IconName, IconSize } from '../Icon/Icon.types';
 
 type ButtonStyleVariant = {
-  size?: IconSize;
+  iconSize?: IconSize;
   variant?: 'solid' | 'primary';
 };
 

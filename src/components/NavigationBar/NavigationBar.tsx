@@ -9,7 +9,7 @@ const NavigationBar = () => {
         <div className="flex items-center justify-between h-16">
           <Logo.Basic />
           <div className="flex items-center gap-3">
-            <Button icon="addLine" size="md">
+            <Button icon="addLine" iconSize="md">
               프롬프트 등록
             </Button>
             <Button variant="solid">로그인</Button>
