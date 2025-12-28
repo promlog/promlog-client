@@ -6,13 +6,16 @@ const Button = ({
   variant = 'primary',
   children,
   ref,
+  className,
   ...restProps
 }: ButtonProps) => {
   return (
     <button
       ref={ref}
       {...restProps}
-      className={`inline-flex items-center px-4 py-2 text-white rounded-lg transition-all ${buttonVariants[variant]}`}>
+      className={`inline-flex items-center justify-center px-4 py-2 text-white rounded-lg transition-all ${
+        buttonVariants[variant]
+      } ${className ?? ''}`}>
       {children}
     </button>
   );
