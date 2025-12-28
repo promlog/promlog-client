@@ -1,0 +1,10 @@
+{
+  "typescript": true,
+  "ext": "tsx",
+  "prettier": true,
+  "svgProps": {
+    "fill": "currentColor"
+  },
+  "icon": true,
+  "jsxRuntime": "automatic"
+}
