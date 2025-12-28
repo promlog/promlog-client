@@ -1,3 +1,4 @@
+import type React from 'react';
 import type { iconMap, sizeMap } from './iconMap';
 
 type IconName = keyof typeof iconMap;
