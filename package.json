@@ -12,7 +12,8 @@
     "test:watch": "vitest --watch",
     "test:ui": "vitest --ui",
     "test:coverage": "vitest --coverage",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "build:icons": "svgr ./.svgrrc.json src/assets/icons --out-dir src/components/Icon/generated --typescript --ext tsx"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.18",
