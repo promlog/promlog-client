@@ -7,5 +7,12 @@ export const Icon = ({ name, size = 'md', color, ...rest }: IconProps) => {
 
   if (!IconComponent) return null;
 
-  return <IconComponent width={pixelSize} height={pixelSize} style={{ color: '#000' }} {...rest} />;
+  return (
+    <IconComponent
+      width={pixelSize}
+      height={pixelSize}
+      style={{ color: color ?? '#000' }}
+      {...rest}
+    />
+  );
 };
