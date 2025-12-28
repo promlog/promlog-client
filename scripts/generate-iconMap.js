@@ -24,11 +24,10 @@ async function generateIconMap() {
   const importLines = `import * as Icon from './generated/index.tsx'`;
 
   const iconEntries = tsxFiles
+    .filter((file) => file.replace(/\.tsx$/, '') !== 'index')
     .map((file) => {
       const componentName = file.replace(/\.tsx$/, '');
       const key = toIconKey(file);
-
-      if (componentName === 'index') return;
 
       return `  ${key}: Icon.${componentName},`;
     })
