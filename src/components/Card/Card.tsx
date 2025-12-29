@@ -2,12 +2,14 @@ import { Label } from '../../Label/Label';
 import Badge from '../Badge/Badge';
 import type { CardProps } from './Card.types';
 
-const Card = ({ badges, view, date, writer, header, children }: CardProps) => {
+const Card = ({ id, badges, view, date, writer, header, children }: CardProps) => {
   return (
-    <article className="bg-white rounded-xl border border-gray-200 p-6 hover:border-purple-300 hover:shadow-lg transition-all text-left group">
+    <article
+      key={id}
+      className="bg-white rounded-xl border border-gray-200 p-6 hover:border-purple-300 hover:shadow-lg transition-all text-left group">
       <header className="flex items-center gap-2 mb-3 flex-wrap">
         {badges.map((badge) => (
-          <Badge size="sm" variant={badge.variant}>
+          <Badge key={badge.id} size="sm" variant={badge.variant}>
             {badge.name}
           </Badge>
         ))}
