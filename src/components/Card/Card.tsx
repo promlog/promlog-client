@@ -1,4 +1,4 @@
-import { Label } from '../../Label/Label';
+import { Label } from '../Label/Label';
 import Badge from '../Badge/Badge';
 import type { CardProps } from './Card.types';
 
