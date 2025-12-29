@@ -1,4 +1,4 @@
-import type { ComponentPropsWithRef } from 'react';
+import type { ReactNode, ComponentPropsWithRef } from 'react';
 import type { IconName, IconSize } from '../Icon/Icon.types';
 
 type ButtonStyleVariant = {
@@ -8,7 +8,7 @@ type ButtonStyleVariant = {
 
 interface ButtonBaseProps extends Omit<ComponentPropsWithRef<'button'>, 'children'> {
   icon?: IconName;
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 export type ButtonProps = ButtonBaseProps & ButtonStyleVariant;
