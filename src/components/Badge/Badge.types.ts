@@ -1,3 +1,4 @@
+import type { ReactNode } from 'react';
 import type { variantStyleMap } from './Badge.styles';
 
 type BadgeStyleVariant = {
@@ -5,7 +6,7 @@ type BadgeStyleVariant = {
 };
 
 interface BadgeBaseProps {
-  children: React.ReactNode;
+  children: ReactNode;
 }
 
 export type BadgeProps = BadgeBaseProps & BadgeStyleVariant;
