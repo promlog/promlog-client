@@ -1,13 +1,29 @@
 import { Icon } from '../components/Icon/Icon';
-import type { LabelProps } from './Label.types';
+import { LabelCommonFontStyle } from './Label.styles';
+import type { TextLabelProps, InputLabelProps } from './Label.types';
 
-const Label = ({ icon, children }: LabelProps) => {
+const InputLabel = ({ children, htmlFor, ...restProps }: InputLabelProps) => {
   return (
-    <div className="flex items-center gap-1">
-      {icon && <Icon name={icon} fill="#fff" size="sm" />}
+    <label className={LabelCommonFontStyle} htmlFor={htmlFor} {...restProps}>
       {children}
+    </label>
+  );
+};
+
+InputLabel.displayName = 'Label.Input';
+
+const TextLabel = ({ icon, children, ...restProps }: TextLabelProps) => {
+  return (
+    <div className="flex items-center gap-1" {...restProps}>
+      {icon && <Icon name={icon} fill="#fff" size="sm" aria-hidden />}
+      <span className={LabelCommonFontStyle}>{children}</span>
     </div>
   );
 };
 
-export default Label;
+TextLabel.displayName = 'Label.Text';
+
+export const Label = {
+  Input: InputLabel,
+  Text: TextLabel,
+};

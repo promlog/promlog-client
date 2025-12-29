@@ -1,8 +1,13 @@
 type LabelIconName = 'view' | 'calendar';
 
 interface LabelBaseProps {
-  icon?: LabelIconName;
   children: React.ReactNode;
 }
 
-export type LabelProps = LabelBaseProps;
+export interface InputLabelProps extends LabelBaseProps {
+  htmlFor: string;
+}
+
+export interface TextLabelProps extends LabelBaseProps {
+  icon?: LabelIconName;
+}
