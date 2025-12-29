@@ -39,7 +39,7 @@ export const Dialog = ({
               {children}
               <div className="flex gap-3">
                 {primaryAction}
-                {secondaryAction ?? undefined}
+                {secondaryAction}
               </div>
               {caption && <p className="text-center text-gray-500 text-sm">{caption}</p>}
             </div>
