@@ -1,12 +1,14 @@
+import type { ReactNode } from 'react';
+
 interface DialogBaseProps {
-  trigger: React.ReactNode;
-  icon: React.ReactNode;
-  primaryAction: React.ReactNode;
-  secondaryAction?: React.ReactNode;
-  children?: React.ReactNode;
+  trigger: ReactNode;
+  icon: ReactNode;
+  primaryAction: ReactNode;
   title: string;
   description: string;
   caption?: string;
+  children?: ReactNode;
+  secondaryAction?: ReactNode;
 }
 
 export type DialogProps = DialogBaseProps;
