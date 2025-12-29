@@ -30,5 +30,3 @@ const Card = ({ badges, view, date, writer, header, children }: CardProps) => {
 };
 
 export default Card;
-
-// 카드 세부 내용입니다. 작성자가 작성한 프롬프트의 미리보기가 최대 3줄까지 표시됩니다. 세 줄 초과 시 말줄임표로 표시됩니다. 카드 세부 내용입니다. 작성자가 작성한 프롬프트의 미리보기가 최대 3줄까지 표시됩니다. 세 줄 초과 시 말줄임표로 표시됩니다.
