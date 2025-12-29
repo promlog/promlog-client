@@ -1,5 +1,5 @@
 // 자동으로 생성된 파일입니다. 수정을 금지합니다.
-// 마지막 수정 일시 Mon Dec 29 2025 13:37:21 GMT+0900 (대한민국 표준시)
+// 마지막 수정 일시 Mon Dec 29 2025 21:32:20 GMT+0900 (대한민국 표준시)
 
 import * as Icon from './generated/index';
 
@@ -16,8 +16,10 @@ export const iconMap = {
   bookmark: Icon.Bookmark,
   calendar: Icon.Calendar,
   circuit: Icon.Circuit,
+  close: Icon.Close,
   copy: Icon.Copy,
   link: Icon.Link,
   logo: Icon.Logo,
+  triangleAlert: Icon.TriangleAlert,
   view: Icon.View,
 } as const;
