@@ -1,4 +1,6 @@
-type LabelIconName = 'view' | 'calendar';
+import type { IconName } from '../components/Icon/Icon.types';
+
+type LabelIconName = Extract<IconName, 'view' | 'calendar'>;
 
 interface LabelBaseProps {
   children: React.ReactNode;
