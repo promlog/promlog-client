@@ -2,6 +2,7 @@ import { Dialog as DialogPrimitive } from 'radix-ui';
 import { Icon } from '../Icon/Icon';
 import type { DialogProps } from './Dialog.types';
 
+// TODO: primaryAction, secondaryAction 네이밍 고민 필요
 export const Dialog = ({
   trigger,
   icon,
