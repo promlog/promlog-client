@@ -9,3 +9,8 @@ export const variantIconMap = {
   platform: 'circuit',
   source: 'link',
 } as const;
+
+export const badgeSizeMap = {
+  sm: 'gap-1 px-2.5 py-1 rounded-md text-sm',
+  md: 'gap-1.5 px-3 py-1.5 rounded-lg',
+};
