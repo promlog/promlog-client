@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react';
-import type { IconName } from '../components/Icon/Icon.types';
+import type { IconName } from '../Icon/Icon.types';
 
 type LabelIconName = Extract<IconName, 'view' | 'calendar'>;
 

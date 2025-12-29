@@ -1,20 +1,21 @@
 import { useNavigate } from 'react-router-dom';
 import { Icon } from '../Icon/Icon';
-import type { LogoProps } from './Logo.types';
+import type { BasicLogoProps, IconLogoProps } from './Logo.types';
+import { iconSizeMap } from './Icon.styles';
 
-const IconLogo = ({ ...restProps }: LogoProps) => {
+const IconLogo = ({ size = 'md', ...restProps }: IconLogoProps) => {
   return (
     <div
-      className="w-8 h-8 bg-gradient-to-br from-purple-600 to-indigo-600 rounded-lg flex items-center justify-center"
+      className={`${iconSizeMap[size]} bg-gradient-to-br from-purple-600 to-indigo-600 flex items-center justify-center`}
       {...restProps}>
-      <Icon name="logo" stroke="#fff" />
+      <Icon name="logo" stroke="#fff" fill="none" size={size} />
     </div>
   );
 };
 
 IconLogo.displayName = 'Logo.Icon';
 
-const BasicLogo = ({ ...restProps }: LogoProps) => {
+const BasicLogo = ({ ...restProps }: BasicLogoProps) => {
   const navigate = useNavigate();
 
   return (

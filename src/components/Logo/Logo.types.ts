@@ -1,3 +1,7 @@
 import type { HTMLAttributes } from 'react';
 
-export type LogoProps = HTMLAttributes<HTMLDivElement>;
+export interface IconLogoProps extends HTMLAttributes<HTMLDivElement> {
+  size?: 'md' | 'xl';
+}
+
+export type BasicLogoProps = HTMLAttributes<HTMLDivElement>;
