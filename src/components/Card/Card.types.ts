@@ -12,7 +12,7 @@ interface CardBaseProps extends Omit<HTMLAttributes<HTMLDivElement>, 'id'> {
   badges: CardBadges[];
   header: string;
   children: ReactNode;
-  view: string;
+  view: string | number;
   date: string;
   writer: string;
 }
