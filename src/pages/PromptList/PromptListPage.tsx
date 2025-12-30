@@ -26,7 +26,7 @@ const PromptListPage = () => {
       <Banner title="전체 프롬프트" subtitle="다양한 AI 프롬프트를 공유하고 발견하세요" />
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {prompts.map((prompt) => (
-          <PromptCard key={prompt.id} prompt={prompt} router={`/prompts/${prompt.id}`} />
+          <PromptCard key={prompt.id} prompt={prompt} router={`/${prompt.id}`} />
         ))}
       </div>
     </div>
