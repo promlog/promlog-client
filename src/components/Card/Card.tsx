@@ -2,7 +2,7 @@ import { Label } from '../Label/Label';
 import Badge from '../Badge/Badge';
 import type { CardProps } from './Card.types';
 
-const Card = ({ id, badges, view, date, writer, header, children }: CardProps) => {
+const Card = ({ id, badges, view, date, writer, header, children, ...restProps }: CardProps) => {
   return (
     <article
       key={id}
