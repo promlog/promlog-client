@@ -1,7 +1,7 @@
 import type { PromptListItemResponse } from '../apis/prompts/prompts.types';
 import type { PromptDTO } from '../mocks/prompts';
 
-export const MapPromptListItemDTO = (item: PromptListItemResponse): PromptDTO => ({
+export const mapPromptListItemDTO = (item: PromptListItemResponse): PromptDTO => ({
   id: item.id,
   title: item.title,
   description: item.body,
