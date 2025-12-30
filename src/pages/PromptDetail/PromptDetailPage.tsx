@@ -8,7 +8,7 @@ import PromptDetailHeader from './_components/PromptDetailHeader';
 const PromptDetailPage = () => {
   const promptIdParam = useParams().promptId;
 
-  if (!promptIdParam) return;
+  if (!promptIdParam) return null;
 
   const promptId = Number(promptIdParam);
 

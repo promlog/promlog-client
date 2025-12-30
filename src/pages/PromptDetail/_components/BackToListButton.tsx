@@ -5,7 +5,7 @@ const BackToListButton = () => {
   const navigate = useNavigate();
 
   return (
-    <div>
+    <div className="flex">
       <Button icon="backLine" variant="empty" onClick={() => navigate(-1)}>
         목록으로
       </Button>
