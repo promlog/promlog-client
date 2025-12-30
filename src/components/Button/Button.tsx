@@ -17,7 +17,7 @@ const Button = ({
         buttonVariants[variant]
       } ${className ?? ''}`}
       {...restProps}>
-      {icon && <Icon name={icon} size={iconSize} />}
+      {icon && <Icon name={icon} size={iconSize} fill="none" />}
       {children}
     </button>
   );
