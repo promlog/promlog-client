@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { getPromptList } from '../../apis/prompts/getPromptList';
+import { getPromptList } from '../../apis/prompts/prompts';
 import { mapPromptListItemDTO } from '../../mappers/promptMapper';
 import type { PromptDTO } from '../../mocks/prompts';
 

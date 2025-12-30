@@ -1,5 +1,8 @@
 import { API } from '../../config/api';
-import type { GetPromptListParams, PromptListResponse } from './prompts.types';
+import type {
+  GetPromptListParams,
+  PromptListResponse,
+} from './prompts.types';
 
 export const getPromptList = async ({
   sort = 'latest',

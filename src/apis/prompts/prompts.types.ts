@@ -1,3 +1,4 @@
+// prompt list
 export interface PromptListItemResponse {
   id: number;
   authorAccountId: number;
