@@ -1,4 +1,4 @@
-import type { PromptListItemResponse } from '../apis/prompts/prompts.types';
+import type { PromptDetailResponse, PromptListItemResponse } from '../apis/prompts/prompts.types';
 import type { PromptDTO } from '../mocks/prompts';
 
 export const mapPromptListItemDTO = (item: PromptListItemResponse): PromptDTO => ({
@@ -14,3 +14,21 @@ export const mapPromptListItemDTO = (item: PromptListItemResponse): PromptDTO =>
     name: item.isAnonymous ? '익명' : '작성자',
   },
 });
+
+export const mapPromptDetailDTO = (response: PromptDetailResponse): PromptDTO => {
+  const item = response.data;
+
+  return {
+    id: item.id,
+    title: item.title,
+    description: item.body,
+    category: '기타',
+    tags: '프롬프트',
+    views: item.viewCount,
+    createdAt: item.createdAt.slice(0, 10),
+    author: {
+      id: item.authorAccountId,
+      name: item.isAnonymous ? '익명' : '작성자',
+    },
+  };
+};

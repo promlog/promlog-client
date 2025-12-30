@@ -34,3 +34,9 @@ export interface GetPromptListParams {
   page?: number;
   size?: number;
 }
+
+// prompt detail
+export interface PromptDetailResponse {
+  success: boolean;
+  data: PromptListItemResponse;
+}
