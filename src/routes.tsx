@@ -1,5 +1,5 @@
 import { Route, Routes } from 'react-router-dom';
-import PromptListPage from './pages/PromptList/PromptList';
+import PromptListPage from './pages/PromptList/PromptListPage';
 import Layout from './components/Layout/Layout';
 
 const Router = () => {
