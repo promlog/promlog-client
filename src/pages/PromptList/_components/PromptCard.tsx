@@ -1,12 +1,16 @@
+import { useNavigate } from 'react-router-dom';
 import Card from '../../../components/Card/Card';
 import type { CardBadges } from '../../../components/Card/Card.types';
 import type { PromptDTO } from '../../../mocks/prompts';
 
 type PromptCardProps = {
   prompt: PromptDTO;
+  router: string;
 };
 
-const PromptCard = ({ prompt }: PromptCardProps) => {
+const PromptCard = ({ prompt, router }: PromptCardProps) => {
+  const navigate = useNavigate();
+
   const badges: CardBadges[] = [
     {
       id: `category-${prompt.id}`,
@@ -32,7 +36,8 @@ const PromptCard = ({ prompt }: PromptCardProps) => {
       badges={badges}
       view={viewText}
       date={prompt.createdAt}
-      writer={prompt.author.name}>
+      writer={prompt.author.name}
+      onClick={() => navigate(router)}>
       {prompt.description}
     </Card>
   );

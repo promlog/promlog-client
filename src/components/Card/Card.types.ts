@@ -1,4 +1,4 @@
-import type { ReactNode } from 'react';
+import type { HTMLAttributes, ReactNode } from 'react';
 import type { BadgeVariants } from '../Badge/Badge.types';
 
 export interface CardBadges {
@@ -7,12 +7,12 @@ export interface CardBadges {
   variant: BadgeVariants;
 }
 
-interface CardBaseProps {
+interface CardBaseProps extends Omit<HTMLAttributes<HTMLDivElement>, 'id'> {
   id: number;
   badges: CardBadges[];
   header: string;
   children: ReactNode;
-  view: string;
+  view: string | number;
   date: string;
   writer: string;
 }
