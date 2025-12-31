@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { getPromptList } from '../../apis/prompts/getPromptList';
-import { MapPromptListItemDTO } from '../../mappers/promptMapper';
+import { getPromptList } from '../../apis/prompts/prompts';
+import { mapPromptListItemDTO } from '../../mappers/promptMapper';
 import type { PromptDTO } from '../../mocks/prompts';
 
 export const usePromptList = () => {
@@ -12,7 +12,7 @@ export const usePromptList = () => {
     (async () => {
       try {
         const res = await getPromptList();
-        const mappedData = res.data.items.map(MapPromptListItemDTO);
+        const mappedData = res.data.items.map(mapPromptListItemDTO);
 
         setPrompts(mappedData);
       } catch (error) {

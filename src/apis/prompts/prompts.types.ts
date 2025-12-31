@@ -1,3 +1,4 @@
+// prompt list
 export interface PromptListItemResponse {
   id: number;
   authorAccountId: number;
@@ -32,4 +33,10 @@ export interface GetPromptListParams {
   sort?: 'latest';
   page?: number;
   size?: number;
+}
+
+// prompt detail
+export interface PromptDetailResponse {
+  success: boolean;
+  data: PromptListItemResponse;
 }
