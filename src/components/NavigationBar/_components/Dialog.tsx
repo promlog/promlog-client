@@ -1,3 +1,4 @@
+import { API_BASE_URL } from '../../../config/api';
 import { Dialog as DialogBasic } from '../../Dialog/Dialog';
 import type { DialogProps } from '../../Dialog/Dialog.types';
 import { Logo } from '../../Logo/Logo';
@@ -6,6 +7,10 @@ import WithdrawIcon from './WithdrawIcon';
 type DialogCommonProps = Pick<DialogProps, 'trigger'>;
 
 const LoginDialog = ({ trigger }: DialogCommonProps) => {
+  const handleKakaoLogin = () => {
+    window.location.href = `${API_BASE_URL}/api/auth/oauth/kakao/authorize`;
+  };
+
   return (
     <DialogBasic
       icon={<Logo.Icon size="xl" />}
@@ -16,6 +21,7 @@ const LoginDialog = ({ trigger }: DialogCommonProps) => {
       primaryAction={
         <button
           type="button"
+          onClick={handleKakaoLogin}
           className="w-full flex items-center justify-center gap-3 px-6 py-4 bg-[#FEE500] text-[#000000] rounded-lg hover:bg-[#FDD835] transition-colors">
           <span>카카오 로그인</span>
         </button>
