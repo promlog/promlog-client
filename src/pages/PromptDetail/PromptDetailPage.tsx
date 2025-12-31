@@ -7,10 +7,7 @@ import { usePromptDetail } from '../../hooks/prompts/usePromptDetail';
 
 const PromptDetailPage = () => {
   const { promptId: promptIdParam } = useParams<{ promptId: string }>();
-
-  if (!promptIdParam) return null;
-
-  const promptId = Number(promptIdParam);
+  const promptId = promptIdParam ? Number(promptIdParam) : null;
   const { prompt, loading, error } = usePromptDetail(Number.isNaN(promptId) ? null : promptId);
 
   if (loading) {
