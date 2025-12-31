@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Dialog as DialogPrimitive } from 'radix-ui';
 import { API_BASE_URL } from '../../../config/api';
 import { Dialog as DialogBasic } from '../../Dialog/Dialog';
@@ -6,6 +7,7 @@ import { Logo } from '../../Logo/Logo';
 import WithdrawIcon from './WithdrawIcon';
 import { deleteAccount } from '../../../apis/auth/account';
 import { authStorage } from '../../../lib/authStorage';
+import { useAuth } from '../../../contexts/useAuth';
 
 type DialogCommonProps = Pick<DialogProps, 'trigger'>;
 
@@ -37,9 +39,23 @@ LoginDialog.displayName = 'Dialog.Login';
 
 // TODO: callout/checkbox 컴포넌트 추가 필요, button 컴포넌트 확장 필요
 const WithdrawDialog = ({ trigger }: DialogCommonProps) => {
+  const { logout } = useAuth();
+  const [isLoading, setIsLoading] = useState(false);
+
   const handleWithdraw = async () => {
-    await deleteAccount();
-    authStorage.clearTokens();
+    if (isLoading) return;
+    setIsLoading(true);
+
+    try {
+      const result = await deleteAccount();
+
+      if (result) logout();
+      else logout();
+    } catch (error) {
+      console.error('회원 탈퇴 실패:', error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
