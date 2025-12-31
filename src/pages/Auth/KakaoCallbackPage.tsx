@@ -2,11 +2,13 @@ import { useEffect, useRef } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { postKakaoCode } from '../../apis/auth/kakao';
 import { authStorage } from '../../lib/authStorage';
+import { useAuth } from '../../contexts/useAuth';
 
 const KakaoCallbackPage = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
   const calledRef = useRef(false);
+  const { setUser } = useAuth();
 
   useEffect(() => {
     const code = searchParams.get('code');
@@ -33,9 +35,13 @@ const KakaoCallbackPage = () => {
     (async () => {
       try {
         const { data } = await postKakaoCode(code);
-        authStorage.setTokens(data.accessToken, data.refreshToken);
+        
+        setUser({
+          id: data.account.id,
+          name: data.account.nickname,
+        });
 
-        // TODO: 전역 상태에 user 정보 필요
+        authStorage.setTokens(data.accessToken, data.refreshToken);
 
         navigate('/', { replace: true });
       } catch (error) {

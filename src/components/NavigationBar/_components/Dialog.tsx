@@ -1,8 +1,11 @@
+import { Dialog as DialogPrimitive } from 'radix-ui';
 import { API_BASE_URL } from '../../../config/api';
 import { Dialog as DialogBasic } from '../../Dialog/Dialog';
 import type { DialogProps } from '../../Dialog/Dialog.types';
 import { Logo } from '../../Logo/Logo';
 import WithdrawIcon from './WithdrawIcon';
+import { deleteAccount } from '../../../apis/auth/account';
+import { authStorage } from '../../../lib/authStorage';
 
 type DialogCommonProps = Pick<DialogProps, 'trigger'>;
 
@@ -34,6 +37,11 @@ LoginDialog.displayName = 'Dialog.Login';
 
 // TODO: callout/checkbox 컴포넌트 추가 필요, button 컴포넌트 확장 필요
 const WithdrawDialog = ({ trigger }: DialogCommonProps) => {
+  const handleWithdraw = async () => {
+    await deleteAccount();
+    authStorage.clearTokens();
+  };
+
   return (
     <DialogBasic
       icon={<WithdrawIcon />}
@@ -41,15 +49,18 @@ const WithdrawDialog = ({ trigger }: DialogCommonProps) => {
       description="정말로 탈퇴하시겠습니까?"
       trigger={trigger}
       primaryAction={
-        <button
-          type="button"
-          className="flex-1 px-4 py-3 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors">
-          <span className="text-gray-700">취소</span>
-        </button>
+        <DialogPrimitive.Close asChild>
+          <button
+            type="button"
+            className="flex-1 px-4 py-3 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors">
+            <span className="text-gray-700">취소</span>
+          </button>
+        </DialogPrimitive.Close>
       }
       secondaryAction={
         <button
           type="button"
+          onClick={handleWithdraw}
           className="flex-1 px-4 py-3 bg-red-600 rounded-lg hover:bg-red-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
           <span className="text-white">탈퇴하기</span>
         </button>
