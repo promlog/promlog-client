@@ -13,7 +13,6 @@ function toIconKey(fileName) {
 
 async function generateIconMap() {
   const files = await fs.readdir(GENERATED_DIR);
-
   const tsxFiles = files.filter((file) => file.endsWith('.tsx'));
 
   if (tsxFiles.length === 0) {
