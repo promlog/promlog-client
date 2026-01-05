@@ -6,7 +6,6 @@ import type { DialogProps } from '../../Dialog/Dialog.types';
 import { Logo } from '../../Logo/Logo';
 import WithdrawIcon from './WithdrawIcon';
 import { deleteAccount } from '../../../apis/auth/account';
-import { authStorage } from '../../../lib/authStorage';
 import { useAuth } from '../../../contexts/useAuth';
 
 type DialogCommonProps = Pick<DialogProps, 'trigger'>;
