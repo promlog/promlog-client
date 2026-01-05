@@ -21,13 +21,64 @@
   src: url('/fonts/Pretendard-Bold.woff2') format('woff2');
 }
 
+@theme {
+  --default-font-family: 'Pretendard', sans-serif;
+
+  /* brand color */
+  --color-brand-purple-50: oklch(0.977 0.014 308.299);
+  --color-brand-purple-200: oklch(0.902 0.063 306.703);
+  --color-brand-purple-300: oklch(0.827 0.119 306.383);
+  --color-brand-purple-400: oklch(0.714 0.203 305.504);
+  --color-brand-purple-500: oklch(0.627 0.265 303.9);
+  --color-brand-purple-600: oklch(0.511 0.262 276.966);
+  --color-brand-purple-700: oklch(0.496 0.265 301.924);
+
+  --color-brand-indigo-50: oklch(0.962 0.018 272.314);
+  --color-brand-indigo-400: oklch(0.673 0.182 276.935);
+  --color-brand-indigo-600: oklch(0.511 0.262 276.966);
+  --color-brand-indigo-700: oklch(0.457 0.24 277.023);
+
+  /* feedback color */
+  /* TODO: green 계열 추가 예정 (아직 디자인 X) */
+  --color-feedback-red-50: oklch(0.971 0.013 17.38);
+  --color-feedback-red-100: oklch(0.936 0.032 17.717);
+  --color-feedback-red-200: oklch(0.885 0.062 18.334);
+  --color-feedback-red-500: oklch(0.637 0.237 25.331);
+  --color-feedback-red-600: oklch(0.577 0.245 27.325);
+  --color-feedback-red-700: oklch(0.505 0.213 27.518);
+  --color-feedback-red-900: oklch(0.396 0.141 25.723);
+
+  /* solid color */
+  --color-solid-gray-50: oklch(0.985 0.002 247.839);
+  --color-solid-gray-100: oklch(0.967 0.003 264.542);
+  --color-solid-gray-200: oklch(0.928 0.006 264.531);
+  --color-solid-gray-300: oklch(0.872 0.01 258.338);
+  --color-solid-gray-400: oklch(0.707 0.022 261.325);
+  --color-solid-gray-500: oklch(0.551 0.027 264.364);
+  --color-solid-gray-600: oklch(0.446 0.03 256.802);
+  --color-solid-gray-700: oklch(0.373 0.034 259.733);
+  --color-solid-gray-800: oklch(0.278 0.033 256.848);
+  --color-solid-gray-900: oklch(0.21 0.034 264.665);
+
+  --color-solid-black: #000;
+  --color-solid-white: #fff;
+}
+
+@utility bg-primary-gradient {
+  @apply bg-linear-to-br from-brand-purple-600 to-brand-indigo-600;
+}
+
+@utility bg-secondary-gradient {
+  @apply bg-linear-to-br from-purple-400 to-indigo-400;
+}
+
+@utility bg-tertiary-graident {
+  @apply bg-linear-to-br from-purple-50 to-indigo-50;
+}
+
 html {
   padding: 0;
   margin: 0;
-}
-
-body {
-  font-family: 'Pretendard', sans-serif;
 }
 
 *,
