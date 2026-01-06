@@ -2,10 +2,14 @@ import { Icon } from '../Icon/Icon';
 import { LabelCommonFontStyle } from './Label.styles';
 import type { TextLabelProps, InputLabelProps } from './Label.types';
 
-const InputLabel = ({ children, htmlFor, ...restProps }: InputLabelProps) => {
+const InputLabel = ({ required = false, children, htmlFor, ...restProps }: InputLabelProps) => {
   return (
-    <label className={LabelCommonFontStyle} htmlFor={htmlFor} {...restProps}>
+    <label
+      className={`${LabelCommonFontStyle} flex items-center gap-1 text-lg`}
+      htmlFor={htmlFor}
+      {...restProps}>
       {children}
+      {required && <span className="text-feedback-red-500 text-sm">*</span>}
     </label>
   );
 };

@@ -9,6 +9,7 @@ interface LabelBaseProps {
 
 export interface InputLabelProps extends LabelBaseProps {
   htmlFor: string;
+  required?: boolean;
 }
 
 export interface TextLabelProps extends LabelBaseProps {
