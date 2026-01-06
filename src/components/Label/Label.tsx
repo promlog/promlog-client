@@ -20,7 +20,7 @@ const TextLabel = ({ icon, children, ...restProps }: TextLabelProps) => {
   return (
     <div className="flex items-center gap-1" {...restProps}>
       {icon && <Icon name={icon} fill="#fff" size="sm" aria-hidden />}
-      <span className={LabelCommonFontStyle}>{children}</span>
+      <span className={`${LabelCommonFontStyle} text-sm`}>{children}</span>
     </div>
   );
 };

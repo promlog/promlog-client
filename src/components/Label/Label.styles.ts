@@ -1,1 +1,1 @@
-export const LabelCommonFontStyle = 'text-sm text-gray-500';
+export const LabelCommonFontStyle = 'text-gray-500';
