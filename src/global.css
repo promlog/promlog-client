@@ -72,7 +72,7 @@
   @apply bg-linear-to-br from-purple-400 to-indigo-400;
 }
 
-@utility bg-tertiary-graident {
+@utility bg-tertiary-gradient {
   @apply bg-linear-to-br from-purple-50 to-indigo-50;
 }
 
