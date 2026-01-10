@@ -6,7 +6,7 @@ import { iconSizeMap } from './Icon.styles';
 const IconLogo = ({ size = 'md', ...restProps }: IconLogoProps) => {
   return (
     <div
-      className={`${iconSizeMap[size]} bg-gradient-to-br from-purple-600 to-indigo-600 flex items-center justify-center`}
+      className={`${iconSizeMap[size]} bg-primary-gradient flex items-center justify-center`}
       {...restProps}>
       <Icon name="logo" stroke="#fff" fill="none" size={size} />
     </div>

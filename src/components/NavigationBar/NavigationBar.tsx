@@ -19,7 +19,7 @@ const UserMenuButton = ({ name, onClick }: { name: string; onClick: () => void }
       type="button"
       onClick={onClick}
       className="flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors">
-      <div className="w-6 h-6 bg-gradient-to-br from-purple-400 to-indigo-400 rounded-full flex items-center justify-center text-white text-sm" />
+      <div className="w-6 h-6 bg-secondary-gradient rounded-full flex items-center justify-center text-white text-sm" />
       <span>{name}</span>
     </button>
   );
