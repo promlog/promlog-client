@@ -8,7 +8,7 @@ type ButtonStyleVariant = {
 
 interface ButtonBaseProps extends Omit<ComponentPropsWithRef<'button'>, 'children'> {
   icon?: IconName;
-  children: ReactNode;
+  children?: ReactNode;
 }
 
 export type ButtonProps = ButtonBaseProps & ButtonStyleVariant;
