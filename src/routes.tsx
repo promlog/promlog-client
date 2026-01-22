@@ -3,6 +3,7 @@ import PromptListPage from './pages/PromptList/PromptListPage';
 import Layout from './components/Layout/Layout';
 import PromptDetailPage from './pages/PromptDetail/PromptDetailPage';
 import KakaoCallbackPage from './pages/Auth/KakaoCallbackPage';
+import CreatePromptPage from './pages/CreatePrompt/CreatePromptPage';
 
 const Router = () => {
   return (
@@ -11,6 +12,7 @@ const Router = () => {
         <Route path="/" element={<PromptListPage />} />
         <Route path="/:promptId" element={<PromptDetailPage />} />
         <Route path="/auth/kakao/callback" element={<KakaoCallbackPage />} />
+        <Route path="/write" element={<CreatePromptPage />}/>
       </Route>
     </Routes>
   );
