@@ -31,6 +31,7 @@ const CreatePromptForm = () => {
         <input
           type="checkbox"
           id="anonymous"
+          name="anonymous"
           className="w-5 h-5 text-purple-600 border-gray-300 rounded focus:ring-2 focus:ring-purple-500"
         />
         <label htmlFor="anonymous" className="text-gray-700 cursor-pointer">
