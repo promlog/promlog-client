@@ -3,7 +3,7 @@ import type { IconName, IconSize } from '../Icon/Icon.types';
 
 type ButtonStyleVariant = {
   iconSize?: IconSize;
-  variant?: 'solid' | 'primary' | 'empty';
+  variant?: 'solid' | 'primary' | 'secondary' | 'empty';
 };
 
 interface ButtonBaseProps extends Omit<ComponentPropsWithRef<'button'>, 'children'> {
