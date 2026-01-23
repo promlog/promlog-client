@@ -30,7 +30,7 @@ const PromptDetailHeader = ({
       <div className="flex items-center gap-4 text-sm text-gray-500">
         <Label.Text icon="view">조회 {views}</Label.Text>
         <Label.Text icon="calendar">{date}</Label.Text>
-        <Label.Text>{writer}</Label.Text>
+        <Label.Text>작성자: {writer}</Label.Text>
       </div>
     </div>
   );
