@@ -4,6 +4,7 @@ import CopyPromptButton from './_components/CopyPromptButton';
 import PromptContentBox from './_components/PromptContentBox';
 import PromptDetailHeader from './_components/PromptDetailHeader';
 import { usePromptDetail } from '../../hooks/prompts/usePromptDetail';
+import Divider from '../../components/Divider/Divider';
 
 const PromptDetailPage = () => {
   const { promptId: promptIdParam } = useParams<{ promptId: string }>();
@@ -48,6 +49,13 @@ const PromptDetailPage = () => {
           <p className="text-gray-700 leading-relaxed">{description}</p>
         </div>
         <PromptContentBox description={prompt} />
+        <Divider />
+        {sourceUrl && (
+          <div className="flex flex-col gap-2">
+            <h2 className="text-gray-800 text-xl">출처</h2>
+            <p className="text-gray-700 leading-relaxed">{sourceUrl}</p>
+          </div>
+        )}
       </div>
     </div>
   );
