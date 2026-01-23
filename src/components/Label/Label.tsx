@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import { Icon } from '../Icon/Icon';
 import { LabelCommonFontStyle } from './Label.styles';
 import type { TextLabelProps, InputLabelProps } from './Label.types';
