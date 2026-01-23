@@ -11,6 +11,7 @@ const mapPromptItemDTO = (item: PromptListItemResponse): PromptDTO => ({
   tags: '프롬프트',
   views: item.viewCount,
   tip: item.tip,
+  copies: item.copyCount,
   createdAt: item.createdAt.slice(0, 10),
   author: {
     id: item.authorAccountId,

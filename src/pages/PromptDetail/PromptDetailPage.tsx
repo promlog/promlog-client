@@ -29,8 +29,19 @@ const PromptDetailPage = () => {
     );
   }
 
-  const { title, prompt, description, category, tags, views, createdAt, author, sourceUrl, tip } =
-    promptData;
+  const {
+    title,
+    prompt,
+    description,
+    category,
+    tags,
+    views,
+    createdAt,
+    author,
+    sourceUrl,
+    tip,
+    copies,
+  } = promptData;
 
   return (
     <div className="flex flex-col gap-5">
@@ -43,12 +54,13 @@ const PromptDetailPage = () => {
           views={views}
           date={createdAt}
           writer={author.name}
+          copies={copies}
         />
         <div className="flex flex-col gap-2">
           <h2 className="text-gray-800 text-xl">💬 프롬프트 설명</h2>
           <p className="text-gray-700 leading-relaxed">{description}</p>
         </div>
-        <PromptContentBox description={prompt} />
+        <PromptContentBox promptId={promptId!} description={prompt} />
         <Divider />
         {sourceUrl && (
           <div className="flex flex-col gap-2">

@@ -8,6 +8,7 @@ export type PromptDTO = {
   views: number;
   createdAt: string;
   tip: string | null;
+  copies: number;
   sourceUrl: string | null;
   author: {
     id: number;
