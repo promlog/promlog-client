@@ -8,7 +8,7 @@ import { usePromptDetail } from '../../hooks/prompts/usePromptDetail';
 const PromptDetailPage = () => {
   const { promptId: promptIdParam } = useParams<{ promptId: string }>();
   const promptId = promptIdParam ? Number(promptIdParam) : null;
-  const { prompt, loading, error } = usePromptDetail(Number.isNaN(promptId) ? null : promptId);
+  const { promptData, loading, error } = usePromptDetail(Number.isNaN(promptId) ? null : promptId);
 
   if (loading) {
     return (
@@ -19,7 +19,7 @@ const PromptDetailPage = () => {
     );
   }
 
-  if (error || !prompt) {
+  if (error || !promptData) {
     return (
       <div className="flex flex-col gap-5">
         <BackToListButton />
@@ -28,7 +28,8 @@ const PromptDetailPage = () => {
     );
   }
 
-  const { title, description, category, tags, views, createdAt, author } = prompt;
+  const { title, prompt, description, category, tags, views, createdAt, author, sourceUrl, tip } =
+    promptData;
 
   return (
     <div className="flex flex-col gap-5">
@@ -42,8 +43,7 @@ const PromptDetailPage = () => {
           date={createdAt}
           writer={author.name}
         />
-        <PromptContentBox description={description} />
-        <CopyPromptButton />
+        <PromptContentBox description={prompt} />
       </div>
     </div>
   );

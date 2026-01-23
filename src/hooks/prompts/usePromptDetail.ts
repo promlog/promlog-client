@@ -4,7 +4,7 @@ import { getPromptDetail } from '../../apis/prompts/prompts';
 import { mapPromptDetailDTO } from '../../mappers/promptMapper';
 
 export const usePromptDetail = (promptId: number | null) => {
-  const [prompt, setPrompt] = useState<PromptDTO | null>(null);
+  const [promptData, setPromptData] = useState<PromptDTO | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<unknown>(null);
 
@@ -16,7 +16,7 @@ export const usePromptDetail = (promptId: number | null) => {
         const response = await getPromptDetail(promptId);
         const mapped = mapPromptDetailDTO(response);
 
-        setPrompt(mapped);
+        setPromptData(mapped);
       } catch (error) {
         setError(error);
       } finally {
@@ -25,5 +25,5 @@ export const usePromptDetail = (promptId: number | null) => {
     })();
   }, [promptId]);
 
-  return { prompt, loading, error };
+  return { promptData, loading, error };
 };
