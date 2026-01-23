@@ -1,9 +1,9 @@
 import { useParams } from 'react-router-dom';
 import BackToListButton from './_components/BackToListButton';
-import CopyPromptButton from './_components/CopyPromptButton';
 import PromptContentBox from './_components/PromptContentBox';
 import PromptDetailHeader from './_components/PromptDetailHeader';
 import { usePromptDetail } from '../../hooks/prompts/usePromptDetail';
+import Callout from '../../components/Callout/Callout';
 import Divider from '../../components/Divider/Divider';
 
 const PromptDetailPage = () => {
@@ -54,6 +54,12 @@ const PromptDetailPage = () => {
           <div className="flex flex-col gap-2">
             <h2 className="text-gray-800 text-xl">출처</h2>
             <p className="text-gray-700 leading-relaxed">{sourceUrl}</p>
+          </div>
+        )}
+        {tip && (
+          <div className="flex flex-col gap-4">
+            <h2 className="text-gray-800 text-xl">💡 활용 팁</h2>
+            <Callout>{tip}</Callout>
           </div>
         )}
       </div>
