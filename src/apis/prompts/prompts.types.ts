@@ -2,8 +2,11 @@
 export interface PromptListItemResponse {
   id: number;
   authorAccountId: number;
+  authorNickname: string;
   title: string;
-  body: string;
+  description: string;
+  prompt: string;
+  tip: string;
   sourceUrl: string | null;
   isAnonymous: boolean;
   status: 'ACTIVE' | 'HIDDEN' | 'DELETED';
@@ -39,4 +42,13 @@ export interface GetPromptListParams {
 export interface PromptDetailResponse {
   success: boolean;
   data: PromptListItemResponse;
+}
+
+// increment copy count
+export interface CopyPromptResponse {
+  success: boolean;
+  data: {
+    copyCount: number;
+    promptId: number;
+  };
 }

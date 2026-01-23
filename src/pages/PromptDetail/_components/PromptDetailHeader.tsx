@@ -8,6 +8,7 @@ interface PromptDetailHeaderProps {
   views: number;
   date: string;
   writer: string;
+  copies: number;
 }
 
 const PromptDetailHeader = ({
@@ -17,9 +18,10 @@ const PromptDetailHeader = ({
   views,
   date,
   writer,
+  copies,
 }: PromptDetailHeaderProps) => {
   return (
-    <div className="flex flex-col gap-5">
+    <div className="flex flex-col gap-5 w-4xl">
       <div className="flex items-start justify-between gap-4 flex-col">
         <h1 className="text-gray-900 leading-tight flex-1 text-2xl">{title}</h1>
         <div className="flex items-center gap-2 flex-wrap">
@@ -29,8 +31,9 @@ const PromptDetailHeader = ({
       </div>
       <div className="flex items-center gap-4 text-sm text-gray-500">
         <Label.Text icon="view">조회 {views}</Label.Text>
+        <Label.Text icon="copy">복사 {copies}</Label.Text>
         <Label.Text icon="calendar">{date}</Label.Text>
-        <Label.Text>{writer}</Label.Text>
+        <Label.Text>작성자: {writer}</Label.Text>
       </div>
     </div>
   );

@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 import type { IconName } from '../Icon/Icon.types';
 
-type LabelIconName = Extract<IconName, 'view' | 'calendar'>;
+type LabelIconName = Extract<IconName, 'view' | 'calendar' | 'copy'>;
 
 interface LabelBaseProps {
   children: ReactNode;

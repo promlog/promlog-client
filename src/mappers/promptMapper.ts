@@ -4,14 +4,18 @@ import type { PromptDTO } from '../mocks/prompts';
 const mapPromptItemDTO = (item: PromptListItemResponse): PromptDTO => ({
   id: item.id,
   title: item.title,
-  description: item.body,
+  prompt: item.prompt,
+  description: item.description,
+  sourceUrl: item.sourceUrl,
   category: '기타',
   tags: '프롬프트',
   views: item.viewCount,
+  tip: item.tip,
+  copies: item.copyCount,
   createdAt: item.createdAt.slice(0, 10),
   author: {
     id: item.authorAccountId,
-    name: item.isAnonymous ? '익명' : '작성자',
+    name: item.isAnonymous ? '익명' : item.authorNickname,
   },
 });
 

@@ -1,14 +1,15 @@
 import { useParams } from 'react-router-dom';
 import BackToListButton from './_components/BackToListButton';
-import CopyPromptButton from './_components/CopyPromptButton';
 import PromptContentBox from './_components/PromptContentBox';
 import PromptDetailHeader from './_components/PromptDetailHeader';
 import { usePromptDetail } from '../../hooks/prompts/usePromptDetail';
+import Callout from '../../components/Callout/Callout';
+import Divider from '../../components/Divider/Divider';
 
 const PromptDetailPage = () => {
   const { promptId: promptIdParam } = useParams<{ promptId: string }>();
   const promptId = promptIdParam ? Number(promptIdParam) : null;
-  const { prompt, loading, error } = usePromptDetail(Number.isNaN(promptId) ? null : promptId);
+  const { promptData, loading, error } = usePromptDetail(Number.isNaN(promptId) ? null : promptId);
 
   if (loading) {
     return (
@@ -19,7 +20,7 @@ const PromptDetailPage = () => {
     );
   }
 
-  if (error || !prompt) {
+  if (error || !promptData) {
     return (
       <div className="flex flex-col gap-5">
         <BackToListButton />
@@ -28,7 +29,19 @@ const PromptDetailPage = () => {
     );
   }
 
-  const { title, description, category, tags, views, createdAt, author } = prompt;
+  const {
+    title,
+    prompt,
+    description,
+    category,
+    tags,
+    views,
+    createdAt,
+    author,
+    sourceUrl,
+    tip,
+    copies,
+  } = promptData;
 
   return (
     <div className="flex flex-col gap-5">
@@ -41,9 +54,26 @@ const PromptDetailPage = () => {
           views={views}
           date={createdAt}
           writer={author.name}
+          copies={copies}
         />
-        <PromptContentBox description={description} />
-        <CopyPromptButton />
+        <div className="flex flex-col gap-2">
+          <h2 className="text-gray-800 text-xl">💬 프롬프트 설명</h2>
+          <p className="text-gray-700 leading-relaxed">{description}</p>
+        </div>
+        <PromptContentBox promptId={promptId!} description={prompt} />
+        <Divider />
+        {sourceUrl && (
+          <div className="flex flex-col gap-2">
+            <h2 className="text-gray-800 text-xl">출처</h2>
+            <p className="text-gray-700 leading-relaxed">{sourceUrl}</p>
+          </div>
+        )}
+        {tip && (
+          <div className="flex flex-col gap-4">
+            <h2 className="text-gray-800 text-xl">💡 활용 팁</h2>
+            <Callout>{tip}</Callout>
+          </div>
+        )}
       </div>
     </div>
   );
