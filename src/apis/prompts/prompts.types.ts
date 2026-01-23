@@ -43,3 +43,12 @@ export interface PromptDetailResponse {
   success: boolean;
   data: PromptListItemResponse;
 }
+
+// increment copy count
+export interface CopyPromptResponse {
+  success: boolean;
+  data: {
+    copyCount: number;
+    promptId: number;
+  };
+}
