@@ -4,7 +4,7 @@ export type PromptDTO = {
   prompt: string;
   description: string;
   category: string;
-  tags: string;
+  tags: string[];
   views: number;
   createdAt: string;
   tip: string | null;
