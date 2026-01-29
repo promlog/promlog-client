@@ -1,19 +1,43 @@
-// prompt list
-export interface PromptListItemResponse {
+export interface AuthorInfo {
   id: number;
-  authorAccountId: number;
-  authorNickname: string;
+  nickname: string;
+  isAnonymous: boolean;
+}
+
+export interface PromptContent {
   title: string;
   description: string;
   prompt: string;
   tip: string;
   sourceUrl: string | null;
-  isAnonymous: boolean;
-  status: 'ACTIVE' | 'HIDDEN' | 'DELETED';
+  createdAt: string;
+}
+
+export interface PromptStats {
   likeCount: number;
   viewCount: number;
   copyCount: number;
-  createdAt: string;
+}
+
+export interface TagInfo {
+  id: number;
+  name: string;
+  slug: string;
+}
+
+export interface PromptTags {
+  categories: TagInfo[];
+  platforms: TagInfo[];
+}
+
+// prompt list
+export interface PromptListItemResponse {
+  id: number;
+  status: string;
+  author: AuthorInfo;
+  content: PromptContent;
+  stats: PromptStats;
+  tags: PromptTags;
 }
 
 export interface PromptListMeta {
@@ -33,7 +57,7 @@ export interface PromptListResponse {
 }
 
 export interface GetPromptListParams {
-  sort?: 'latest';
+  sort?: 'latest' | 'oldest';
   page?: number;
   size?: number;
 }

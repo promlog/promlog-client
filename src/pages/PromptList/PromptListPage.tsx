@@ -1,9 +1,12 @@
 import Banner from '../../components/Banner/Banner';
 import PromptCard from './_components/PromptCard';
 import { usePromptList } from '../../hooks/prompts/usePromptList';
+import Pagination from '../../components/Pagination/Pagination';
+import { useState } from 'react';
 
 const PromptListPage = () => {
-  const { prompts, loading, error } = usePromptList();
+  const [page, setPage] = useState(1);
+  const { prompts, meta, loading, error } = usePromptList({ page, size: 21 });
 
   if (loading) {
     return (
@@ -29,6 +32,7 @@ const PromptListPage = () => {
           <PromptCard key={prompt.id} prompt={prompt} router={`/${prompt.id}`} />
         ))}
       </div>
+      <Pagination currentPage={meta.page} totalSize={meta.totalPages} onPageChange={setPage} />
     </div>
   );
 };

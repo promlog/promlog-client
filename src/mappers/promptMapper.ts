@@ -1,23 +1,44 @@
 import type { PromptDetailResponse, PromptListItemResponse } from '../apis/prompts/prompts.types';
-import type { PromptDTO } from '../mocks/prompts';
 
-const mapPromptItemDTO = (item: PromptListItemResponse): PromptDTO => ({
-  id: item.id,
-  title: item.title,
-  prompt: item.prompt,
-  description: item.description,
-  sourceUrl: item.sourceUrl,
-  category: '기타',
-  tags: '프롬프트',
-  views: item.viewCount,
-  tip: item.tip,
-  copies: item.copyCount,
-  createdAt: item.createdAt.slice(0, 10),
+export type PromptDTO = {
+  id: number;
+  title: string;
+  prompt: string;
+  description: string;
+  category: string;
+  tags: string[];
+  views: number;
+  createdAt: string;
+  tip: string | null;
+  copies: number;
+  sourceUrl: string | null;
   author: {
-    id: item.authorAccountId,
-    name: item.isAnonymous ? '익명' : item.authorNickname,
-  },
-});
+    id: number;
+    name: string;
+  };
+};
+
+const mapPromptItemDTO = (item: PromptListItemResponse): PromptDTO => {
+  const { id, author, content, stats, tags } = item;
+
+  return {
+    id: id,
+    title: content.title,
+    prompt: content.prompt,
+    description: content.description,
+    sourceUrl: content.sourceUrl,
+    tip: content.tip,
+    createdAt: content.createdAt.slice(0, 10),
+    views: stats.viewCount,
+    copies: stats.copyCount,
+    author: {
+      id: author.id,
+      name: author.isAnonymous ? '익명' : author.nickname,
+    },
+    category: tags.categories[0]?.name || '기타',
+    tags: tags.platforms.map((p) => p.name),
+  };
+};
 
 export const mapPromptListItemDTO = (item: PromptListItemResponse): PromptDTO =>
   mapPromptItemDTO(item);
