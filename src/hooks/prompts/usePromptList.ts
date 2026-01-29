@@ -1,27 +1,40 @@
-import { useEffect, useState } from 'react';
+import { useQuery, keepPreviousData } from '@tanstack/react-query';
 import { getPromptList } from '../../apis/prompts/prompts';
 import { mapPromptListItemDTO } from '../../mappers/promptMapper';
-import type { PromptDTO } from '../../mocks/prompts';
+import type { GetPromptListParams, PromptListMeta } from '../../apis/prompts/prompts.types';
 
-export const usePromptList = () => {
-  const [prompts, setPrompts] = useState<PromptDTO[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<unknown>(null);
+const defaultParams: GetPromptListParams = {
+  page: 1,
+  size: 21,
+  sort: 'latest',
+};
 
-  useEffect(() => {
-    (async () => {
-      try {
-        const res = await getPromptList();
-        const mappedData = res.data.items.map(mapPromptListItemDTO);
+const defaultMeta: PromptListMeta = {
+  page: 0,
+  size: 0,
+  totalElements: 0,
+  totalPages: 0,
+  hasNext: false,
+};
 
-        setPrompts(mappedData);
-      } catch (error) {
-        setError(error);
-      } finally {
-        setLoading(false);
-      }
-    })();
-  }, []);
+export const usePromptList = (params?: GetPromptListParams) => {
+  const queryParams = { ...defaultParams, ...params };
 
-  return { prompts, loading, error };
+  const { data, isLoading, isError, error } = useQuery({
+    queryKey: ['prompts', 'list', queryParams],
+    queryFn: () => getPromptList(queryParams),
+    select: (response) => ({
+      prompts: response.data.items.map(mapPromptListItemDTO),
+      meta: response.data.meta,
+    }),
+    placeholderData: keepPreviousData,
+  });
+
+  return {
+    prompts: data?.prompts || [],
+    meta: data?.meta || defaultMeta,
+    loading: isLoading,
+    error,
+    isError,
+  };
 };
