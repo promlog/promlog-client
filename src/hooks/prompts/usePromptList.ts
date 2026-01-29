@@ -10,8 +10,8 @@ const defaultParams: GetPromptListParams = {
 };
 
 const defaultMeta: PromptListMeta = {
-  page: 0,
-  size: 0,
+  page: defaultParams.page ?? 1,
+  size: defaultParams.size ?? 0,
   totalElements: 0,
   totalPages: 0,
   hasNext: false,
