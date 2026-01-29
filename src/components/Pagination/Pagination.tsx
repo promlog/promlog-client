@@ -13,9 +13,10 @@ const Pagination = ({
   className,
 }: PaginationProps) => {
   const paginationRange = usePagination({ totalSize, siblingCount, currentPage });
-  const lastPage = paginationRange ? paginationRange[paginationRange.length - 1] : 0;
 
-  if (currentPage === 0) return null;
+  if (currentPage === 0 || totalSize <= 0 || !paginationRange?.length) return null;
+
+  const lastPage = totalSize;
 
   const onPrevious = () => onPageChange(currentPage - 1);
   const onNext = () => onPageChange(currentPage + 1);
