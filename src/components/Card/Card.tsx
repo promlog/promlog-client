@@ -15,7 +15,7 @@ const Card = ({ id, badges, view, date, writer, header, children, ...restProps }
           </Badge>
         ))}
       </header>
-      <main className="flex flex-col h-18 gap-1 ">
+      <main className="flex flex-col h-18 gap-1">
         <h3 className="text-gray-900 group-hover:text-purple-600 transition-colors line-clamp-2">
           {header}
         </h3>
