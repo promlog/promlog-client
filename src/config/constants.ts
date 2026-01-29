@@ -18,3 +18,5 @@ export const PLATFORM_OPTIONS = [
   { label: 'Midjourney', value: 'midjourney' },
   { label: '기타', value: 'etc' },
 ];
+
+export const DOTS = '...';
