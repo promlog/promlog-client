@@ -32,11 +32,7 @@ const PromptListPage = () => {
           <PromptCard key={prompt.id} prompt={prompt} router={`/${prompt.id}`} />
         ))}
       </div>
-      <Pagination
-        currentPage={meta.page}
-        totalSize={meta.totalPages}
-        onPageChange={(page) => setPage(page)}
-      />
+      <Pagination currentPage={meta.page} totalSize={meta.totalPages} onPageChange={setPage} />
     </div>
   );
 };
