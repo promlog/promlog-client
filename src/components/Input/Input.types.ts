@@ -1,8 +1,8 @@
 import type { ComponentPropsWithRef } from 'react';
 
 interface SelectOption {
+  value: number;
   label: string;
-  value: string;
 }
 
 export interface SelectFieldProps extends ComponentPropsWithRef<'select'> {
