@@ -3,8 +3,8 @@ import { Label } from '../../../components/Label/Label';
 
 interface PromptDetailHeaderProps {
   title: string;
-  category: string;
-  tags: string;
+  category: string[];
+  tags: string[];
   views: number;
   date: string;
   writer: string;

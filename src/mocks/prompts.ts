@@ -3,7 +3,7 @@ export type PromptDTO = {
   title: string;
   prompt: string;
   description: string;
-  category: string;
+  category: string[];
   tags: string[];
   views: number;
   createdAt: string;

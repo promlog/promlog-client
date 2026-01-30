@@ -5,7 +5,7 @@ export type PromptDTO = {
   title: string;
   prompt: string;
   description: string;
-  category: string;
+  category: string[];
   tags: string[];
   views: number;
   createdAt: string;
@@ -35,8 +35,8 @@ const mapPromptItemDTO = (item: PromptListItemResponse): PromptDTO => {
       id: author.id,
       name: author.isAnonymous ? '익명' : author.nickname,
     },
-    category: tags.categories[0]?.name || '기타',
-    tags: tags.platforms.map((p) => p.name),
+    category: tags.categories.map((category) => category.name) || '기타',
+    tags: tags.platforms.map((platform) => platform.name),
   };
 };
 
