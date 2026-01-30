@@ -1,7 +1,10 @@
 import { Outlet } from 'react-router-dom';
 import NavigationBar from '../NavigationBar/NavigationBar';
+import { useMetaOptions } from '../../hooks/common/useMetaOptions';
 
 const Layout = () => {
+  useMetaOptions();
+
   return (
     <div className="flex flex-col mx-auto">
       <NavigationBar />
