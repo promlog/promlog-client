@@ -36,12 +36,14 @@ const CreatePromptForm = () => {
     const categoryId = Number(prompt.category);
     const platformId = Number(prompt.platform);
 
+    const formattedSourceUrl = prompt.source?.startsWith('https://') ? prompt.source : null;
+
     mutate({
       title: prompt.title,
       description: prompt.description,
       prompt: prompt.body,
       tip: prompt.tips,
-      sourceUrl: prompt.source,
+      sourceUrl: formattedSourceUrl,
       isAnonymous: prompt.anonymous,
       categoryIds: [categoryId],
       platformIds: [platformId],

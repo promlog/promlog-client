@@ -83,7 +83,7 @@ export interface CreatePromptRequest {
   description: string;
   prompt: string;
   tip: string;
-  sourceUrl: string;
+  sourceUrl: string | null;
   isAnonymous: boolean;
   categoryIds: number[];
   platformIds: number[];
