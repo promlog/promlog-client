@@ -2,6 +2,8 @@ export { default as AddLine } from "./AddLine";
 export { default as BackLine } from "./BackLine";
 export { default as Bookmark } from "./Bookmark";
 export { default as Calendar } from "./Calendar";
+export { default as ChevronLeft } from "./ChevronLeft";
+export { default as ChevronRight } from "./ChevronRight";
 export { default as Circuit } from "./Circuit";
 export { default as Close } from "./Close";
 export { default as Copy } from "./Copy";

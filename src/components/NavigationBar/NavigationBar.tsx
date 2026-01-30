@@ -4,12 +4,13 @@ import { Logo } from '../Logo/Logo';
 import { useState } from 'react';
 // import { Icon } from '../Icon/Icon';
 import { useAuth } from '../../contexts/useAuth';
+import { useNavigate } from 'react-router-dom';
 
-// const AddPromptButton = () => (
-//   <Button icon="addLine" iconSize="md">
-//     프롬프트 등록
-//   </Button>
-// );
+const AddPromptButton = () => (
+  <Button icon="addLine" iconSize="md">
+    프롬프트 등록
+  </Button>
+);
 
 const LoginButton = () => <Button variant="solid">로그인</Button>;
 
@@ -52,6 +53,7 @@ const UserDropdown = ({ onLogout }: { onLogout: () => void }) => {
 const NavigationBar = () => {
   const { isLoggedIn, user, logout } = useAuth();
   const [menuOpen, setMenuOpen] = useState(false);
+  const navigate = useNavigate();
 
   const handleLogout = () => {
     logout();
@@ -64,14 +66,13 @@ const NavigationBar = () => {
         <div className="flex items-center justify-between h-16">
           <Logo.Basic />
           <div className="flex items-center gap-3 relative">
-            {/* {isLoggedIn && user ? (
-              <Button icon="addLine" iconSize="md">
+            {isLoggedIn && user ? (
+              <Button icon="addLine" iconSize="md" onClick={() => navigate('/write')}>
                 프롬프트 등록
               </Button>
             ) : (
               <Dialog.Login trigger={AddPromptButton()} />
-            )} */}
-
+            )}
             {isLoggedIn && user ? (
               <div className="relative">
                 <UserMenuButton name={user.name} onClick={() => setMenuOpen((prev) => !prev)} />

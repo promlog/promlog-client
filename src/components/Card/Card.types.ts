@@ -3,7 +3,7 @@ import type { BadgeVariants } from '../Badge/Badge.types';
 
 export interface CardBadges {
   id: string;
-  name: string;
+  name: string[];
   variant: BadgeVariants;
 }
 

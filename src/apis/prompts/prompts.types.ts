@@ -76,3 +76,19 @@ export interface CopyPromptResponse {
     promptId: number;
   };
 }
+
+// create prompt
+export interface CreatePromptRequest {
+  title: string;
+  description: string;
+  prompt: string;
+  tip: string;
+  sourceUrl: string | null;
+  isAnonymous: boolean;
+  categoryIds: number[];
+  platformIds: number[];
+}
+
+export interface CreatePromptResponse {
+  success: boolean;
+}

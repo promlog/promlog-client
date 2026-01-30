@@ -1,6 +1,8 @@
 import { API } from '../../config/api';
 import type {
   CopyPromptResponse,
+  CreatePromptRequest,
+  CreatePromptResponse,
   GetPromptListParams,
   PromptDetailResponse,
   PromptListResponse,
@@ -20,6 +22,12 @@ export const getPromptList = async ({
 
 export const getPromptDetail = async (promptId: number): Promise<PromptDetailResponse> => {
   const { data } = await API.get(`/api/prompts/${promptId}`);
+
+  return data;
+};
+
+export const createPrompt = async (prompt: CreatePromptRequest): Promise<CreatePromptResponse> => {
+  const { data } = await API.post('/api/prompts', prompt);
 
   return data;
 };
