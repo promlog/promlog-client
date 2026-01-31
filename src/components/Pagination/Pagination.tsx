@@ -1,6 +1,6 @@
 import { DOTS } from '../../config/constants';
 import { usePagination } from '../../hooks/prompts/usePagination';
-import SvgChevornleft from '../Icon/generated/ChevornLeft';
+import SvgChevronnleft from '../Icon/generated/ChevronLeft';
 import SvgChevronRight from '../Icon/generated/ChevronRight';
 import { ButtonStyles } from './Pagination.styles';
 import type { PaginationProps } from './Pagination.types';
@@ -30,7 +30,7 @@ const Pagination = ({
         className={`${ButtonStyles.base} ${
           currentPage === 1 ? ButtonStyles.disabled : ButtonStyles.inactive
         }`}>
-        <SvgChevornleft />
+        <SvgChevronnleft />
       </button>
       {paginationRange?.map((pageNumber, index) => {
         if (pageNumber === DOTS) {

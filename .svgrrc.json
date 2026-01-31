@@ -3,7 +3,7 @@
   "ext": "tsx",
   "prettier": true,
   "svgProps": {
-    "fill": "#fff"
+    "fill": "none"
   },
   "icon": true,
   "jsxRuntime": "automatic"
