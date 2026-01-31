@@ -6,23 +6,15 @@ import { useState } from 'react';
 import { useAuth } from '../../contexts/useAuth';
 import { useNavigate } from 'react-router-dom';
 
-const AddPromptButton = () => (
-  <Button icon="addLine" iconSize="md">
-    프롬프트 등록
-  </Button>
-);
+const AddPromptButton = () => <Button icon="addLine">프롬프트 등록</Button>;
 
-const LoginButton = () => <Button variant="solid">로그인</Button>;
+const LoginButton = () => <Button variant="tertiary">로그인</Button>;
 
 const UserMenuButton = ({ name, onClick }: { name: string; onClick: () => void }) => {
   return (
-    <button
-      type="button"
-      onClick={onClick}
-      className="flex items-center gap-2 px-4 py-2 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors">
-      <div className="w-6 h-6 bg-secondary-gradient rounded-full flex items-center justify-center text-white text-sm" />
+    <Button variant="tertiary" onClick={onClick}>
       <span>{name}</span>
-    </button>
+    </Button>
   );
 };
 
@@ -67,7 +59,7 @@ const NavigationBar = () => {
           <Logo.Basic />
           <div className="flex items-center gap-3 relative">
             {isLoggedIn && user ? (
-              <Button icon="addLine" iconSize="md" onClick={() => navigate('/write')}>
+              <Button icon="addLine" onClick={() => navigate('/write')}>
                 프롬프트 등록
               </Button>
             ) : (

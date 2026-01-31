@@ -14,6 +14,7 @@ interface ButtonStyleVariant {
 interface ButtonBasicProps extends ComponentPropsWithRef<'button'> {
   icon?: IconName;
   children?: ReactNode;
+  'aria-label'?: string;
 }
 
 export type ButtonProps = ButtonStyleVariant & ButtonBasicProps;

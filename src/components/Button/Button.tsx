@@ -12,19 +12,21 @@ const Button = ({
   ref,
   ...restProps
 }: ButtonProps) => {
+  const isIconOnly = icon && !children;
+
   return (
     <button
       ref={ref}
       type={type}
       className={cn(
-        'inline-flex items-center justify-center rounded-lg font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-purple ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed',
-        buttonSizeMap[size],
+        'inline-flex items-center justify-center rounded-lg transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-purple ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed',
+        isIconOnly ? undefined : buttonSizeMap[size],
         buttonThemeMap[variant],
         className
       )}
       {...restProps}>
       {icon && <Icon name={icon} size={size} aria-hidden="true" />}
-      <span>{children}</span>
+      {!isIconOnly && <span>{children}</span>}
     </button>
   );
 };
