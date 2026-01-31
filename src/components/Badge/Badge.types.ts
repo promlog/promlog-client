@@ -1,10 +1,11 @@
 import type { ReactNode } from 'react';
-import type { variantStyleMap } from './Badge.styles';
+import type { badgeSizeMap, variantStyleMap } from './Badge.styles';
 
 export type BadgeVariants = keyof typeof variantStyleMap;
+export type BadgeSize = keyof typeof badgeSizeMap;
 
 type BadgeStyleVariant = {
-  size?: 'sm' | 'md';
+  size?: BadgeSize;
   variant: BadgeVariants;
 };
 

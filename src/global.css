@@ -38,6 +38,15 @@
   --color-brand-indigo-600: oklch(0.511 0.262 276.966);
   --color-brand-indigo-700: oklch(0.457 0.24 277.023);
 
+  /* 추가 2026.02.01 */
+  --color-brand-purple: #6d5bd0;
+  --color-brand-purple-hover: #5b4ab8;
+  --color-brand-purple-light: #f5f3ff;
+  --color-brand-purple-border: #e5deff;
+
+  --color-brand-blue: oklch(0.488 0.243 264.376);
+  --color-brand-blue-light: oklch(0.97 0.014 254.604);
+
   /* feedback color */
   /* TODO: green 계열 추가 예정 (아직 디자인 X) */
   --color-feedback-red-50: oklch(0.971 0.013 17.38);
