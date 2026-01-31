@@ -1,24 +1,30 @@
 import { Icon } from '../Icon/Icon';
-import { buttonVariants } from './Button.styles';
+import { buttonSizeMap, buttonThemeMap, cn } from './Button.styles';
 import type { ButtonProps } from './Button.types';
 
-// TODO: 접근성 속성 추가
 const Button = ({
+  type = 'button',
+  size = 'md',
   variant = 'primary',
-  children,
   className,
   icon,
-  iconSize,
+  children,
+  ref,
   ...restProps
 }: ButtonProps) => {
   return (
     <button
-      className={`inline-flex gap-2 items-center justify-center py-2 rounded-lg transition-all ${
-        buttonVariants[variant]
-      } ${className ?? ''}`}
+      ref={ref}
+      type={type}
+      className={cn(
+        'inline-flex items-center justify-center rounded-lg font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-purple ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed',
+        buttonSizeMap[size],
+        buttonThemeMap[variant],
+        className
+      )}
       {...restProps}>
-      {icon && <Icon name={icon} size={iconSize} fill="none" />}
-      {children}
+      {icon && <Icon name={icon} size={size} aria-hidden="true" />}
+      <span>{children}</span>
     </button>
   );
 };
