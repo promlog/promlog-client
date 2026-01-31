@@ -15,7 +15,9 @@
     "type-check": "tsc --noEmit",
     "build:icons": "svgr src/assets/icons --out-dir src/components/Icon/generated --typescript --ext tsx",
     "gen:iconMap": "node ./scripts/generate-iconMap.js",
-    "build:icons:all": "npm run build:icons && npm run gen:iconMap"
+    "build:icons:all": "npm run build:icons && npm run gen:iconMap",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.18",
@@ -46,6 +48,16 @@
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.46.4",
     "vite": "^7.2.4",
-    "vitest": "^4.0.16"
+    "vitest": "^4.0.16",
+    "storybook": "^10.2.2",
+    "@storybook/react-vite": "^10.2.2",
+    "@chromatic-com/storybook": "^5.0.0",
+    "@storybook/addon-vitest": "^10.2.2",
+    "@storybook/addon-a11y": "^10.2.2",
+    "@storybook/addon-docs": "^10.2.2",
+    "eslint-plugin-storybook": "^10.2.2",
+    "playwright": "^1.58.0",
+    "@vitest/browser-playwright": "^4.0.16",
+    "@vitest/coverage-v8": "^4.0.16"
   }
 }
