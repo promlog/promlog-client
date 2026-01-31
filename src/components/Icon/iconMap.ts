@@ -6,7 +6,7 @@ import * as Icon from './generated/index';
 export const sizeMap = {
   xs: 12,
   sm: 16,
-  md: 20,
+  md: 18,
   lg: 24,
   xl: 32,
 } as const;
