@@ -14,12 +14,16 @@ const meta: Meta<typeof Button> = {
       options: ['primary', 'secondary', 'tertiary', 'destructive', 'outline', 'ghost'],
     },
     size: {
-      description: '버튼의 크기를 결정합니다.',
+      description: '버튼 크기 결정',
       control: 'inline-radio',
       options: ['xs', 'sm', 'md'],
     },
     disabled: {
       control: 'boolean',
+    },
+    children: {
+      control: 'text',
+      description: '버튼에 표시될 텍스트',
     },
     onClick: { action: 'clicked' },
   },
@@ -34,5 +38,6 @@ export const Default: Story = {
     variant: 'primary',
     size: 'md',
     children: 'Button',
+    onClick: () => alert('버튼 클릭'),
   },
 };
