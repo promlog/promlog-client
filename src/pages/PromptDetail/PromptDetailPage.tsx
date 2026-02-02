@@ -71,7 +71,7 @@ const PromptDetailPage = () => {
         {tip && (
           <div className="flex flex-col gap-4">
             <h2 className="text-gray-800 text-xl">💡 활용 팁</h2>
-            <Callout>{tip}</Callout>
+            <Callout variant="attentive">{tip}</Callout>
           </div>
         )}
       </div>
