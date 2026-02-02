@@ -1,5 +1,5 @@
 import { Icon } from '../Icon/Icon';
-import { LabelCommonFontStyle } from './Label.styles';
+import { LabelCommonFontStyle, textLabelSizeMap } from './Label.styles';
 import type { TextLabelProps, InputLabelProps } from './Label.types';
 
 export const InputLabel = ({
@@ -26,11 +26,17 @@ export const InputLabel = ({
 
 InputLabel.displayName = 'InputLabel';
 
-export const TextLabel = ({ icon, children, className = '', ...restProps }: TextLabelProps) => {
+export const TextLabel = ({
+  icon,
+  size = 'md',
+  children,
+  className = '',
+  ...restProps
+}: TextLabelProps) => {
   return (
-    <div className={`flex items-center gap-1`} {...restProps}>
-      {icon && <Icon name={icon} size="sm" aria-hidden="true" />}
-      <span className={`text-sm ${LabelCommonFontStyle} ${className}`}>{children}</span>
+    <div className={`flex items-center gap-1 ${LabelCommonFontStyle}`} {...restProps}>
+      {icon && <Icon name={icon} size={size} aria-hidden="true" />}
+      <span className={`${textLabelSizeMap[size]} ${className}`}>{children}</span>
     </div>
   );
 };
