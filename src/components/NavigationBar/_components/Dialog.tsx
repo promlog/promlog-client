@@ -4,7 +4,7 @@ import { Dialog as DialogPrimitive } from 'radix-ui';
 import { API_BASE_URL } from '../../../config/api';
 import { Dialog as DialogBasic } from '../../Dialog/Dialog';
 import type { DialogProps } from '../../Dialog/Dialog.types';
-import { Logo } from '../../Logo/Logo';
+import { IconLogo } from '../../Logo/Logo';
 import WithdrawIcon from './WithdrawIcon';
 import { deleteAccount } from '../../../apis/auth/account';
 import { useAuth } from '../../../contexts/useAuth';
@@ -19,7 +19,7 @@ const LoginDialog = ({ trigger }: DialogCommonProps) => {
 
   return (
     <DialogBasic
-      icon={<Logo.Icon size="xl" />}
+      icon={<IconLogo />}
       title="로그인"
       description="프롬프트를 등록하고 관리하려면 로그인이 필요합니다"
       caption="로그인 시 서비스 이용약관 및 개인정보 처리방침에 동의하게 됩니다"

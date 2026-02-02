@@ -1,6 +1,6 @@
 import Button from '../Button/Button';
 import { Dialog } from './_components/Dialog';
-import { Logo } from '../Logo/Logo';
+import { BasicLogo } from '../Logo/Logo';
 import { useState } from 'react';
 // import { Icon } from '../Icon/Icon';
 import { useAuth } from '../../contexts/useAuth';
@@ -56,7 +56,7 @@ const NavigationBar = () => {
     <header className="bg-white w-full border-b border-gray-200 sticky top-0 z-50 px-4">
       <div className="max-w-7xl mx-auto">
         <div className="flex items-center justify-between h-16">
-          <Logo.Basic />
+          <BasicLogo />
           <div className="flex items-center gap-3 relative">
             {isLoggedIn && user ? (
               <Button icon="addLine" onClick={() => navigate('/write')}>
