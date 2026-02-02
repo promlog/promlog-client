@@ -12,7 +12,8 @@ const Button = ({
   ref,
   ...restProps
 }: ButtonProps) => {
-  const isIconOnly = icon && !children;
+  const hasChildren = children !== null && children !== undefined && children !== '';
+  const isIconOnly = icon && !hasChildren;
 
   return (
     <button
