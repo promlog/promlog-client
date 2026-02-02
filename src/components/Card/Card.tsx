@@ -1,33 +1,86 @@
-import { Label } from '../Label/Label';
-import Badge from '../Badge/Badge';
+import type { MouseEvent } from 'react';
 import type { CardProps } from './Card.types';
 
-const Card = ({ id, badges, view, date, writer, header, children, ...restProps }: CardProps) => {
+import { TextLabel } from '../Label/Label';
+import Divider from '../Divider/Divider';
+import Badge from '../Badge/Badge';
+import Button from '../Button/Button';
+
+const stopPropagation = (e: MouseEvent<HTMLElement>) => {
+  e.stopPropagation();
+};
+
+const CardHeader = ({ badges }: Pick<CardProps, 'badges'>) => (
+  <header className="flex items-center gap-2 flex-wrap">
+    {badges.map((badge) => (
+      <Badge key={badge.id} size="sm" variant={badge.variant}>
+        {badge.name}
+      </Badge>
+    ))}
+  </header>
+);
+
+const CardMain = ({ writer, content }: Pick<CardProps, 'writer' | 'content'>) => {
+  const { title, createdAt, description } = content;
+
+  return (
+    <main className="flex flex-col gap-3 h-42">
+      <div className="flex flex-col gap-1">
+        <h3 className="text-[1.0625rem] font-semibold text-gray-900 line-clamp-1 leading-snug transition-colors group-hover:text-brand-purple">
+          {title}
+        </h3>
+        <div className="flex items-center gap-1.5">
+          <TextLabel size="xs">{writer}</TextLabel>
+          <TextLabel size="xs">·</TextLabel>
+          <TextLabel size="xs">{createdAt}</TextLabel>
+        </div>
+      </div>
+      <p className="text-gray-600 text-sm line-clamp-2 leading-relaxed">{description}</p>
+    </main>
+  );
+};
+
+const CardFooter = ({ stats, actions }: Pick<CardProps, 'stats' | 'actions'>) => {
+  const { viewCount, copyCount, likeCount } = stats;
+  const { likeAction, bookmarkAction } = actions;
+
+  return (
+    <footer className="flex flex-col justify-center gap-2">
+      <Divider />
+      <div className="flex justify-between items-center pt-1">
+        <div className="flex gap-3">
+          <TextLabel icon="view" size="xs">
+            {viewCount}
+          </TextLabel>
+          <TextLabel icon="copy" size="xs">
+            {copyCount}
+          </TextLabel>
+        </div>
+        <div className="flex gap-1.5" onClick={stopPropagation}>
+          <Button icon="heart" variant="tertiary" size="xs" onClick={likeAction}>
+            {likeCount}
+          </Button>
+          <Button
+            icon="bookmark"
+            variant="tertiary"
+            size="xs"
+            className="p-1.5"
+            onClick={bookmarkAction}
+          />
+        </div>
+      </div>
+    </footer>
+  );
+};
+const Card = ({ id, badges, writer, content, stats, actions, ...restProps }: CardProps) => {
   return (
     <article
       key={id}
-      className="bg-white rounded-xl border border-gray-200 p-6 hover:border-purple-300 hover:shadow-lg transition-all text-left group cursor-pointer flex flex-col gap-4"
+      className="flex flex-col h-58 gap-3 px-5 pt-5 pb-4 group bg-white rounded-2xl border border-gray-200 overflow-hidden cursor-pointer transition-all shadow-[0_1px_3px_0_rgba(0,0,0,0.04)] hover:shadow-[0_8px_24px_-4px_rgba(109,91,208,0.12),0_4px_8px_-2px_rgba(109,91,208,0.08)] hover:-translate-y-0.5 hover:border-brand-purple-border"
       {...restProps}>
-      <header className="flex items-center gap-2 flex-wrap">
-        {badges.map((badge) => (
-          <Badge key={badge.id} size="sm" variant={badge.variant}>
-            {badge.name}
-          </Badge>
-        ))}
-      </header>
-      <main className="flex flex-col h-18 gap-1">
-        <h3 className="text-gray-900 group-hover:text-purple-600 transition-colors line-clamp-2">
-          {header}
-        </h3>
-        <p className="text-gray-600 text-sm line-clamp-3">{children}</p>
-      </main>
-      <footer className="flex items-center justify-between pt-4 border-t border-gray-100">
-        <div className="flex items-center gap-4">
-          <Label.Text icon="view">{view}</Label.Text>
-          <Label.Text icon="calendar">{date}</Label.Text>
-        </div>
-        <Label.Text>{writer}</Label.Text>
-      </footer>
+      <CardHeader badges={badges} />
+      <CardMain writer={writer} content={content} />
+      <CardFooter stats={stats} actions={actions} />
     </article>
   );
 };

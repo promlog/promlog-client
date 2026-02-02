@@ -12,7 +12,7 @@ const CreatePromptPage = () => {
           className="flex items-center justify-between p-6 border-b border-gray-200"
           onClick={() => navigate(-1)}>
           <h2 className="text-gray-900 text-lg">프롬프트 등록</h2>
-          <Button icon="close" variant="empty" aria-label="닫기" />
+          <Button icon="close" variant="ghost" aria-label="닫기" />
         </header>
         <div className="p-6">
           <CreatePromptForm />

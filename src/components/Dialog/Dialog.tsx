@@ -1,6 +1,6 @@
 import { Dialog as DialogPrimitive } from 'radix-ui';
-import { Icon } from '../Icon/Icon';
 import type { DialogProps } from './Dialog.types';
+import Button from '../Button/Button';
 
 // TODO: primaryAction, secondaryAction 네이밍 고민 필요
 export const Dialog = ({
@@ -21,11 +21,7 @@ export const Dialog = ({
         <div className="fixed inset-0 flex items-center justify-center z-50 p-4">
           <DialogPrimitive.Content className="bg-white rounded-xl max-w-md w-full p-8 relative focus:outline-none">
             <DialogPrimitive.Close asChild>
-              <button
-                className="absolute top-4 right-4 p-2 text-gray-400 hover:text-gray-600 rounded-lg hover:bg-gray-100 transition-colors"
-                aria-label="닫기">
-                <Icon name="close" size="md" aria-hidden />
-              </button>
+              <Button icon="close" variant="ghost" className="absolute top-4 right-4 p-2" />
             </DialogPrimitive.Close>
             <div className="flex flex-col gap-6">
               <div className="flex justify-center">{icon}</div>

@@ -1,10 +1,21 @@
 import type { ReactNode } from 'react';
 import type { IconName } from '../Icon/Icon.types';
+import type { textLabelSizeMap } from './Label.styles';
 
+type TextLabelSize = keyof typeof textLabelSizeMap;
 type LabelIconName = Extract<IconName, 'view' | 'calendar' | 'copy'>;
+
+interface TextLabelSizeProps {
+  size?: TextLabelSize;
+}
 
 interface LabelBaseProps {
   children: ReactNode;
+  className?: string;
+}
+
+interface TextLabelBaseProps extends LabelBaseProps {
+  icon?: LabelIconName;
 }
 
 export interface InputLabelProps extends LabelBaseProps {
@@ -12,6 +23,4 @@ export interface InputLabelProps extends LabelBaseProps {
   required?: boolean;
 }
 
-export interface TextLabelProps extends LabelBaseProps {
-  icon?: LabelIconName;
-}
+export type TextLabelProps = TextLabelSizeProps & TextLabelBaseProps;

@@ -1,14 +1,20 @@
 import type { ReactNode, ComponentPropsWithRef } from 'react';
-import type { IconName, IconSize } from '../Icon/Icon.types';
 
-type ButtonStyleVariant = {
-  iconSize?: IconSize;
-  variant?: 'solid' | 'primary' | 'secondary' | 'empty';
-};
+import type { IconName } from '../Icon/Icon.types';
+import type { buttonSizeMap, buttonThemeMap } from './Button.styles';
 
-interface ButtonBaseProps extends Omit<ComponentPropsWithRef<'button'>, 'children'> {
-  icon?: IconName;
-  children?: ReactNode;
+export type ButtonSize = keyof typeof buttonSizeMap;
+export type ButtonVariant = keyof typeof buttonThemeMap;
+
+interface ButtonStyleVariant {
+  size?: ButtonSize;
+  variant?: ButtonVariant;
 }
 
-export type ButtonProps = ButtonBaseProps & ButtonStyleVariant;
+interface ButtonBasicProps extends ComponentPropsWithRef<'button'> {
+  icon?: IconName;
+  children?: ReactNode;
+  'aria-label'?: string;
+}
+
+export type ButtonProps = ButtonStyleVariant & ButtonBasicProps;

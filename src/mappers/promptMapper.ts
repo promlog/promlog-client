@@ -1,42 +1,62 @@
-import type { PromptDetailResponse, PromptListItemResponse } from '../apis/prompts/prompts.types';
+import type {
+  AuthorInfo,
+  PromptDetailResponse,
+  PromptListItemResponse,
+} from '../apis/prompts/prompts.types';
 
-export type PromptDTO = {
-  id: number;
-  title: string;
-  prompt: string;
-  description: string;
-  category: string[];
-  tags: string[];
-  views: number;
-  createdAt: string;
-  tip: string | null;
-  copies: number;
-  sourceUrl: string | null;
-  author: {
-    id: number;
-    name: string;
+interface PromptMappedDTO {
+  author: Omit<AuthorInfo, 'isAnonymous'>;
+  tags: {
+    category: string[];
+    platform: string[];
   };
-};
+  stats: {
+    likeCount: string | number;
+    copyCount: string | number;
+    viewCount: string | number;
+  };
+}
+
+export type PromptDTO = Omit<PromptListItemResponse, 'status' | 'author' | 'tags' | 'stats'> &
+  PromptMappedDTO;
 
 const mapPromptItemDTO = (item: PromptListItemResponse): PromptDTO => {
   const { id, author, content, stats, tags } = item;
 
+  const handleFormattedCount = (count: number) => {
+    if (!count) return 0;
+
+    const formattedCount = new Intl.NumberFormat('ko-KR', {
+      notation: 'compact',
+      maximumFractionDigits: 1,
+    }).format(count);
+
+    return formattedCount;
+  };
+
   return {
     id: id,
-    title: content.title,
-    prompt: content.prompt,
-    description: content.description,
-    sourceUrl: content.sourceUrl,
-    tip: content.tip,
-    createdAt: content.createdAt.slice(0, 10),
-    views: stats.viewCount,
-    copies: stats.copyCount,
+    content: {
+      title: content.title,
+      prompt: content.prompt,
+      description: content.description,
+      sourceUrl: content.sourceUrl,
+      tip: content.tip,
+      createdAt: content.createdAt.slice(0, 10).replaceAll('-', '.'),
+    },
     author: {
       id: author.id,
-      name: author.isAnonymous ? '익명' : author.nickname,
+      nickname: author.isAnonymous ? '익명' : author.nickname,
     },
-    category: tags.categories.map((category) => category.name) || '기타',
-    tags: tags.platforms.map((platform) => platform.name),
+    stats: {
+      likeCount: handleFormattedCount(stats.viewCount),
+      copyCount: handleFormattedCount(stats.viewCount),
+      viewCount: handleFormattedCount(stats.viewCount),
+    },
+    tags: {
+      category: tags.categories.map((category) => category.name) || '기타',
+      platform: tags.platforms.map((platform) => platform.name),
+    },
   };
 };
 

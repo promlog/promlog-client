@@ -29,49 +29,29 @@ const PromptDetailPage = () => {
     );
   }
 
-  const {
-    title,
-    prompt,
-    description,
-    category,
-    tags,
-    views,
-    createdAt,
-    author,
-    sourceUrl,
-    tip,
-    copies,
-  } = promptData;
+  const { content } = promptData;
 
   return (
     <div className="flex flex-col gap-5">
       <BackToListButton />
       <div className="space-y-6 max-w-4xl">
-        <PromptDetailHeader
-          title={title}
-          category={category}
-          tags={tags}
-          views={views}
-          date={createdAt}
-          writer={author.name}
-          copies={copies}
-        />
+        <PromptDetailHeader prompt={promptData} />
         <div className="flex flex-col gap-2">
           <h2 className="text-gray-800 text-xl">💬 프롬프트 설명</h2>
-          <p className="text-gray-700 leading-relaxed">{description}</p>
+          <p className="text-gray-700 leading-relaxed">{content.description}</p>
         </div>
-        <PromptContentBox promptId={promptId!} description={prompt} />
+        <PromptContentBox promptId={promptId!} description={content.description} />
         <Divider />
-        {sourceUrl && (
+        {content.sourceUrl && (
           <div className="flex flex-col gap-2">
             <h2 className="text-gray-800 text-xl">출처</h2>
-            <p className="text-gray-700 leading-relaxed">{sourceUrl}</p>
+            <p className="text-gray-700 leading-relaxed">{content.sourceUrl}</p>
           </div>
         )}
-        {tip && (
+        {content.tip && (
           <div className="flex flex-col gap-4">
             <h2 className="text-gray-800 text-xl">💡 활용 팁</h2>
-            <Callout>{tip}</Callout>
+            <Callout variant="attentive">{content.tip}</Callout>
           </div>
         )}
       </div>

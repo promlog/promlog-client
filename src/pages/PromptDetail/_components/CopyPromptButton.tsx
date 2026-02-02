@@ -18,10 +18,9 @@ const CopyPromptButton = ({ promptId, content }: CopyPromptButtonProps) => {
 
   return (
     <Button
-      variant="empty"
+      variant="tertiary"
       icon="copy"
-      iconSize="sm"
-      className="gap-1.5 px-3 text-sm hover:text-purple-600 hover:bg-white border border-gray-200 hover:border-purple-300"
+      size="sm"
       onClick={() => copy(promptId, content)}
       disabled={isLoading}>
       {isLoading ? '복사 중...' : '복사'}

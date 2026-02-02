@@ -6,7 +6,11 @@ const BackToListButton = () => {
 
   return (
     <div className="flex">
-      <Button icon="backLine" variant="empty" onClick={() => navigate(-1)}>
+      <Button
+        icon="backLine"
+        variant="ghost"
+        onClick={() => navigate(-1)}
+        className="p-0 text-gray-600 font-normal">
         목록으로
       </Button>
     </div>

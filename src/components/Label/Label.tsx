@@ -1,34 +1,44 @@
-/* eslint-disable react-refresh/only-export-components */
 import { Icon } from '../Icon/Icon';
-import { LabelCommonFontStyle } from './Label.styles';
+import { LabelCommonFontStyle, textLabelSizeMap } from './Label.styles';
 import type { TextLabelProps, InputLabelProps } from './Label.types';
 
-const InputLabel = ({ required = false, children, htmlFor, ...restProps }: InputLabelProps) => {
+export const InputLabel = ({
+  required = false,
+  children,
+  htmlFor,
+  className = '',
+  ...restProps
+}: InputLabelProps) => {
   return (
     <label
-      className={`${LabelCommonFontStyle} flex items-center gap-1 text-lg`}
+      className={`${LabelCommonFontStyle} flex items-center gap-1 text-lg ${className}`}
       htmlFor={htmlFor}
       {...restProps}>
       {children}
-      {required && <span className="text-feedback-red-500 text-sm">*</span>}
+      {required && (
+        <span className="text-feedback-red-500 text-sm align-top" aria-hidden="true">
+          *
+        </span>
+      )}
     </label>
   );
 };
 
-InputLabel.displayName = 'Label.Input';
+InputLabel.displayName = 'InputLabel';
 
-const TextLabel = ({ icon, children, ...restProps }: TextLabelProps) => {
+export const TextLabel = ({
+  icon,
+  size = 'md',
+  children,
+  className = '',
+  ...restProps
+}: TextLabelProps) => {
   return (
-    <div className="flex items-center gap-1" {...restProps}>
-      {icon && <Icon name={icon} fill="#fff" size="sm" aria-hidden />}
-      <span className={`${LabelCommonFontStyle} text-sm`}>{children}</span>
+    <div className={`flex items-center gap-1 ${LabelCommonFontStyle}`} {...restProps}>
+      {icon && <Icon name={icon} size={size} aria-hidden="true" />}
+      <span className={`${textLabelSizeMap[size]} ${className}`}>{children}</span>
     </div>
   );
 };
 
-TextLabel.displayName = 'Label.Text';
-
-export const Label = {
-  Input: InputLabel,
-  Text: TextLabel,
-};
+TextLabel.displayName = 'TextLabel';

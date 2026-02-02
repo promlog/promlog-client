@@ -1,4 +1,4 @@
-import type { HTMLAttributes, ReactNode } from 'react';
+import type { ComponentPropsWithRef } from 'react';
 import type { BadgeVariants } from '../Badge/Badge.types';
 
 export interface CardBadges {
@@ -7,14 +7,28 @@ export interface CardBadges {
   variant: BadgeVariants;
 }
 
-interface CardBaseProps extends Omit<HTMLAttributes<HTMLDivElement>, 'id'> {
-  id: number;
-  badges: CardBadges[];
-  header: string;
-  children: ReactNode;
-  view: string | number;
-  date: string;
-  writer: string;
+interface CardContent {
+  title: string;
+  createdAt: string;
+  description: string;
 }
 
-export type CardProps = CardBaseProps;
+interface CardStats {
+  viewCount: string | number;
+  copyCount: string | number;
+  likeCount: string | number;
+}
+
+interface ButtonActions {
+  likeAction: () => void;
+  bookmarkAction: () => void;
+}
+
+export interface CardProps extends Omit<ComponentPropsWithRef<'article'>, 'id' | 'content'> {
+  id: number;
+  writer: string;
+  content: CardContent;
+  stats: CardStats;
+  actions: ButtonActions;
+  badges: CardBadges[];
+}

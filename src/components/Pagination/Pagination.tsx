@@ -1,7 +1,6 @@
 import { DOTS } from '../../config/constants';
 import { usePagination } from '../../hooks/prompts/usePagination';
-import SvgChevornleft from '../Icon/generated/ChevornLeft';
-import SvgChevronRight from '../Icon/generated/ChevronRight';
+import Button from '../Button/Button';
 import { ButtonStyles } from './Pagination.styles';
 import type { PaginationProps } from './Pagination.types';
 
@@ -23,15 +22,16 @@ const Pagination = ({
 
   return (
     <div className={`flex items-center justify-center gap-1 ${className}`}>
-      <button
+      <Button
+        variant="ghost"
+        icon="chevronLeft"
         onClick={onPrevious}
         disabled={currentPage === 1}
         aria-label="이전 페이지"
         className={`${ButtonStyles.base} ${
           currentPage === 1 ? ButtonStyles.disabled : ButtonStyles.inactive
-        }`}>
-        <SvgChevornleft />
-      </button>
+        }`}
+      />
       {paginationRange?.map((pageNumber, index) => {
         if (pageNumber === DOTS) {
           return (
@@ -44,25 +44,27 @@ const Pagination = ({
         }
 
         return (
-          <button
+          <Button
+            variant="ghost"
             key={pageNumber}
             className={`${ButtonStyles.base} ${
               pageNumber === currentPage ? ButtonStyles.active : ButtonStyles.inactive
             }`}
             onClick={() => onPageChange(Number(pageNumber))}>
             {pageNumber}
-          </button>
+          </Button>
         );
       })}
-      <button
+      <Button
+        icon="chevronRight"
+        variant="ghost"
         onClick={onNext}
         disabled={currentPage === lastPage}
         aria-label="다음 페이지"
         className={`${ButtonStyles.base} ${
           currentPage === lastPage ? ButtonStyles.disabled : ButtonStyles.inactive
-        }`}>
-        <SvgChevronRight />
-      </button>
+        }`}
+      />
     </div>
   );
 };
