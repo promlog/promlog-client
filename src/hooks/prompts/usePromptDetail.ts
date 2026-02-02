@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
-import type { PromptDTO } from '../../mocks/prompts';
 import { getPromptDetail } from '../../apis/prompts/prompts';
-import { mapPromptDetailDTO } from '../../mappers/promptMapper';
+import { mapPromptDetailDTO, type PromptDTO } from '../../mappers/promptMapper';
 
 export const usePromptDetail = (promptId: number | null) => {
   const [promptData, setPromptData] = useState<PromptDTO | null>(null);

@@ -1,7 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import Card from '../../../components/Card/Card';
 import type { CardBadges } from '../../../components/Card/Card.types';
-import type { PromptDTO } from '../../../mocks/prompts';
+import type { PromptDTO } from '../../../mappers/promptMapper';
 
 type PromptCardProps = {
   prompt: PromptDTO;
@@ -14,32 +14,31 @@ const PromptCard = ({ prompt, router }: PromptCardProps) => {
   const badges: CardBadges[] = [
     {
       id: `category-${prompt.id}`,
-      name: prompt.category,
+      name: prompt.tags.category,
       variant: 'category',
     },
     {
       id: `tag-${prompt.id}`,
-      name: prompt.tags,
+      name: prompt.tags.platform,
       variant: 'platform',
     },
   ];
 
-  const viewText = new Intl.NumberFormat('ko-KR', {
-    notation: 'compact',
-    maximumFractionDigits: 1,
-  }).format(prompt.views);
+  const actions = {
+    likeAction: () => alert('좋아요 클릭'),
+    bookmarkAction: () => alert('북마크 클릭'),
+  };
 
   return (
     <Card
       id={prompt.id}
-      header={prompt.title}
+      writer={prompt.author.nickname}
       badges={badges}
-      view={viewText}
-      date={prompt.createdAt}
-      writer={prompt.author.name}
-      onClick={() => navigate(router)}>
-      {prompt.description}
-    </Card>
+      content={prompt.content}
+      stats={prompt.stats}
+      actions={actions}
+      onClick={() => navigate(router)}
+    />
   );
 };
 
