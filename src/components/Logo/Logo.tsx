@@ -13,7 +13,10 @@ export const BasicLogo = ({ ...restProps }: BasicLogoProps) => {
   const navigate = useNavigate();
 
   return (
-    <div className="flex items-center gap-1" onClick={() => navigate('/')} {...restProps}>
+    <div
+      className="flex items-center gap-1 cursor-pointer"
+      onClick={() => navigate('/')}
+      {...restProps}>
       <IconLogo />
       <span className="text-xl font-bold text-gray-900">프롬로그</span>
     </div>
