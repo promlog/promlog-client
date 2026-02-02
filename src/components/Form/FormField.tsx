@@ -1,12 +1,12 @@
-import { Label } from '../Label/Label';
+import { InputLabel } from '../Label/Label';
 import type { FormFieldProps } from './FormField.types';
 
 const FormField = ({ label, htmlFor, required, children }: FormFieldProps) => {
   return (
     <div className="flex flex-col gap-2">
-      <Label.Input htmlFor={htmlFor} required={required}>
+      <InputLabel htmlFor={htmlFor} required={required}>
         {label}
-      </Label.Input>
+      </InputLabel>
       {children}
     </div>
   );

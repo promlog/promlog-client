@@ -1,4 +1,4 @@
-import { Label } from '../Label/Label';
+import { TextLabel } from '../Label/Label';
 import Badge from '../Badge/Badge';
 import type { CardProps } from './Card.types';
 
@@ -23,10 +23,10 @@ const Card = ({ id, badges, view, date, writer, header, children, ...restProps }
       </main>
       <footer className="flex items-center justify-between pt-4 border-t border-gray-100">
         <div className="flex items-center gap-4">
-          <Label.Text icon="view">{view}</Label.Text>
-          <Label.Text icon="calendar">{date}</Label.Text>
+          <TextLabel icon="view">{view}</TextLabel>
+          <TextLabel icon="calendar">{date}</TextLabel>
         </div>
-        <Label.Text>{writer}</Label.Text>
+        <TextLabel>{writer}</TextLabel>
       </footer>
     </article>
   );

@@ -3,7 +3,7 @@ import { Icon } from '../Icon/Icon';
 import type { BasicLogoProps, IconLogoProps } from './Logo.types';
 import { iconSizeMap } from './Icon.styles';
 
-const IconLogo = ({ size = 'md', ...restProps }: IconLogoProps) => {
+export const IconLogo = ({ size = 'md', ...restProps }: IconLogoProps) => {
   return (
     <div
       className={`${iconSizeMap[size]} bg-primary-gradient flex items-center justify-center`}
@@ -15,7 +15,7 @@ const IconLogo = ({ size = 'md', ...restProps }: IconLogoProps) => {
 
 IconLogo.displayName = 'Logo.Icon';
 
-const BasicLogo = ({ ...restProps }: BasicLogoProps) => {
+export const BasicLogo = ({ ...restProps }: BasicLogoProps) => {
   const navigate = useNavigate();
 
   return (
@@ -30,8 +30,3 @@ const BasicLogo = ({ ...restProps }: BasicLogoProps) => {
 };
 
 BasicLogo.displayName = 'Logo.Basic';
-
-export const Logo = {
-  Basic: BasicLogo,
-  Icon: IconLogo,
-};

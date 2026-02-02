@@ -1,5 +1,5 @@
 import Badge from '../../../components/Badge/Badge';
-import { Label } from '../../../components/Label/Label';
+import { TextLabel } from '../../../components/Label/Label';
 
 interface PromptDetailHeaderProps {
   title: string;
@@ -30,10 +30,10 @@ const PromptDetailHeader = ({
         </div>
       </div>
       <div className="flex items-center gap-4 text-sm text-gray-500">
-        <Label.Text icon="view">조회 {views}</Label.Text>
-        <Label.Text icon="copy">복사 {copies}</Label.Text>
-        <Label.Text icon="calendar">{date}</Label.Text>
-        <Label.Text>작성자: {writer}</Label.Text>
+        <TextLabel icon="view">조회 {views}</TextLabel>
+        <TextLabel icon="copy">복사 {copies}</TextLabel>
+        <TextLabel icon="calendar">{date}</TextLabel>
+        <TextLabel>작성자: {writer}</TextLabel>
       </div>
     </div>
   );
