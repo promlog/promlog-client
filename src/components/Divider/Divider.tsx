@@ -8,7 +8,7 @@ const Divider = ({ orientation = 'horizontal', className = '' }: DividerProps) =
     <div
       role="separator"
       aria-orientation={orientation}
-      className={`bg-gray-200 ${baseStyle} ${className}`}
+      className={`bg-gray-100 ${baseStyle} ${className}`}
     />
   );
 };
