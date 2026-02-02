@@ -28,7 +28,7 @@ type Story = StoryObj<typeof IconLogo>;
 
 export const IconOnly: Story = {
   args: {
-    size: 'md',
+    size: 'xl',
   },
 };
 
