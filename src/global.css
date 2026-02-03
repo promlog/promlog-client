@@ -71,6 +71,7 @@
 
   --color-solid-black: #000;
   --color-solid-white: #fff;
+  --color-primary: #f8f9fa;
 }
 
 @utility bg-primary-gradient {
