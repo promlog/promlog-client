@@ -5,6 +5,8 @@ import type {
   CreatePromptResponse,
   GetPromptListParams,
   PromptDetailResponse,
+  PromptLikeResponse,
+  PromptListItemResponse,
   PromptListResponse,
 } from './prompts.types';
 
@@ -42,4 +44,10 @@ export const getMyLikedPromptIds = async (): Promise<number[]> => {
   const { data } = await API.get('/api/prompts/me/likes');
 
   return data.data.items.map((item: PromptListItemResponse) => item.id);
+};
+
+export const togglePromptLike = async (promptId: number): Promise<PromptLikeResponse> => {
+  const { data } = await API.post(`/api/prompts/${promptId}/likes`);
+
+  return data;
 };

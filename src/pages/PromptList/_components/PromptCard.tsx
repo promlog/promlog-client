@@ -2,21 +2,26 @@ import { useNavigate } from 'react-router-dom';
 import Card from '../../../components/Card/Card';
 import type { CardBadges } from '../../../components/Card/Card.types';
 import type { PromptDTO } from '../../../mappers/promptMapper';
+import { useAuth } from '../../../contexts/useAuth';
+import { useLikePrompt } from '../../../hooks/likes/useLkiePrompt';
+import { Dialog } from '../../../components/NavigationBar/_components/Dialog';
 
-interface PromptIsLiked {
+interface PromptActive {
   isLiked: boolean;
   isBookmarked: boolean;
 }
 
-type mergedPromptDTO = PromptDTO & PromptIsLiked;
+type mergedPromptDTO = PromptDTO & PromptActive;
 
-interface PromptCardProps {
+export interface PromptCardProps {
   prompt: mergedPromptDTO;
   router: string;
 }
 
 const PromptCard = ({ prompt, router }: PromptCardProps) => {
   const navigate = useNavigate();
+  const { isLoggedIn } = useAuth();
+  const { mutate: toggleLike } = useLikePrompt();
 
   const badges: CardBadges[] = [
     {
@@ -32,8 +37,15 @@ const PromptCard = ({ prompt, router }: PromptCardProps) => {
   ];
 
   const actions = {
-    likeAction: () => alert('좋아요 클릭'),
-    bookmarkAction: () => alert('준비 중입니다'),
+    likeAction: () => {
+      if (!isLoggedIn) {
+        <Dialog.Login trigger={confirm('로그인이 필요한 서비스입니다. 로그인하시겠습니까?')} />;
+        return;
+      }
+
+      toggleLike(prompt.id);
+    },
+    bookmarkAction: () => alert('북마크 기능 준비 중'),
   };
 
   const active = {
