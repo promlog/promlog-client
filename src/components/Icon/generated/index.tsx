@@ -7,6 +7,8 @@ export { default as ChevronRight } from "./ChevronRight";
 export { default as Circuit } from "./Circuit";
 export { default as Close } from "./Close";
 export { default as Copy } from "./Copy";
+export { default as Delete } from "./Delete";
+export { default as Edit } from "./Edit";
 export { default as Heart } from "./Heart";
 export { default as Link } from "./Link";
 export { default as Logo } from "./Logo";
