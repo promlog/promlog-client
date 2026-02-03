@@ -5,6 +5,8 @@ import type {
   CreatePromptResponse,
   GetPromptListParams,
   PromptDetailResponse,
+  PromptLikeResponse,
+  PromptListItemResponse,
   PromptListResponse,
 } from './prompts.types';
 
@@ -35,5 +37,22 @@ export const createPrompt = async (prompt: CreatePromptRequest): Promise<CreateP
 export const incrementCopyCount = async (promptId: number): Promise<CopyPromptResponse> => {
   const { data } = await API.post(`/api/prompts/${promptId}/copy`);
 
+  return data;
+};
+
+export const getMyLikedPromptIds = async (): Promise<number[]> => {
+  const { data } = await API.get('/api/prompts/me/likes');
+
+  return data.data.items.map((item: PromptListItemResponse) => item.id);
+};
+
+export const likePrompt = async (promptId: number): Promise<PromptLikeResponse> => {
+  const { data } = await API.post(`/api/prompts/${promptId}/likes`);
+
+  return data;
+};
+
+export const unlikePrompt = async (promptId: number): Promise<PromptLikeResponse> => {
+  const { data } = await API.delete(`/api/prompts/${promptId}/likes`);
   return data;
 };
