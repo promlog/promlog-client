@@ -2,11 +2,26 @@ import Banner from '../../components/Banner/Banner';
 import PromptCard from './_components/PromptCard';
 import { usePromptList } from '../../hooks/prompts/usePromptList';
 import Pagination from '../../components/Pagination/Pagination';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
+import useMyLikedPromptIds from '../../hooks/likes/useMyLikedPromptIds';
 
 const PromptListPage = () => {
   const [page, setPage] = useState(1);
-  const { prompts, meta, loading, error } = usePromptList({ page, size: 21 });
+
+  const { prompts: publicPrompts, meta, loading, error } = usePromptList({ page, size: 21 });
+  const { likedIds } = useMyLikedPromptIds();
+
+  const mergedPrompts = useMemo(() => {
+    if (!publicPrompts) return [];
+
+    const likedIdSet = new Set(likedIds);
+
+    return publicPrompts.map((prompt) => ({
+      ...prompt,
+      isLiked: likedIdSet.has(prompt.id),
+      isBookmarked: false, // 임시
+    }));
+  }, [publicPrompts, likedIds]);
 
   if (loading) {
     return (
@@ -28,7 +43,7 @@ const PromptListPage = () => {
     <div className="space-y-6 flex flex-col gap-5">
       <Banner title="전체 프롬프트" subtitle="다양한 AI 프롬프트를 공유하고 발견하세요" />
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {prompts.map((prompt) => (
+        {mergedPrompts.map((prompt) => (
           <PromptCard key={prompt.id} prompt={prompt} router={`/${prompt.id}`} />
         ))}
       </div>

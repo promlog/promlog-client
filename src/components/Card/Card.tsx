@@ -40,9 +40,14 @@ const CardMain = ({ writer, content }: Pick<CardProps, 'writer' | 'content'>) =>
   );
 };
 
-const CardFooter = ({ stats, actions }: Pick<CardProps, 'stats' | 'actions'>) => {
+const CardFooter = ({
+  stats,
+  actions,
+  active,
+}: Pick<CardProps, 'stats' | 'actions' | 'active'>) => {
   const { viewCount, copyCount, likeCount } = stats;
   const { likeAction, bookmarkAction } = actions;
+  const { isLiked, isBookmarked } = active;
 
   return (
     <footer className="flex flex-col justify-center gap-2">
@@ -57,7 +62,7 @@ const CardFooter = ({ stats, actions }: Pick<CardProps, 'stats' | 'actions'>) =>
           </TextLabel>
         </div>
         <div className="flex gap-1.5" onClick={stopPropagation}>
-          <Button icon="heart" variant="tertiary" size="xs" onClick={likeAction}>
+          <Button icon="heart" variant="tertiary" size="xs" isActive={isLiked} onClick={likeAction}>
             {likeCount}
           </Button>
           <Button
@@ -65,6 +70,7 @@ const CardFooter = ({ stats, actions }: Pick<CardProps, 'stats' | 'actions'>) =>
             variant="tertiary"
             size="xs"
             className="p-1.5"
+            isActive={isBookmarked}
             onClick={bookmarkAction}
           />
         </div>
@@ -72,7 +78,7 @@ const CardFooter = ({ stats, actions }: Pick<CardProps, 'stats' | 'actions'>) =>
     </footer>
   );
 };
-const Card = ({ id, badges, writer, content, stats, actions, ...restProps }: CardProps) => {
+const Card = ({ id, badges, writer, content, stats, actions, active, ...restProps }: CardProps) => {
   return (
     <article
       key={id}
@@ -80,7 +86,7 @@ const Card = ({ id, badges, writer, content, stats, actions, ...restProps }: Car
       {...restProps}>
       <CardHeader badges={badges} />
       <CardMain writer={writer} content={content} />
-      <CardFooter stats={stats} actions={actions} />
+      <CardFooter active={active} stats={stats} actions={actions} />
     </article>
   );
 };

@@ -19,6 +19,11 @@ interface CardStats {
   likeCount: string | number;
 }
 
+interface ButtonActive {
+  isLiked: boolean;
+  isBookmarked: boolean;
+}
+
 interface ButtonActions {
   likeAction: () => void;
   bookmarkAction: () => void;
@@ -30,5 +35,6 @@ export interface CardProps extends Omit<ComponentPropsWithRef<'article'>, 'id' |
   content: CardContent;
   stats: CardStats;
   actions: ButtonActions;
+  active: ButtonActive;
   badges: CardBadges[];
 }

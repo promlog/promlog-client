@@ -3,10 +3,17 @@ import Card from '../../../components/Card/Card';
 import type { CardBadges } from '../../../components/Card/Card.types';
 import type { PromptDTO } from '../../../mappers/promptMapper';
 
-type PromptCardProps = {
-  prompt: PromptDTO;
+interface PromptIsLiked {
+  isLiked: boolean;
+  isBookmarked: boolean;
+}
+
+type mergedPromptDTO = PromptDTO & PromptIsLiked;
+
+interface PromptCardProps {
+  prompt: mergedPromptDTO;
   router: string;
-};
+}
 
 const PromptCard = ({ prompt, router }: PromptCardProps) => {
   const navigate = useNavigate();
@@ -26,7 +33,12 @@ const PromptCard = ({ prompt, router }: PromptCardProps) => {
 
   const actions = {
     likeAction: () => alert('좋아요 클릭'),
-    bookmarkAction: () => alert('북마크 클릭'),
+    bookmarkAction: () => alert('준비 중입니다'),
+  };
+
+  const active = {
+    isLiked: prompt.isLiked,
+    isBookmarked: prompt.isBookmarked,
   };
 
   return (
@@ -37,6 +49,7 @@ const PromptCard = ({ prompt, router }: PromptCardProps) => {
       content={prompt.content}
       stats={prompt.stats}
       actions={actions}
+      active={active}
       onClick={() => navigate(router)}
     />
   );
