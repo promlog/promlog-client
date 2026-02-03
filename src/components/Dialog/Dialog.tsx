@@ -4,6 +4,8 @@ import Button from '../Button/Button';
 
 // TODO: primaryAction, secondaryAction 네이밍 고민 필요
 export const Dialog = ({
+  open,
+  onOpenChange,
   trigger,
   icon,
   title,
@@ -14,8 +16,8 @@ export const Dialog = ({
   children,
 }: DialogProps) => {
   return (
-    <DialogPrimitive.Root>
-      <DialogPrimitive.Trigger asChild>{trigger}</DialogPrimitive.Trigger>
+    <DialogPrimitive.Root open={open} onOpenChange={onOpenChange}>
+      {trigger && <DialogPrimitive.Trigger asChild>{trigger}</DialogPrimitive.Trigger>}
       <DialogPrimitive.Portal>
         <DialogPrimitive.Overlay className="fixed inset-0 bg-black/50 z-50" />
         <div className="fixed inset-0 flex items-center justify-center z-50 p-4">

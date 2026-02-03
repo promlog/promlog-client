@@ -46,8 +46,13 @@ export const getMyLikedPromptIds = async (): Promise<number[]> => {
   return data.data.items.map((item: PromptListItemResponse) => item.id);
 };
 
-export const togglePromptLike = async (promptId: number): Promise<PromptLikeResponse> => {
+export const likePrompt = async (promptId: number): Promise<PromptLikeResponse> => {
   const { data } = await API.post(`/api/prompts/${promptId}/likes`);
 
+  return data;
+};
+
+export const unlikePrompt = async (promptId: number): Promise<PromptLikeResponse> => {
+  const { data } = await API.delete(`/api/prompts/${promptId}/likes`);
   return data;
 };

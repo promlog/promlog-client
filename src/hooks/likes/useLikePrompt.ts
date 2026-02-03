@@ -1,13 +1,22 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { togglePromptLike } from '../../apis/prompts/prompts';
+import { likePrompt, unlikePrompt } from '../../apis/prompts/prompts';
 import type { PromptListItemResponse, PromptListResponse } from '../../apis/prompts/prompts.types';
 
-export const useLikePrompt = () => {
+interface ToggleLikeParams {
+  promptId: number;
+  isLiked: boolean;
+}
+
+const useLikePrompt = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (promptId: number) => togglePromptLike(promptId),
-    onSuccess: (response, targetId) => {
+    mutationFn: ({ promptId, isLiked }: ToggleLikeParams) => {
+      if (isLiked) return unlikePrompt(promptId);
+      else return likePrompt(promptId);
+    },
+
+    onSuccess: (response, { promptId }) => {
       const { liked, likeCount } = response.data;
 
       queryClient.setQueriesData(
@@ -18,7 +27,7 @@ export const useLikePrompt = () => {
           const items = oldData.data?.items || [];
 
           const newItems = items.map((item: PromptListItemResponse) => {
-            if (item.id === targetId) {
+            if (item.id === promptId) {
               return {
                 ...item,
                 isLiked: liked,
@@ -41,15 +50,18 @@ export const useLikePrompt = () => {
 
       queryClient.setQueryData(['prompts', 'me', 'likes'], (oldIds: number[] = []) => {
         if (liked) {
-          return oldIds.includes(targetId) ? oldIds : [...oldIds, targetId];
+          return oldIds.includes(promptId) ? oldIds : [...oldIds, promptId];
         } else {
-          return oldIds.filter((id) => id !== targetId);
+          return oldIds.filter((id) => id !== promptId);
         }
       });
     },
+
     onError: (error) => {
       console.error(error);
-      alert('좋아요 처리에 실패했습니다.');
+      alert('요청을 처리하는 중 오류가 발생했습니다.');
     },
   });
 };
+
+export default useLikePrompt;

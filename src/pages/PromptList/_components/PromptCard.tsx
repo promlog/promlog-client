@@ -1,10 +1,14 @@
 import { useNavigate } from 'react-router-dom';
+
+import { useAuth } from '../../../contexts/useAuth';
+
 import Card from '../../../components/Card/Card';
 import type { CardBadges } from '../../../components/Card/Card.types';
-import type { PromptDTO } from '../../../mappers/promptMapper';
-import { useAuth } from '../../../contexts/useAuth';
-import { useLikePrompt } from '../../../hooks/likes/useLkiePrompt';
 import { Dialog } from '../../../components/NavigationBar/_components/Dialog';
+
+import useLikePrompt from '../../../hooks/likes/useLikePrompt';
+import type { PromptDTO } from '../../../mappers/promptMapper';
+import { useState } from 'react';
 
 interface PromptActive {
   isLiked: boolean;
@@ -20,6 +24,8 @@ export interface PromptCardProps {
 
 const PromptCard = ({ prompt, router }: PromptCardProps) => {
   const navigate = useNavigate();
+  const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
+
   const { isLoggedIn } = useAuth();
   const { mutate: toggleLike } = useLikePrompt();
 
@@ -39,11 +45,14 @@ const PromptCard = ({ prompt, router }: PromptCardProps) => {
   const actions = {
     likeAction: () => {
       if (!isLoggedIn) {
-        <Dialog.Login trigger={confirm('로그인이 필요한 서비스입니다. 로그인하시겠습니까?')} />;
+        setIsLoginModalOpen(true);
         return;
       }
 
-      toggleLike(prompt.id);
+      toggleLike({
+        promptId: prompt.id,
+        isLiked: prompt.isLiked,
+      });
     },
     bookmarkAction: () => alert('북마크 기능 준비 중'),
   };
@@ -54,16 +63,19 @@ const PromptCard = ({ prompt, router }: PromptCardProps) => {
   };
 
   return (
-    <Card
-      id={prompt.id}
-      writer={prompt.author.nickname}
-      badges={badges}
-      content={prompt.content}
-      stats={prompt.stats}
-      actions={actions}
-      active={active}
-      onClick={() => navigate(router)}
-    />
+    <>
+      <Card
+        id={prompt.id}
+        writer={prompt.author.nickname}
+        badges={badges}
+        content={prompt.content}
+        stats={prompt.stats}
+        actions={actions}
+        active={active}
+        onClick={() => navigate(router)}
+      />
+      <Dialog.Login open={isLoginModalOpen} onOpenChange={setIsLoginModalOpen} />
+    </>
   );
 };
 

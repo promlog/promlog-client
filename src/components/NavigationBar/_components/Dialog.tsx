@@ -11,14 +11,19 @@ import { useAuth } from '../../../contexts/useAuth';
 import Button from '../../Button/Button';
 
 type DialogCommonProps = Pick<DialogProps, 'trigger'>;
+type DialogOpenProps = Pick<DialogProps, 'onOpenChange' | 'open'>;
 
-const LoginDialog = ({ trigger }: DialogCommonProps) => {
+type LoginDialogProps = DialogOpenProps & DialogCommonProps;
+
+const LoginDialog = ({ trigger, open, onOpenChange }: LoginDialogProps) => {
   const handleKakaoLogin = () => {
     window.location.href = `${API_BASE_URL}/api/auth/oauth/kakao/authorize`;
   };
 
   return (
     <DialogBasic
+      open={open}
+      onOpenChange={onOpenChange}
       icon={<IconLogo />}
       title="로그인"
       description="프롬프트를 등록하고 관리하려면 로그인이 필요합니다"
