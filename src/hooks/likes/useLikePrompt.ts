@@ -23,9 +23,7 @@ const useLikePrompt = () => {
         { queryKey: ['prompts', 'list'] },
         (oldData: PromptListResponse) => {
           if (!oldData) return oldData;
-
           const items = oldData.data?.items || [];
-
           const newItems = items.map((item: PromptListItemResponse) => {
             if (item.id === promptId) {
               return {
@@ -43,7 +41,10 @@ const useLikePrompt = () => {
 
           return {
             ...oldData,
-            items: newItems,
+            data: {
+              ...oldData.data,
+              items: newItems,
+            },
           };
         }
       );
