@@ -15,6 +15,7 @@ interface ButtonBasicProps extends ComponentPropsWithRef<'button'> {
   icon?: IconName;
   children?: ReactNode;
   'aria-label'?: string;
+  isActive?: boolean;
 }
 
 export type ButtonProps = ButtonStyleVariant & ButtonBasicProps;

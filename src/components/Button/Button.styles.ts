@@ -20,3 +20,8 @@ export const buttonThemeMap = {
   outline: 'bg-transparent border border-gray-200 text-black hover:bg-gray-50',
   ghost: 'bg-transparent text-black hover:bg-gray-100',
 } as const;
+
+export const buttonActiveStyle = {
+  tertiary:
+    'text-brand-purple border-brand-purple-border bg-brand-purple-light hover:bg-brand-purple-light',
+};

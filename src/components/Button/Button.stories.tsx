@@ -25,6 +25,10 @@ const meta: Meta<typeof Button> = {
       control: 'text',
       description: '버튼에 표시될 텍스트',
     },
+    isActive: {
+      control: 'boolean',
+      description: '버튼 클릭 여부',
+    },
     onClick: { action: 'clicked' },
   },
 };
