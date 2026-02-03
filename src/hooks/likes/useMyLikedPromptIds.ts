@@ -12,7 +12,7 @@ const useMyLikedPromptIds = () => {
     staleTime: 30_000,
   });
 
-  return { likedIds: data };
+  return { likedIds: data ?? [] };
 };
 
 export default useMyLikedPromptIds;
