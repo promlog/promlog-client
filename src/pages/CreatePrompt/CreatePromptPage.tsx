@@ -4,9 +4,9 @@ import CreatePromptForm from './_components/CreatePromptForm';
 
 const CreatePromptPage = () => {
   const navigate = useNavigate();
-  const { id } = useParams();
+  const { promptId } = useParams();
 
-  const isEditMode = !!id;
+  const isEditMode = !!promptId;
 
   return (
     <div className="w-3xl">
@@ -18,7 +18,7 @@ const CreatePromptPage = () => {
           <Button icon="close" variant="ghost" aria-label="닫기" onClick={() => navigate(-1)} />
         </header>
         <div className="p-6">
-          <CreatePromptForm promptId={id} isEditMode={isEditMode} />
+          <CreatePromptForm promptId={promptId} isEditMode={isEditMode} />
         </div>
       </section>
     </div>
