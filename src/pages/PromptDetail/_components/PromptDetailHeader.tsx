@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import Badge from '../../../components/Badge/Badge';
 import Button from '../../../components/Button/Button';
@@ -18,6 +19,7 @@ interface PromptDetailHeaderProps {
 }
 
 const PromptDetailHeader = ({ prompt }: PromptDetailHeaderProps) => {
+  const navigate = useNavigate();
   const { isLoggedIn } = useAuth();
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
 
@@ -35,12 +37,6 @@ const PromptDetailHeader = ({ prompt }: PromptDetailHeaderProps) => {
 
     return myPromptIdset.has(id);
   }, [id, myPromptIds]);
-
-  const handleDelete = () => {
-    if (confirm('정말 삭제하시겠습니까? 복구할 수 없습니다.')) {
-      deleteMutate(id);
-    }
-  };
 
   const isLiked = useMemo(() => {
     return likedIds.includes(id);
@@ -61,6 +57,16 @@ const PromptDetailHeader = ({ prompt }: PromptDetailHeaderProps) => {
     bookmarkAction: () => alert('북마크 기능 준비 중'),
   };
 
+  const handleDelete = () => {
+    if (confirm('정말 삭제하시겠습니까? 복구할 수 없습니다.')) {
+      deleteMutate(id);
+    }
+  };
+
+  const handleEdit = () => {
+    navigate(`/edit/${id}`);
+  };
+
   return (
     <>
       <div className="flex flex-col gap-3">
@@ -71,7 +77,13 @@ const PromptDetailHeader = ({ prompt }: PromptDetailHeaderProps) => {
             </h1>
             {isMyPrompt && (
               <div className="flex items-center gap-1">
-                <Button variant="ghost" icon="edit" size="lg" className="p-2 text-gray-400" />
+                <Button
+                  variant="ghost"
+                  icon="edit"
+                  size="lg"
+                  onClick={handleEdit}
+                  className="p-2 text-gray-400"
+                />
                 <Button
                   variant="ghost"
                   icon="delete"
