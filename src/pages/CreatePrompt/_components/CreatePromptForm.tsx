@@ -54,10 +54,13 @@ const CreatePromptForm = ({ promptId, isEditMode = false }: CreatePromptFormProp
 
   useEffect(() => {
     if (isEditMode && promptData) {
+      const categoryId = promptData.data.tags.categories[0]?.id ?? '';
+      const platformId = promptData.data.tags.platforms[0]?.id ?? '';
+
       reset({
         title: promptData.data.content.title,
-        category: String(promptData.data.tags.categories[0].id),
-        platform: String(promptData.data.tags.categories[0].id),
+        category: String(categoryId),
+        platform: String(platformId),
         body: promptData.data.content.prompt,
         description: promptData.data.content.description,
         source: promptData.data.content.sourceUrl || '',
