@@ -4,22 +4,12 @@ import PromptContentBox from './_components/PromptContentBox';
 import PromptDetailHeader from './_components/PromptDetailHeader';
 import { usePromptDetail } from '../../hooks/prompts/usePromptDetail';
 import Divider from '../../components/Divider/Divider';
-import { useMemo } from 'react';
-import { useMyPromptIds } from '../../hooks/prompts/usePromptList';
 
 const PromptDetailPage = () => {
   const { promptId: promptIdParam } = useParams<{ promptId: string }>();
   const promptId = promptIdParam ? Number(promptIdParam) : null;
   const { promptData, loading, error } = usePromptDetail(Number.isNaN(promptId) ? null : promptId);
-  const { promptIds } = useMyPromptIds();
 
-  const isMyPrompt = useMemo(() => {
-    if (!promptId) return [];
-
-    const promptIdSet = new Set(promptIds);
-
-    return promptIdSet.has(promptId);
-  }, [promptId, promptIds]);
 
   if (loading) {
     return (
@@ -40,8 +30,6 @@ const PromptDetailPage = () => {
   }
 
   const { content } = promptData;
-
-  console.log(isMyPrompt);
 
   return (
     <div className="flex flex-col gap-8 pt-4 w-[80%]">
