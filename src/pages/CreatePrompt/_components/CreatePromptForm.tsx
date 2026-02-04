@@ -1,12 +1,16 @@
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
 
 import Button from '../../../components/Button/Button';
 import FormField from '../../../components/Form/FormField';
 import { Input } from '../../../components/Input/Input';
 
 import useCreatePrompt from '../../../hooks/prompts/useCreatePrompt';
+import { useUpdatePrompt } from '../../../hooks/prompts/useUpdatePrompt';
 import { useMetaOptions } from '../../../hooks/common/useMetaOptions';
+import { getPromptDetail } from '../../../apis/prompts/prompts';
 
 interface PromptFormValues {
   title: string;
@@ -19,10 +23,22 @@ interface PromptFormValues {
   anonymous: boolean;
 }
 
-const CreatePromptForm = () => {
+interface CreatePromptFormProps {
+  promptId?: string;
+  isEditMode?: boolean;
+}
+
+const CreatePromptForm = ({ promptId, isEditMode = false }: CreatePromptFormProps) => {
   const navigate = useNavigate();
-  const { mutate, isPending } = useCreatePrompt();
-  const { register, handleSubmit } = useForm<PromptFormValues>({
+
+  const { categoryOptions, platformOptions } = useMetaOptions();
+
+  const { mutate: createMutate, isPending: isCreating } = useCreatePrompt();
+  const { mutate: updateMutate, isPending: isUpdating } = useUpdatePrompt();
+
+  const isPending = isCreating || isUpdating;
+
+  const { register, handleSubmit, reset } = useForm<PromptFormValues>({
     defaultValues: {
       anonymous: false,
       category: '',
@@ -30,25 +46,60 @@ const CreatePromptForm = () => {
     },
   });
 
-  const { categoryOptions, platformOptions } = useMetaOptions();
+  const { data: promptData, isLoading: isFetching } = useQuery({
+    queryKey: ['prompt', promptId],
+    queryFn: () => getPromptDetail(Number(promptId)),
+    enabled: isEditMode && !!promptId,
+  });
 
-  const onSubmit = (prompt: PromptFormValues) => {
-    const categoryId = Number(prompt.category);
-    const platformId = Number(prompt.platform);
+  useEffect(() => {
+    if (isEditMode && promptData) {
+      const categoryId = promptData.data.tags.categories[0]?.id ?? '';
+      const platformId = promptData.data.tags.platforms[0]?.id ?? '';
 
-    const formattedSourceUrl = prompt.source?.startsWith('https://') ? prompt.source : null;
+      reset({
+        title: promptData.data.content.title,
+        category: String(categoryId),
+        platform: String(platformId),
+        body: promptData.data.content.prompt,
+        description: promptData.data.content.description,
+        source: promptData.data.content.sourceUrl || '',
+        tips: promptData.data.content.tip || '',
+        anonymous: promptData.data.author.isAnonymous,
+      });
+    }
+  }, [promptData, isEditMode, reset]);
 
-    mutate({
-      title: prompt.title,
-      description: prompt.description,
-      prompt: prompt.body,
-      tip: prompt.tips,
+  const onSubmit = (formValues: PromptFormValues) => {
+    const categoryId = Number(formValues.category);
+    const platformId = Number(formValues.platform);
+
+    const formattedSourceUrl = formValues.source?.startsWith('https://') ? formValues.source : null;
+
+    const prompt = {
+      title: formValues.title,
+      description: formValues.description,
+      prompt: formValues.body,
+      tip: formValues.tips,
       sourceUrl: formattedSourceUrl,
-      isAnonymous: prompt.anonymous,
+      isAnonymous: formValues.anonymous,
       categoryIds: [categoryId],
       platformIds: [platformId],
-    });
+    };
+
+    if (isEditMode && promptId) {
+      updateMutate({
+        promptId: Number(promptId),
+        prompt: prompt,
+      });
+    } else {
+      createMutate(prompt);
+    }
   };
+
+  if (isEditMode && isFetching) {
+    return <div className="py-10 text-center text-gray-500">데이터를 불러오는 중...</div>;
+  }
 
   return (
     <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
@@ -122,7 +173,7 @@ const CreatePromptForm = () => {
           취소
         </Button>
         <Button className="w-full" variant="primary" type="submit" disabled={isPending}>
-          {isPending ? '등록 중...' : '등록하기'}
+          {isPending ? '저장 중...' : isEditMode ? '수정하기' : '등록하기'}
         </Button>
       </div>
     </form>

@@ -53,7 +53,7 @@ const NavigationBar = () => {
   };
 
   return (
-    <header className="bg-white w-full border-b border-gray-200 sticky top-0 z-50 px-4">
+    <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-200 shadow-[0_1px_3px_0_rgba(0,0,0,0.05)]">
       <div className="max-w-7xl mx-auto">
         <div className="flex items-center justify-between h-16">
           <BasicLogo />

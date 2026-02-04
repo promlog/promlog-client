@@ -1,7 +1,8 @@
 import { useQuery, keepPreviousData } from '@tanstack/react-query';
-import { getPromptList } from '../../apis/prompts/prompts';
+import { getMyPrompt, getPromptList } from '../../apis/prompts/prompts';
 import { mapPromptListItemDTO } from '../../mappers/promptMapper';
 import type { GetPromptListParams, PromptListMeta } from '../../apis/prompts/prompts.types';
+import { useAuth } from '../../contexts/useAuth';
 
 const defaultParams: GetPromptListParams = {
   page: 1,
@@ -37,4 +38,17 @@ export const usePromptList = (params?: GetPromptListParams) => {
     error,
     isError,
   };
+};
+
+export const useMyPromptIds = () => {
+  const { isLoggedIn } = useAuth();
+
+  const { data } = useQuery({
+    queryKey: ['prompts', 'me'],
+    queryFn: getMyPrompt,
+    enabled: isLoggedIn,
+    staleTime: 30_000,
+  });
+
+  return { myPromptIds: data ?? [] };
 };
