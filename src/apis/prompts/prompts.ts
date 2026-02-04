@@ -40,6 +40,14 @@ export const deletePrompt = async (promptId: number) => {
   return data;
 };
 
+export const updatePrompt = async (
+  promptId: number,
+  prompt: CreatePromptRequest
+): Promise<CreatePromptResponse> => {
+  const { data } = await API.patch(`/api/prompts/${promptId}`, prompt);
+  return data;
+};
+
 export const getMyPrompt = async (): Promise<number[]> => {
   const { data } = await API.get('/api/prompts/me');
 
