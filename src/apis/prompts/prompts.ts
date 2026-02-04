@@ -34,7 +34,7 @@ export const createPrompt = async (prompt: CreatePromptRequest): Promise<CreateP
   return data;
 };
 
-export const deletePrompt = async (promptId: number) => {
+export const deletePrompt = async (promptId: number): Promise<CreatePromptResponse> => {
   const { data } = await API.delete(`/api/prompts/${promptId}`);
 
   return data;
