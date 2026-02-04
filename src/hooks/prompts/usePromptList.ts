@@ -50,5 +50,5 @@ export const useMyPromptIds = () => {
     staleTime: 30_000,
   });
 
-  return { promptIds: data ?? [] };
+  return { myPromptIds: data ?? [] };
 };

@@ -11,6 +11,7 @@ import useMyLikedPromptIds from '../../../hooks/likes/useMyLikedPromptIds';
 import type { PromptDTO } from '../../../mappers/promptMapper';
 import { Dialog } from '../../../components/NavigationBar/_components/Dialog';
 import { useMyPromptIds } from '../../../hooks/prompts/usePromptList';
+import useDeletePrompt from '../../../hooks/prompts/useDeletePrompt';
 
 interface PromptDetailHeaderProps {
   prompt: PromptDTO;
@@ -24,7 +25,22 @@ const PromptDetailHeader = ({ prompt }: PromptDetailHeaderProps) => {
 
   const { likedIds } = useMyLikedPromptIds();
   const { mutate: toggleLike } = useLikePrompt();
-  const { promptIds } = useMyPromptIds();
+  const { myPromptIds } = useMyPromptIds();
+  const { mutate: deleteMutate } = useDeletePrompt();
+
+  const isMyPrompt = useMemo(() => {
+    if (!id || !myPromptIds) return false;
+
+    const myPromptIdset = new Set(myPromptIds);
+
+    return myPromptIdset.has(id);
+  }, [id, myPromptIds]);
+
+  const handleDelete = () => {
+    if (confirm('정말 삭제하시겠습니까? 복구할 수 없습니다.')) {
+      deleteMutate(id);
+    }
+  };
 
   const isLiked = useMemo(() => {
     return likedIds.includes(id);
@@ -45,14 +61,6 @@ const PromptDetailHeader = ({ prompt }: PromptDetailHeaderProps) => {
     bookmarkAction: () => alert('북마크 기능 준비 중'),
   };
 
-  const isMyPrompt = useMemo(() => {
-    if (!id) return [];
-
-    const promptIdSet = new Set(promptIds);
-
-    return promptIdSet.has(id);
-  }, [id, promptIds]);
-
   return (
     <>
       <div className="flex flex-col gap-3">
@@ -68,6 +76,7 @@ const PromptDetailHeader = ({ prompt }: PromptDetailHeaderProps) => {
                   variant="ghost"
                   icon="delete"
                   size="lg"
+                  onClick={handleDelete}
                   className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50"
                 />
               </div>
