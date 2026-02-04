@@ -12,8 +12,9 @@ export const useUpdatePrompt = () => {
       updatePrompt(promptId, prompt),
 
     onSuccess: (_, variables) => {
-      queryClient.invalidateQueries({ queryKey: ['prompt', String(variables.promptId)] });
+      queryClient.invalidateQueries({ queryKey: ['prompt', variables.promptId] });
       queryClient.invalidateQueries({ queryKey: ['prompts'] });
+      queryClient.invalidateQueries({ queryKey: ['prompts', 'me'] });
 
       alert('프롬프트가 수정되었습니다.');
       navigate(`/prompts/${variables.promptId}`);

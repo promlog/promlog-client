@@ -10,7 +10,7 @@ const useDeletePrompt = () => {
     mutationFn: (promptId: number) => deletePrompt(promptId),
     onSuccess: () => {
       alert('프롬프트가 삭제되었습니다.');
-      queryClient.invalidateQueries({ queryKey: ['prompts'] });
+      queryClient.invalidateQueries({ queryKey: ['prompts', 'me'] });
       navigate('/');
     },
     onError: (error) => {
