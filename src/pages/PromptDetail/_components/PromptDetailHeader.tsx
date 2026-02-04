@@ -82,6 +82,8 @@ const PromptDetailHeader = ({ prompt }: PromptDetailHeaderProps) => {
                   icon="edit"
                   size="lg"
                   onClick={handleEdit}
+                  aria-label="프롬프트 수정"
+                  title="프롬프트 수정"
                   className="p-2 text-gray-400"
                 />
                 <Button
@@ -89,6 +91,8 @@ const PromptDetailHeader = ({ prompt }: PromptDetailHeaderProps) => {
                   icon="delete"
                   size="lg"
                   onClick={handleDelete}
+                  aria-label="프롬프트 삭제"
+                  title="프롬프트 삭제"
                   className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50"
                 />
               </div>
