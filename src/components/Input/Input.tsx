@@ -33,16 +33,17 @@ SelectItem.displayName = 'Input.SelectItem';
 
 const SelectField = ({
   options,
-  placeholder = '선택해주세요',
+  placeholder,
   className,
+  defaultValue,
   ref,
   ...props
 }: SelectFieldProps) => {
   return (
-    <SelectPrimitive.Root {...props}>
+    <SelectPrimitive.Root defaultValue={defaultValue} {...props}>
       <SelectPrimitive.Trigger
         ref={ref}
-        className={`flex items-center justify-between gap-2 py-2 data-placeholder:text-gray-400 data-[state=open]:border-brand-purple-300 data-[state=open]:bg-brand-purple-light ${CommonStyle} ${
+        className={`flex items-center justify-between gap-2 py-2 outline-none focus-visible:border-brand-purple-500 data-placeholder:text-gray-400 data-[state=open]:border-brand-purple-300 data-[state=open]:bg-brand-purple-light text-[0.9625rem] ${CommonStyle} ${
           className ?? ''
         }`}>
         <SelectPrimitive.Value placeholder={placeholder} />
@@ -52,7 +53,7 @@ const SelectField = ({
       </SelectPrimitive.Trigger>
       <SelectPrimitive.Portal>
         <SelectPrimitive.Content
-          className="relative max-h-96 overflow-hidden text-gray-900 left-0 bg-white border border-gray-200 rounded-lg shadow-lg z-50 min-w-50 py-1 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2"
+          className="relative overflow-hidden text-gray-900 left-0 bg-white border border-gray-200 rounded-lg shadow-lg z-50 min-w-50 py-1 data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2"
           position="popper"
           sideOffset={4}>
           <SelectPrimitive.Viewport>

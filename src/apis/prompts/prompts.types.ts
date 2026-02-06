@@ -56,8 +56,10 @@ export interface PromptListResponse {
   };
 }
 
+export type SortType = 'latest' | 'likes' | 'views';
+
 export interface GetPromptListParams {
-  sort?: 'latest' | 'oldest';
+  sort?: SortType;
   page?: number;
   size?: number;
 }

@@ -1,14 +1,31 @@
+import { useMemo } from 'react';
+import { useSearchParams } from 'react-router-dom';
+
 import Banner from '../../components/Banner/Banner';
 import PromptCard from './_components/PromptCard';
-import { usePromptList } from '../../hooks/prompts/usePromptList';
 import Pagination from '../../components/Pagination/Pagination';
-import { useMemo, useState } from 'react';
+import { Input } from '../../components/Input/Input';
+import { TextLabel } from '../../components/Label/Label';
+
+import { SORT_OPTIONS } from '../../config/constants';
+import { usePromptList } from '../../hooks/prompts/usePromptList';
 import useMyLikedPromptIds from '../../hooks/likes/useMyLikedPromptIds';
 
-const PromptListPage = () => {
-  const [page, setPage] = useState(1);
+import type { SortType } from '../../apis/prompts/prompts.types';
 
-  const { prompts: publicPrompts, meta, loading, error } = usePromptList({ page, size: 21 });
+const PromptListPage = () => {
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const page = Number(searchParams.get('page')) || 1;
+  const sortOrder = (searchParams.get('sort') as SortType) || 'latest';
+
+  const {
+    prompts: publicPrompts,
+    meta,
+    loading,
+    error,
+  } = usePromptList({ page, size: 21, sort: sortOrder });
+
   const { likedIds } = useMyLikedPromptIds();
 
   const mergedPrompts = useMemo(() => {
@@ -22,6 +39,22 @@ const PromptListPage = () => {
       isBookmarked: false, // 임시
     }));
   }, [publicPrompts, likedIds]);
+
+  const handleSortChange = (newSort: string) => {
+    setSearchParams({
+      sort: newSort,
+      page: '1',
+    });
+  };
+
+  const handlePageChange = (newPage: number) => {
+    setSearchParams({
+      sort: sortOrder,
+      page: String(newPage),
+    });
+
+    window.scrollTo(0, 0);
+  };
 
   if (loading) {
     return (
@@ -40,14 +73,29 @@ const PromptListPage = () => {
   }
 
   return (
-    <div className="space-y-6 flex flex-col gap-5">
+    <div className="space-y-6 flex flex-col flex-1">
       <Banner title="전체 프롬프트" subtitle="다양한 AI 프롬프트를 공유하고 발견하세요" />
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+      <div className="flex justify-between gap-3 items-center">
+        <TextLabel className="flex pt-4">
+          <p className="pl-1 text-brand-purple">{meta.totalElements}</p>개의 프롬프트
+        </TextLabel>
+        <Input.SelectField
+          defaultValue={SORT_OPTIONS[0].value}
+          value={sortOrder}
+          options={SORT_OPTIONS}
+          onValueChange={handleSortChange}
+        />
+      </div>
+      <div className="w-full grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {mergedPrompts.map((prompt) => (
           <PromptCard key={prompt.id} prompt={prompt} router={`/${prompt.id}`} />
         ))}
       </div>
-      <Pagination currentPage={meta.page} totalSize={meta.totalPages} onPageChange={setPage} />
+      <Pagination
+        currentPage={meta.page}
+        totalSize={meta.totalPages}
+        onPageChange={handlePageChange}
+      />
     </div>
   );
 };

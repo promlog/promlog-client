@@ -18,5 +18,6 @@ export interface SelectFieldProps extends ComponentPropsWithRef<typeof SelectPri
   options: SelectOption[];
   placeholder?: string;
   className?: string;
+  defaultValue?: string;
   ref?: React.Ref<HTMLButtonElement>;
 }
