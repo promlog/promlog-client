@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 
@@ -38,13 +38,23 @@ const CreatePromptForm = ({ promptId, isEditMode = false }: CreatePromptFormProp
 
   const isPending = isCreating || isUpdating;
 
-  const { register, handleSubmit, reset } = useForm<PromptFormValues>({
+  const { control, register, handleSubmit, reset } = useForm<PromptFormValues>({
     defaultValues: {
       anonymous: false,
       category: '',
       platform: '',
     },
   });
+
+  const safeCategoryOptions = categoryOptions.map((opt) => ({
+    ...opt,
+    value: String(opt.value),
+  }));
+
+  const safePlatformOptions = platformOptions.map((opt) => ({
+    ...opt,
+    value: String(opt.value),
+  }));
 
   const { data: promptData, isLoading: isFetching } = useQuery({
     queryKey: ['prompt', promptId],
@@ -111,17 +121,33 @@ const CreatePromptForm = ({ promptId, isEditMode = false }: CreatePromptFormProp
         />
       </FormField>
       <FormField htmlFor="category" label="카테고리" required>
-        <Input.SelectField
-          id="category"
-          options={[{ value: -1, label: '카테고리를 선택하세요' }, ...categoryOptions]}
-          {...register('category', { required: true })}
+        <Controller
+          control={control}
+          name="category"
+          rules={{ required: true }}
+          render={({ field }) => (
+            <Input.SelectField
+              {...field}
+              placeholder="카테고리를 선택하세요"
+              options={safeCategoryOptions}
+              onValueChange={field.onChange}
+            />
+          )}
         />
       </FormField>
       <FormField htmlFor="platform" label="플랫폼" required>
-        <Input.SelectField
-          id="platform"
-          options={[{ value: -1, label: '플랫폼을 선택하세요' }, ...platformOptions]}
-          {...register('platform', { required: true })}
+        <Controller
+          control={control}
+          name="platform"
+          rules={{ required: true }}
+          render={({ field }) => (
+            <Input.SelectField
+              {...field}
+              placeholder="플랫폼을 선택하세요"
+              options={safePlatformOptions}
+              onValueChange={field.onChange}
+            />
+          )}
         />
       </FormField>
       <FormField htmlFor="body" label="프롬프트 내용" required>

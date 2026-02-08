@@ -1,5 +1,5 @@
 // 자동으로 생성된 파일입니다. 수정을 금지합니다.
-// 마지막 수정 일시 Wed Feb 04 2026 02:20:04 GMT+0900 (대한민국 표준시)
+// 마지막 수정 일시 Fri Feb 06 2026 20:14:10 GMT+0900 (대한민국 표준시)
 
 import * as Icon from './generated/index';
 
@@ -16,6 +16,8 @@ export const iconMap = {
   backLine: Icon.BackLine,
   bookmark: Icon.Bookmark,
   calendar: Icon.Calendar,
+  check: Icon.Check,
+  chevronDown: Icon.ChevronDown,
   chevronLeft: Icon.ChevronLeft,
   chevronRight: Icon.ChevronRight,
   circuit: Icon.Circuit,

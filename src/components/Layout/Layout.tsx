@@ -14,7 +14,7 @@ const Layout = () => {
       <NavigationBar />
       <main
         className={cn(
-          'max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8',
+          'max-w-7xl mx-auto px-4 py-8 sm:px-6 lg:px-8 lg:w-6xl md:w-4xl sm:w-2xl',
           !isMainPage &&
             'lg:w-7xl min-h-[calc(100vh-4rem)] bg-white/95 backdrop-blur-sm border-x border-gray-200 shadow-[0_1px_3px_0_rgba(0,0,0,0.05)] flex justify-center sm:w-4xl'
         )}>

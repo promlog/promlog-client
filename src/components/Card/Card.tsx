@@ -82,7 +82,7 @@ const Card = ({ id, badges, writer, content, stats, actions, active, ...restProp
   return (
     <article
       key={id}
-      className="flex flex-col h-58 gap-3 px-5 pt-5 pb-4 group bg-white rounded-2xl border border-gray-200 overflow-hidden cursor-pointer transition-all shadow-[0_1px_3px_0_rgba(0,0,0,0.04)] hover:shadow-[0_8px_24px_-4px_rgba(109,91,208,0.12),0_4px_8px_-2px_rgba(109,91,208,0.08)] hover:-translate-y-0.5 hover:border-brand-purple-border"
+      className="flex flex-col h-58 gap-3 px-5 pt-5 pb-4 group bg-white rounded-2xl border border-gray-200 overflow-hidden cursor-pointer transition-all shadow-[0_1px_3px_0_rgba(0,0,0,0.04)] hover:shadow-[0_8px_24px_-4px_rgba(109,91,208,0.12),0_4px_8px_-2px_rgba(109,91,208,0.08)] hover:translate-y-0.5 hover:border-brand-purple-border"
       {...restProps}>
       <CardHeader badges={badges} />
       <CardMain writer={writer} content={content} />
