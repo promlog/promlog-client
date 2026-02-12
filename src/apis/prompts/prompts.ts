@@ -14,10 +14,15 @@ export const getPromptList = async ({
   sort = 'latest',
   page = 1,
   size = 20,
+  categoryIds,
+  platformIds,
 }: GetPromptListParams = {}): Promise<PromptListResponse> => {
-  const { data } = await API.get('/api/prompts', {
-    params: { sort, page, size },
-  });
+  const params: GetPromptListParams = { sort, page, size };
+
+  if (categoryIds) params.categoryIds = categoryIds;
+  if (platformIds) params.platformIds = platformIds;
+
+  const { data } = await API.get('/api/prompts', { params });
 
   return data;
 };

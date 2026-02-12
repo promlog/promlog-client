@@ -62,6 +62,8 @@ export interface GetPromptListParams {
   sort?: SortType;
   page?: number;
   size?: number;
+  categoryIds?: number[];
+  platformIds?: number[];
 }
 
 // prompt detail
