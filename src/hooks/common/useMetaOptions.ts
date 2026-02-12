@@ -2,6 +2,7 @@ import { useQuery } from '@tanstack/react-query';
 import { getCategories, getPlatforms } from '../../apis/common/meta';
 
 interface SelectOption {
+  slug: string;
   value: number;
   label: string;
 }
@@ -12,7 +13,8 @@ export const useMetaOptions = () => {
     queryFn: getCategories,
     staleTime: Infinity,
     gcTime: Infinity,
-    select: (data): SelectOption[] => data.map((item) => ({ label: item.name, value: item.id })),
+    select: (data): SelectOption[] =>
+      data.map((item) => ({ label: item.name, value: item.id, slug: item.slug })),
   });
 
   const platformQuery = useQuery({
@@ -20,7 +22,8 @@ export const useMetaOptions = () => {
     queryFn: getPlatforms,
     staleTime: Infinity,
     gcTime: Infinity,
-    select: (data): SelectOption[] => data.map((item) => ({ label: item.name, value: item.id })),
+    select: (data): SelectOption[] =>
+      data.map((item) => ({ label: item.name, value: item.id, slug: item.slug })),
   });
 
   return {
