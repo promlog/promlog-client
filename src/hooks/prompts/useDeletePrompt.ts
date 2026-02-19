@@ -1,5 +1,6 @@
-import { useNavigate } from 'react-router-dom';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useNavigate } from 'react-router-dom';
+
 import { deletePrompt } from '../../apis/prompts/prompts';
 
 const useDeletePrompt = () => {

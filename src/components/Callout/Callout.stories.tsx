@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+
 import Callout from './Callout';
 
 const meta: Meta<typeof Callout> = {
@@ -38,10 +39,15 @@ export const WithList: Story = {
     <Callout {...args}>
       <Callout.List>
         <Callout.Item>
-          작성한 모든 프롬프트는 삭제되지 않으며, 작성자가 '탈퇴한 사용자'로 표시됩니다.
+          작성한 모든 프롬프트는 삭제되지 않으며, 작성자가 '탈퇴한 사용자'로
+          표시됩니다.
         </Callout.Item>
-        <Callout.Item>탈퇴 후 동일한 계정으로 7일간 재가입이 불가능합니다.</Callout.Item>
-        <Callout.Item>탈퇴 처리 후에는 회원 정보를 복구할 수 없습니다.</Callout.Item>
+        <Callout.Item>
+          탈퇴 후 동일한 계정으로 7일간 재가입이 불가능합니다.
+        </Callout.Item>
+        <Callout.Item>
+          탈퇴 처리 후에는 회원 정보를 복구할 수 없습니다.
+        </Callout.Item>
       </Callout.List>
     </Callout>
   ),

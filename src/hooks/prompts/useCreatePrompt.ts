@@ -1,8 +1,8 @@
-import { useNavigate } from 'react-router-dom';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useNavigate } from 'react-router-dom';
 
-import type { CreatePromptRequest } from '../../apis/prompts/prompts.types';
 import { createPrompt } from '../../apis/prompts/prompts';
+import type { CreatePromptRequest } from '../../apis/prompts/prompts.types';
 
 const useCreatePrompt = () => {
   const navigate = useNavigate();

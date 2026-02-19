@@ -1,8 +1,10 @@
 import { useEffect, useRef } from 'react';
+
 import { useNavigate, useSearchParams } from 'react-router-dom';
+
 import { postKakaoCode } from '../../apis/auth/kakao';
-import { authStorage } from '../../lib/authStorage';
 import { useAuth } from '../../contexts/useAuth';
+import { authStorage } from '../../lib/authStorage';
 
 const KakaoCallbackPage = () => {
   const [searchParams] = useSearchParams();
@@ -35,7 +37,7 @@ const KakaoCallbackPage = () => {
     (async () => {
       try {
         const { data } = await postKakaoCode(code);
-        
+
         setUser({
           id: data.account.id,
           name: data.account.nickname,

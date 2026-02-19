@@ -1,8 +1,12 @@
-import { useQuery, keepPreviousData } from '@tanstack/react-query';
+import { keepPreviousData, useQuery } from '@tanstack/react-query';
+
 import { getMyPrompt, getPromptList } from '../../apis/prompts/prompts';
-import { mapPromptListItemDTO } from '../../mappers/promptMapper';
-import type { GetPromptListParams, PromptListMeta } from '../../apis/prompts/prompts.types';
+import type {
+  GetPromptListParams,
+  PromptListMeta,
+} from '../../apis/prompts/prompts.types';
 import { useAuth } from '../../contexts/useAuth';
+import { mapPromptListItemDTO } from '../../mappers/promptMapper';
 
 const defaultParams: GetPromptListParams = {
   page: 1,

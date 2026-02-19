@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+
 import type { InputLabelProps } from '../Label/Label.types';
 
 interface FormFieldBaseProps {
@@ -7,4 +8,5 @@ interface FormFieldBaseProps {
   required?: boolean;
 }
 
-export type FormFieldProps = FormFieldBaseProps & Pick<InputLabelProps, 'htmlFor'>;
+export type FormFieldProps = FormFieldBaseProps &
+  Pick<InputLabelProps, 'htmlFor'>;

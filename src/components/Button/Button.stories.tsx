@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+
 import Button from './Button';
 
 const meta: Meta<typeof Button> = {
@@ -11,7 +12,14 @@ const meta: Meta<typeof Button> = {
   argTypes: {
     variant: {
       control: 'select',
-      options: ['primary', 'secondary', 'tertiary', 'destructive', 'outline', 'ghost'],
+      options: [
+        'primary',
+        'secondary',
+        'tertiary',
+        'destructive',
+        'outline',
+        'ghost',
+      ],
     },
     size: {
       description: '버튼 크기 결정',

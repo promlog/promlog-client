@@ -17,7 +17,10 @@ interface PromptMappedDTO {
   };
 }
 
-export type PromptDTO = Omit<PromptListItemResponse, 'status' | 'author' | 'tags' | 'stats'> &
+export type PromptDTO = Omit<
+  PromptListItemResponse,
+  'status' | 'author' | 'tags' | 'stats'
+> &
   PromptMappedDTO;
 
 const mapPromptItemDTO = (item: PromptListItemResponse): PromptDTO => {

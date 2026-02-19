@@ -1,6 +1,7 @@
 import { createContext, useContext, useEffect, useState } from 'react';
-import { authStorage } from '../lib/authStorage';
+
 import { fetchAccount } from '../apis/auth/account';
+import { authStorage } from '../lib/authStorage';
 
 export type AuthUser = {
   id: number;
@@ -33,7 +34,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
       try {
         const response = await fetchAccount();
 
-        if (response) setUser({ id: response.data.id, name: response.data.nickname });
+        if (response)
+          setUser({ id: response.data.id, name: response.data.nickname });
         else authStorage.clearTokens();
       } catch (error) {
         console.error('API 호출 실패', error);
@@ -57,7 +59,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
         setUser,
         logout,
         loading,
-      }}>
+      }}
+    >
       {children}
     </AuthContext.Provider>
   );
@@ -66,7 +69,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 export const useAuth = () => {
   const context = useContext(AuthContext);
 
-  if (!context) throw new Error('useAuth는 AuthProvider 내부에서 사용해야 합니다.');
+  if (!context)
+    throw new Error('useAuth는 AuthProvider 내부에서 사용해야 합니다.');
 
   return context;
 };

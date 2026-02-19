@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
-import { useAuth } from '../../contexts/useAuth';
+
 import { getMyLikedPromptIds } from '../../apis/prompts/prompts';
+import { useAuth } from '../../contexts/useAuth';
 
 const useMyLikedPromptIds = () => {
   const { isLoggedIn } = useAuth();

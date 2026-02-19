@@ -13,7 +13,8 @@ const SvgClose = (props: SVGProps<SVGSVGElement>) => (
     aria-hidden="true"
     className="close_svg__lucide close_svg__lucide-x close_svg__w-5 close_svg__h-5"
     viewBox="0 0 24 24"
-    {...props}>
+    {...props}
+  >
     <path d="M18 6 6 18M6 6l12 12" />
   </svg>
 );

@@ -1,6 +1,10 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
+
 import { likePrompt, unlikePrompt } from '../../apis/prompts/prompts';
-import type { PromptListItemResponse, PromptListResponse } from '../../apis/prompts/prompts.types';
+import type {
+  PromptListItemResponse,
+  PromptListResponse,
+} from '../../apis/prompts/prompts.types';
 
 interface ToggleLikeParams {
   promptId: number;
@@ -46,16 +50,19 @@ const useLikePrompt = () => {
               items: newItems,
             },
           };
-        }
+        },
       );
 
-      queryClient.setQueryData(['prompts', 'me', 'likes'], (oldIds: number[] = []) => {
-        if (liked) {
-          return oldIds.includes(promptId) ? oldIds : [...oldIds, promptId];
-        } else {
-          return oldIds.filter((id) => id !== promptId);
-        }
-      });
+      queryClient.setQueryData(
+        ['prompts', 'me', 'likes'],
+        (oldIds: number[] = []) => {
+          if (liked) {
+            return oldIds.includes(promptId) ? oldIds : [...oldIds, promptId];
+          } else {
+            return oldIds.filter((id) => id !== promptId);
+          }
+        },
+      );
     },
 
     onError: (error) => {

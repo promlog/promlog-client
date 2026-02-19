@@ -1,4 +1,5 @@
 import axios from 'axios';
+
 import { authStorage } from '../lib/authStorage';
 
 export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
@@ -19,5 +20,5 @@ API.interceptors.request.use(
 
     return config;
   },
-  (error) => Promise.reject(error)
+  (error) => Promise.reject(error),
 );

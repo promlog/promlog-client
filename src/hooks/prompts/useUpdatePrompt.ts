@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
+
 import { updatePrompt } from '../../apis/prompts/prompts';
 import type { CreatePromptRequest } from '../../apis/prompts/prompts.types';
 
@@ -8,11 +9,18 @@ export const useUpdatePrompt = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: ({ promptId, prompt }: { promptId: number; prompt: CreatePromptRequest }) =>
-      updatePrompt(promptId, prompt),
+    mutationFn: ({
+      promptId,
+      prompt,
+    }: {
+      promptId: number;
+      prompt: CreatePromptRequest;
+    }) => updatePrompt(promptId, prompt),
 
     onSuccess: (_, variables) => {
-      queryClient.invalidateQueries({ queryKey: ['prompt', variables.promptId] });
+      queryClient.invalidateQueries({
+        queryKey: ['prompt', variables.promptId],
+      });
       queryClient.invalidateQueries({ queryKey: ['prompts'] });
       queryClient.invalidateQueries({ queryKey: ['prompts', 'me'] });
 

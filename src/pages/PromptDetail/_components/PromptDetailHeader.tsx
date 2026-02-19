@@ -1,18 +1,17 @@
 import { useMemo, useState } from 'react';
+
 import { useNavigate } from 'react-router-dom';
 
 import Badge from '../../../components/Badge/Badge';
 import Button from '../../../components/Button/Button';
 import { TextLabel } from '../../../components/Label/Label';
-
+import { Dialog } from '../../../components/NavigationBar/_components/Dialog';
 import { useAuth } from '../../../contexts/useAuth';
 import useLikePrompt from '../../../hooks/likes/useLikePrompt';
 import useMyLikedPromptIds from '../../../hooks/likes/useMyLikedPromptIds';
-
-import type { PromptDTO } from '../../../mappers/promptMapper';
-import { Dialog } from '../../../components/NavigationBar/_components/Dialog';
-import { useMyPromptIds } from '../../../hooks/prompts/usePromptList';
 import useDeletePrompt from '../../../hooks/prompts/useDeletePrompt';
+import { useMyPromptIds } from '../../../hooks/prompts/usePromptList';
+import type { PromptDTO } from '../../../mappers/promptMapper';
 
 interface PromptDetailHeaderProps {
   prompt: PromptDTO;
@@ -116,7 +115,8 @@ const PromptDetailHeader = ({ prompt }: PromptDetailHeaderProps) => {
               variant="tertiary"
               size="sm"
               isActive={isLiked}
-              onClick={actions.likeAction}>
+              onClick={actions.likeAction}
+            >
               {stats.likeCount}
             </Button>
             <Button
@@ -124,13 +124,17 @@ const PromptDetailHeader = ({ prompt }: PromptDetailHeaderProps) => {
               variant="tertiary"
               size="sm"
               isActive={false}
-              onClick={actions.bookmarkAction}>
+              onClick={actions.bookmarkAction}
+            >
               저장
             </Button>
           </div>
         </div>
       </div>
-      <Dialog.Login open={isLoginModalOpen} onOpenChange={setIsLoginModalOpen} />
+      <Dialog.Login
+        open={isLoginModalOpen}
+        onOpenChange={setIsLoginModalOpen}
+      />
     </>
   );
 };

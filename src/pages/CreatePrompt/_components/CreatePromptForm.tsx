@@ -1,16 +1,16 @@
 import { useEffect } from 'react';
+
+import { useQuery } from '@tanstack/react-query';
 import { Controller, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { useQuery } from '@tanstack/react-query';
 
+import { getPromptDetail } from '../../../apis/prompts/prompts';
 import Button from '../../../components/Button/Button';
 import FormField from '../../../components/Form/FormField';
 import { Input } from '../../../components/Input/Input';
-
+import { useMetaOptions } from '../../../hooks/common/useMetaOptions';
 import useCreatePrompt from '../../../hooks/prompts/useCreatePrompt';
 import { useUpdatePrompt } from '../../../hooks/prompts/useUpdatePrompt';
-import { useMetaOptions } from '../../../hooks/common/useMetaOptions';
-import { getPromptDetail } from '../../../apis/prompts/prompts';
 
 interface PromptFormValues {
   title: string;
@@ -28,7 +28,10 @@ interface CreatePromptFormProps {
   isEditMode?: boolean;
 }
 
-const CreatePromptForm = ({ promptId, isEditMode = false }: CreatePromptFormProps) => {
+const CreatePromptForm = ({
+  promptId,
+  isEditMode = false,
+}: CreatePromptFormProps) => {
   const navigate = useNavigate();
 
   const { categoryOptions, platformOptions } = useMetaOptions();
@@ -84,7 +87,9 @@ const CreatePromptForm = ({ promptId, isEditMode = false }: CreatePromptFormProp
     const categoryId = Number(formValues.category);
     const platformId = Number(formValues.platform);
 
-    const formattedSourceUrl = formValues.source?.startsWith('https://') ? formValues.source : null;
+    const formattedSourceUrl = formValues.source?.startsWith('https://')
+      ? formValues.source
+      : null;
 
     const prompt = {
       title: formValues.title,
@@ -108,7 +113,11 @@ const CreatePromptForm = ({ promptId, isEditMode = false }: CreatePromptFormProp
   };
 
   if (isEditMode && isFetching) {
-    return <div className="py-10 text-center text-gray-500">데이터를 불러오는 중...</div>;
+    return (
+      <div className="py-10 text-center text-gray-500">
+        데이터를 불러오는 중...
+      </div>
+    );
   }
 
   return (
@@ -195,10 +204,16 @@ const CreatePromptForm = ({ promptId, isEditMode = false }: CreatePromptFormProp
           variant="secondary"
           type="button"
           onClick={() => navigate(-1)}
-          disabled={isPending}>
+          disabled={isPending}
+        >
           취소
         </Button>
-        <Button className="w-full" variant="primary" type="submit" disabled={isPending}>
+        <Button
+          className="w-full"
+          variant="primary"
+          type="submit"
+          disabled={isPending}
+        >
           {isPending ? '저장 중...' : isEditMode ? '수정하기' : '등록하기'}
         </Button>
       </div>

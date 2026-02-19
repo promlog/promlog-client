@@ -11,9 +11,14 @@ const Pagination = ({
   onPageChange,
   className,
 }: PaginationProps) => {
-  const paginationRange = usePagination({ totalSize, siblingCount, currentPage });
+  const paginationRange = usePagination({
+    totalSize,
+    siblingCount,
+    currentPage,
+  });
 
-  if (currentPage === 0 || totalSize <= 0 || !paginationRange?.length) return null;
+  if (currentPage === 0 || totalSize <= 0 || !paginationRange?.length)
+    return null;
 
   const lastPage = totalSize;
 
@@ -37,7 +42,8 @@ const Pagination = ({
           return (
             <span
               key={`dots-${index}`}
-              className="px-2 text-gray-400 flex items-center select-none">
+              className="px-2 text-gray-400 flex items-center select-none"
+            >
               {DOTS}
             </span>
           );
@@ -48,9 +54,12 @@ const Pagination = ({
             variant="ghost"
             key={pageNumber}
             className={`${ButtonStyles.base} ${
-              pageNumber === currentPage ? ButtonStyles.active : ButtonStyles.inactive
+              pageNumber === currentPage
+                ? ButtonStyles.active
+                : ButtonStyles.inactive
             }`}
-            onClick={() => onPageChange(Number(pageNumber))}>
+            onClick={() => onPageChange(Number(pageNumber))}
+          >
             {pageNumber}
           </Button>
         );
@@ -62,7 +71,9 @@ const Pagination = ({
         disabled={currentPage === lastPage}
         aria-label="다음 페이지"
         className={`${ButtonStyles.base} ${
-          currentPage === lastPage ? ButtonStyles.disabled : ButtonStyles.inactive
+          currentPage === lastPage
+            ? ButtonStyles.disabled
+            : ButtonStyles.inactive
         }`}
       />
     </div>

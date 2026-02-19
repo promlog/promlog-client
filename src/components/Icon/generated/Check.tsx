@@ -16,7 +16,8 @@ const SvgCheck = (props: SVGProps<SVGSVGElement>) => (
       color: 'var(--brand-purple)',
     }}
     viewBox="0 0 24 24"
-    {...props}>
+    {...props}
+  >
     <path d="M20 6 9 17l-5-5" />
   </svg>
 );

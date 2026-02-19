@@ -15,7 +15,8 @@ export const fetchAccount = async (): Promise<UserInfoResponse | null> => {
 
 export const deleteAccount = async () => {
   try {
-    const { data } = await API.delete<AccountDeleteResponse>('/api/accounts/me');
+    const { data } =
+      await API.delete<AccountDeleteResponse>('/api/accounts/me');
 
     return data;
   } catch (error: any) {

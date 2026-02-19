@@ -1,4 +1,5 @@
 import type { ComponentPropsWithRef } from 'react';
+
 import * as SelectPrimitive from '@radix-ui/react-select';
 
 export type InputFieldProps = ComponentPropsWithRef<'input'> & {
@@ -14,7 +15,9 @@ interface SelectOption {
   label: string;
 }
 
-export interface SelectFieldProps extends ComponentPropsWithRef<typeof SelectPrimitive.Root> {
+export interface SelectFieldProps extends ComponentPropsWithRef<
+  typeof SelectPrimitive.Root
+> {
   options: SelectOption[];
   placeholder?: string;
   className?: string;

@@ -1,14 +1,13 @@
-import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 
-import { useAuth } from '../../../contexts/useAuth';
+import { useNavigate } from 'react-router-dom';
 
 import Card from '../../../components/Card/Card';
 import type { CardBadges } from '../../../components/Card/Card.types';
 import { Dialog } from '../../../components/NavigationBar/_components/Dialog';
-
+import { useAuth } from '../../../contexts/useAuth';
 import useLikePrompt from '../../../hooks/likes/useLikePrompt';
 import type { PromptDTO } from '../../../mappers/promptMapper';
-import { useState } from 'react';
 
 interface PromptActive {
   isLiked: boolean;
@@ -74,7 +73,10 @@ const PromptCard = ({ prompt, router }: PromptCardProps) => {
         active={active}
         onClick={() => navigate(router)}
       />
-      <Dialog.Login open={isLoginModalOpen} onOpenChange={setIsLoginModalOpen} />
+      <Dialog.Login
+        open={isLoginModalOpen}
+        onOpenChange={setIsLoginModalOpen}
+      />
     </>
   );
 };

@@ -13,7 +13,8 @@ const SvgChevronDown = (props: SVGProps<SVGSVGElement>) => (
     aria-hidden="true"
     className="chevron-down_svg__lucide chevron-down_svg__lucide-chevron-down chevron-down_svg__w-4 chevron-down_svg__h-4 chevron-down_svg__transition-transform"
     viewBox="0 0 24 24"
-    {...props}>
+    {...props}
+  >
     <path d="m6 9 6 6 6-6" />
   </svg>
 );

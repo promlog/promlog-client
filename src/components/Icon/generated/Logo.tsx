@@ -8,7 +8,8 @@ const SvgLogo = (props: SVGProps<SVGSVGElement>) => (
     viewBox="0 0 32 32"
     width="1em"
     height="1em"
-    {...props}>
+    {...props}
+  >
     <path
       fill="#6D5BD0"
       d="M28 9a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v10a4 4 0 0 0 4 4h3l5 4 5-4h3a4 4 0 0 0 4-4z"
