@@ -5,6 +5,7 @@ import { useAuth } from '@/contexts/useAuth';
 import { mapPromptListItemDTO } from '@/mappers/promptMapper';
 import {
   type GetPromptListParams,
+  type PromptListItemResponse,
   type PromptListMeta,
   promptApi,
 } from '@/services';
@@ -50,12 +51,15 @@ export const useMyPromptIds = () => {
   const query = useQuery({
     queryKey: QUERY_KEY.PROMPT.ME,
     queryFn: promptApi.getMyPrompts,
+    select: (response) => ({
+      id: response.data.items.map((item: PromptListItemResponse) => item.id),
+    }),
     enabled: isLoggedIn,
     staleTime: 30_000,
   });
 
   return {
     ...query,
-    myPromptIds: query.data ?? [],
+    myPromptIds: query.data?.id ?? [],
   };
 };

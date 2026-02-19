@@ -2,6 +2,8 @@ import { useMemo, useState } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 
+import { useDeletePrompt } from '@/hooks';
+
 import Badge from '../../../components/Badge/Badge';
 import Button from '../../../components/Button/Button';
 import { TextLabel } from '../../../components/Label/Label';
@@ -9,7 +11,6 @@ import { Dialog } from '../../../components/NavigationBar/_components/Dialog';
 import { useAuth } from '../../../contexts/useAuth';
 import useLikePrompt from '../../../hooks/likes/useLikePrompt';
 import useMyLikedPromptIds from '../../../hooks/likes/useMyLikedPromptIds';
-import useDeletePrompt from '../../../hooks/prompts/useDeletePrompt';
 import { useMyPromptIds } from '../../../hooks/prompts/usePromptList';
 import type { PromptDTO } from '../../../mappers/promptMapper';
 

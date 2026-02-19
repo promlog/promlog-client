@@ -1,5 +1,6 @@
-import Button from '../../../components/Button/Button';
-import useCopyPrompt from '../../../hooks/prompts/useCopyPrompt';
+import Button from '@/components/Button/Button';
+import { useCopyPrompt } from '@/hooks';
+import copyToClipboard from '@/utils/clipboard';
 
 interface CopyPromptButtonProps {
   promptId: number;
@@ -7,24 +8,33 @@ interface CopyPromptButtonProps {
 }
 
 const CopyPromptButton = ({ promptId, content }: CopyPromptButtonProps) => {
-  const { copy, isLoading } = useCopyPrompt({
-    onSuccess: () => {
-      alert('프롬프트가 복사되었습니다.');
-    },
-    onError: () => {
-      alert('복사에 실패했습니다. 다시 시도해 주세요.');
-    },
-  });
+  const { mutate: incrementCopyCount, isPending } = useCopyPrompt();
+
+  const handleCopyClick = async () => {
+    try {
+      const isCopied = await copyToClipboard(content);
+
+      if (isCopied) {
+        incrementCopyCount(promptId);
+        alert('클립보드에 복사되었습니다.');
+      } else {
+        throw new Error('클립보드 쓰기 실패');
+      }
+    } catch (error) {
+      console.error('복사 중 에러 발생:', error);
+      alert('복사에 실패했습니다. 권한을 확인해 주세요.');
+    }
+  };
 
   return (
     <Button
       variant="tertiary"
       icon="copy"
       size="sm"
-      onClick={() => copy(promptId, content)}
-      disabled={isLoading}
+      onClick={() => handleCopyClick()}
+      disabled={isPending}
     >
-      {isLoading ? '복사 중...' : '복사'}
+      {isPending ? '복사 중...' : '복사'}
     </Button>
   );
 };

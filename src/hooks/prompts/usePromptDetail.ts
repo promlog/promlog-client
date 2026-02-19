@@ -4,11 +4,14 @@ import { QUERY_KEY } from '@/constants';
 import { mapPromptDetailDTO } from '@/mappers/promptMapper';
 import { promptApi } from '@/services';
 
-export const usePromptDetail = (promptId: number) => {
+export const usePromptDetail = (promptId: number | null) => {
   const query = useQuery({
-    queryKey: QUERY_KEY.PROMPT.DETAIL(promptId),
-    queryFn: () => promptApi.getDetail(promptId),
+    queryKey: promptId
+      ? QUERY_KEY.PROMPT.DETAIL(promptId)
+      : QUERY_KEY.PROMPT.DETAILS,
+    queryFn: () => promptApi.getDetail(promptId!),
     select: (response) => mapPromptDetailDTO(response),
+    enabled: !!promptId,
   });
 
   return {

@@ -9,9 +9,7 @@ import PromptDetailHeader from './_components/PromptDetailHeader';
 const PromptDetailPage = () => {
   const { promptId: promptIdParam } = useParams<{ promptId: string }>();
   const promptId = promptIdParam ? Number(promptIdParam) : null;
-  const { promptData, loading, error } = usePromptDetail(
-    Number.isNaN(promptId) ? null : promptId,
-  );
+  const { detailedPrompt, loading, error } = usePromptDetail(promptId);
 
   if (loading) {
     return (
@@ -24,7 +22,7 @@ const PromptDetailPage = () => {
     );
   }
 
-  if (error || !promptData) {
+  if (error || !detailedPrompt) {
     return (
       <div className="flex flex-col gap-5">
         <BackToListButton />
@@ -35,13 +33,13 @@ const PromptDetailPage = () => {
     );
   }
 
-  const { content } = promptData;
+  const { content } = detailedPrompt;
 
   return (
     <div className="flex flex-col gap-8 pt-4 w-[80%]">
       <BackToListButton />
       <div className="space-y-6 flex flex-col gap-2">
-        <PromptDetailHeader prompt={promptData} />
+        <PromptDetailHeader prompt={detailedPrompt} />
         <Divider />
         <div className="flex flex-col gap-13">
           <div className="flex flex-col gap-3 pt-5">
@@ -50,10 +48,7 @@ const PromptDetailPage = () => {
             </h2>
             <p className="leading-[1.8] text-gray-700">{content.description}</p>
           </div>
-          <PromptContentBox
-            promptId={promptId!}
-            description={content.description}
-          />
+          <PromptContentBox promptId={promptId!} prompt={content.prompt} />
           {content.sourceUrl && (
             <div className="flex flex-col gap-3">
               <h2 className="text-2xl font-semibold text-gray-900">출처</h2>

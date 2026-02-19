@@ -1,6 +1,7 @@
 import { useNavigate, useParams } from 'react-router-dom';
 
-import Button from '../../components/Button/Button';
+import Button from '@/components/Button/Button';
+
 import CreatePromptForm from './_components/CreatePromptForm';
 
 const CreatePromptPage = () => {
@@ -24,7 +25,7 @@ const CreatePromptPage = () => {
           />
         </header>
         <div className="p-6">
-          <CreatePromptForm promptId={promptId} isEditMode={isEditMode} />
+          <CreatePromptForm promptId={promptId} />
         </div>
       </section>
     </div>
