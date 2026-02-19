@@ -1,38 +1,53 @@
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import { incrementCopyCount } from '../../apis/prompts/prompts';
-import copyToClipboard from '../../utils/clipboard';
+import { QUERY_KEY } from '@/constants';
+import { type PromptDetailResponse, actionApi } from '@/services';
 
-interface UseCopyPromptProps {
-  onSuccess?: () => void;
-  onError?: (error: unknown) => void;
-}
+export const useCopyPrompt = () => {
+  const queryClient = useQueryClient();
 
-// TODO: 낙관적 업데이트 추가 필요
-const useCopyPrompt = ({ onSuccess, onError }: UseCopyPromptProps = {}) => {
-  const mutation = useMutation({
-    mutationFn: (promptId: number) => incrementCopyCount(promptId),
-    onError: (error) => {
-      console.warn('Copy count increment failed', error);
-      onError?.(error);
+  return useMutation({
+    mutationFn: (promptId: number) => actionApi.incrementCopyCount(promptId),
+    onMutate: async (promptId) => {
+      await queryClient.cancelQueries({
+        queryKey: QUERY_KEY.PROMPT.DETAIL(promptId),
+      });
+
+      const previousPrompt = queryClient.getQueryData(
+        QUERY_KEY.PROMPT.DETAIL(promptId),
+      );
+
+      if (previousPrompt) {
+        queryClient.setQueryData(
+          QUERY_KEY.PROMPT.DETAIL(promptId),
+          (old: PromptDetailResponse) => ({
+            ...old,
+            data: {
+              ...old.data,
+              stats: {
+                copyCount: old.data.stats.copyCount + 1,
+              },
+            },
+          }),
+        );
+      }
+
+      return { previousPrompt };
+    },
+    onError: (_, promptId, context) => {
+      if (context?.previousPrompt) {
+        queryClient.setQueryData(
+          QUERY_KEY.PROMPT.DETAIL(promptId),
+          context.previousPrompt,
+        );
+      }
+    },
+    onSettled: (_, __, promptId) => {
+      queryClient.invalidateQueries({
+        queryKey: QUERY_KEY.PROMPT.DETAIL(promptId),
+      });
+
+      queryClient.invalidateQueries({ queryKey: QUERY_KEY.PROMPT.LISTS });
     },
   });
-
-  const handleCopy = async (promptId: number, content: string) => {
-    const isCopied = await copyToClipboard(content);
-
-    if (isCopied) {
-      mutation.mutate(promptId);
-      onSuccess?.();
-    } else {
-      onError?.(new Error('Clipboard write failed'));
-    }
-  };
-
-  return {
-    copy: handleCopy,
-    isLoading: mutation.isPending,
-  };
 };
-
-export default useCopyPrompt;

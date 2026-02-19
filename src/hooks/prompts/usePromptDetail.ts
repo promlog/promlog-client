@@ -1,29 +1,19 @@
-import { useEffect, useState } from 'react';
+import { useQuery } from '@tanstack/react-query';
 
-import { getPromptDetail } from '../../apis/prompts/prompts';
-import { type PromptDTO, mapPromptDetailDTO } from '../../mappers/promptMapper';
+import { QUERY_KEY } from '@/constants';
+import { mapPromptDetailDTO } from '@/mappers/promptMapper';
+import { promptApi } from '@/services';
 
-export const usePromptDetail = (promptId: number | null) => {
-  const [promptData, setPromptData] = useState<PromptDTO | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<unknown>(null);
+export const usePromptDetail = (promptId: number) => {
+  const query = useQuery({
+    queryKey: QUERY_KEY.PROMPT.DETAIL(promptId),
+    queryFn: () => promptApi.getDetail(promptId),
+    select: (response) => mapPromptDetailDTO(response),
+  });
 
-  useEffect(() => {
-    if (promptId == null) return;
-
-    (async () => {
-      try {
-        const response = await getPromptDetail(promptId);
-        const mapped = mapPromptDetailDTO(response);
-
-        setPromptData(mapped);
-      } catch (error) {
-        setError(error);
-      } finally {
-        setLoading(false);
-      }
-    })();
-  }, [promptId]);
-
-  return { promptData, loading, error };
+  return {
+    detailedPrompt: query.data ?? null,
+    loading: query.isLoading,
+    error: query.isError,
+  };
 };

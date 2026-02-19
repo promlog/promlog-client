@@ -1,5 +1,5 @@
 import { DOTS } from '../../config/constants';
-import { usePagination } from '../../hooks/prompts/usePagination';
+import { usePagination } from '../../hooks/common/usePagination';
 import Button from '../Button/Button';
 import { ButtonStyles } from './Pagination.styles';
 import type { PaginationProps } from './Pagination.types';

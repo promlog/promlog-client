@@ -1,1 +1,2 @@
-export * from '@/constants/endpoints/endpoints';
+export * from './endpoints';
+export * from './query';

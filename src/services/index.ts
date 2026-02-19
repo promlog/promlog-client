@@ -1,1 +1,1 @@
-import './prompt';
+export * from '@/services/prompt';

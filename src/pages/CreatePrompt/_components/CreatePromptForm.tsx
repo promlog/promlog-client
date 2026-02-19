@@ -4,13 +4,13 @@ import { useQuery } from '@tanstack/react-query';
 import { Controller, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
+import Button from '@/components/Button/Button';
+import FormField from '@/components/Form/FormField';
+import { Input } from '@/components/Input/Input';
+import { useCreatePrompt, useUpdatePrompt } from '@/hooks';
+
 import { getPromptDetail } from '../../../apis/prompts/prompts';
-import Button from '../../../components/Button/Button';
-import FormField from '../../../components/Form/FormField';
-import { Input } from '../../../components/Input/Input';
 import { useMetaOptions } from '../../../hooks/common/useMetaOptions';
-import useCreatePrompt from '../../../hooks/prompts/useCreatePrompt';
-import { useUpdatePrompt } from '../../../hooks/prompts/useUpdatePrompt';
 
 interface PromptFormValues {
   title: string;

@@ -10,7 +10,7 @@ import type {
   PromptLikeResponse,
   PromptListItemResponse,
   PromptListResponse,
-} from '../../services/prompt/base/prompts.types';
+} from '../../services/prompt/prompts.types';
 
 export const getPromptList = async ({
   sort = 'latest',

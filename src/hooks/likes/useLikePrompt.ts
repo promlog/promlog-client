@@ -4,7 +4,7 @@ import { likePrompt, unlikePrompt } from '../../apis/prompts/prompts';
 import type {
   PromptListItemResponse,
   PromptListResponse,
-} from '../../services/prompt/base/prompts.types';
+} from '../../services/prompt/prompts.types';
 
 interface ToggleLikeParams {
   promptId: number;

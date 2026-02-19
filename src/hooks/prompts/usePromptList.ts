@@ -1,12 +1,13 @@
 import { keepPreviousData, useQuery } from '@tanstack/react-query';
 
-import { getMyPrompt, getPromptList } from '../../apis/prompts/prompts';
-import { useAuth } from '../../contexts/useAuth';
-import { mapPromptListItemDTO } from '../../mappers/promptMapper';
-import type {
-  GetPromptListParams,
-  PromptListMeta,
-} from '../../services/prompt/base/prompts.types';
+import { QUERY_KEY } from '@/constants';
+import { useAuth } from '@/contexts/useAuth';
+import { mapPromptListItemDTO } from '@/mappers/promptMapper';
+import {
+  type GetPromptListParams,
+  type PromptListMeta,
+  promptApi,
+} from '@/services';
 
 const defaultParams: GetPromptListParams = {
   page: 1,
@@ -25,9 +26,9 @@ const defaultMeta: PromptListMeta = {
 export const usePromptList = (params?: GetPromptListParams) => {
   const queryParams = { ...defaultParams, ...params };
 
-  const { data, isLoading, isError, error } = useQuery({
-    queryKey: ['prompts', 'list', queryParams],
-    queryFn: () => getPromptList(queryParams),
+  const query = useQuery({
+    queryKey: QUERY_KEY.PROMPT.LIST(queryParams),
+    queryFn: () => promptApi.getList(queryParams),
     select: (response) => ({
       prompts: response.data.items.map(mapPromptListItemDTO),
       meta: response.data.meta,
@@ -36,23 +37,25 @@ export const usePromptList = (params?: GetPromptListParams) => {
   });
 
   return {
-    prompts: data?.prompts || [],
-    meta: data?.meta || defaultMeta,
-    loading: isLoading,
-    error,
-    isError,
+    ...query,
+    prompts: query.data?.prompts || [],
+    meta: query.data?.meta || defaultMeta,
+    loading: query.isLoading,
   };
 };
 
 export const useMyPromptIds = () => {
   const { isLoggedIn } = useAuth();
 
-  const { data } = useQuery({
-    queryKey: ['prompts', 'me'],
-    queryFn: getMyPrompt,
+  const query = useQuery({
+    queryKey: QUERY_KEY.PROMPT.ME,
+    queryFn: promptApi.getMyPrompts,
     enabled: isLoggedIn,
     staleTime: 30_000,
   });
 
-  return { myPromptIds: data ?? [] };
+  return {
+    ...query,
+    myPromptIds: query.data ?? [],
+  };
 };
