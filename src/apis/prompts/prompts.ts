@@ -1,4 +1,5 @@
-import { API } from '../../config/api';
+import { API } from '@/config/api';
+
 import type {
   CopyPromptResponse,
   CreatePromptRequest,
