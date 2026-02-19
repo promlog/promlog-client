@@ -2,7 +2,7 @@ import type {
   AuthorInfo,
   PromptDetailResponse,
   PromptListItemResponse,
-} from '../apis/prompts/prompts.types';
+} from '../services/prompt/base/prompts.types';
 
 interface PromptMappedDTO {
   author: Omit<AuthorInfo, 'isAnonymous'>;

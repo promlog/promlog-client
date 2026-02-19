@@ -11,7 +11,7 @@ const Router = () => {
     <Routes>
       <Route element={<Layout />}>
         <Route path="/" element={<PromptListPage />} />
-        <Route path="/:promptId" element={<PromptDetailPage />} />
+        <Route path="/prompts/:promptId" element={<PromptDetailPage />} />
         <Route path="/auth/kakao/callback" element={<KakaoCallbackPage />} />
         <Route path="/write" element={<CreatePromptPage />} />
         <Route path="/edit/:promptId" element={<CreatePromptPage />} />

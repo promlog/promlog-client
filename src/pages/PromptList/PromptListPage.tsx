@@ -2,7 +2,6 @@ import { useMemo } from 'react';
 
 import { useSearchParams } from 'react-router-dom';
 
-import type { SortType } from '../../apis/prompts/prompts.types';
 import Banner from '../../components/Banner/Banner';
 import { Input } from '../../components/Input/Input';
 import { TextLabel } from '../../components/Label/Label';
@@ -11,6 +10,7 @@ import { SORT_OPTIONS } from '../../config/constants';
 import { useMetaOptions } from '../../hooks/common/useMetaOptions';
 import useMyLikedPromptIds from '../../hooks/likes/useMyLikedPromptIds';
 import { usePromptList } from '../../hooks/prompts/usePromptList';
+import type { SortType } from '../../services/prompt/base/prompts.types';
 import PromptCard from './_components/PromptCard';
 
 const PromptListPage = () => {

@@ -72,15 +72,6 @@ export interface PromptDetailResponse {
   data: PromptListItemResponse;
 }
 
-// increment copy count
-export interface CopyPromptResponse {
-  success: boolean;
-  data: {
-    copyCount: number;
-    promptId: number;
-  };
-}
-
 // create prompt
 export interface CreatePromptRequest {
   title: string;
@@ -95,13 +86,4 @@ export interface CreatePromptRequest {
 
 export interface CreatePromptResponse {
   success: boolean;
-}
-
-// prompt like
-export interface PromptLikeResponse {
-  success: boolean;
-  data: {
-    liked: boolean;
-    likeCount: number;
-  };
 }
