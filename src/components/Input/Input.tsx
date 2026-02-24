@@ -66,7 +66,7 @@ const SelectField = ({
         >
           <SelectPrimitive.Viewport>
             {options.map((option) => (
-              <SelectItem key={option.value} value={option.value}>
+              <SelectItem key={option.value} value={String(option.value)}>
                 {option.label}
               </SelectItem>
             ))}

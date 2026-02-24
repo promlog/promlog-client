@@ -2,22 +2,15 @@ import { useState } from 'react';
 
 import { useNavigate } from 'react-router-dom';
 
-import Card from '../../../components/Card/Card';
-import type { CardBadges } from '../../../components/Card/Card.types';
-import { Dialog } from '../../../components/NavigationBar/_components/Dialog';
-import { useAuth } from '../../../contexts/useAuth';
-import useLikePrompt from '../../../hooks/likes/useLikePrompt';
-import type { PromptDTO } from '../../../mappers/promptMapper';
-
-interface PromptActive {
-  isLiked: boolean;
-  isBookmarked: boolean;
-}
-
-type mergedPromptDTO = PromptDTO & PromptActive;
+import Card from '@/components/Card/Card';
+import type { CardBadges } from '@/components/Card/Card.types';
+import { Dialog } from '@/components/NavigationBar/_components/Dialog';
+import { useAuth } from '@/contexts/useAuth';
+import { useLikePrompt } from '@/hooks';
+import type { PromptDTO } from '@/mappers';
 
 export interface PromptCardProps {
-  prompt: mergedPromptDTO;
+  prompt: PromptDTO;
   router: string;
 }
 
@@ -50,15 +43,15 @@ const PromptCard = ({ prompt, router }: PromptCardProps) => {
 
       toggleLike({
         promptId: prompt.id,
-        isLiked: prompt.isLiked,
+        isLiked: prompt.stats.isLiked,
       });
     },
     bookmarkAction: () => alert('북마크 기능 준비 중'),
   };
 
   const active = {
-    isLiked: prompt.isLiked,
-    isBookmarked: prompt.isBookmarked,
+    isLiked: prompt.stats.isLiked,
+    isBookmarked: prompt.stats.isBookmarked,
   };
 
   return (

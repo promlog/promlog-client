@@ -1,5 +1,3 @@
-import { useMemo } from 'react';
-
 import { useSearchParams } from 'react-router-dom';
 
 import type { SortType } from '@/services';
@@ -10,7 +8,6 @@ import { TextLabel } from '../../components/Label/Label';
 import Pagination from '../../components/Pagination/Pagination';
 import { SORT_OPTIONS } from '../../config/constants';
 import { useMetaOptions } from '../../hooks/common/useMetaOptions';
-import useMyLikedPromptIds from '../../hooks/likes/useMyLikedPromptIds';
 import { usePromptList } from '../../hooks/prompts/usePromptList';
 import PromptCard from './_components/PromptCard';
 
@@ -20,7 +17,6 @@ const PromptListPage = () => {
   const page = Number(searchParams.get('page')) || 1;
   const sortOrder = (searchParams.get('sort') as SortType) || 'latest';
 
-  const { likedIds } = useMyLikedPromptIds();
   const { categoryOptions, platformOptions } = useMetaOptions();
 
   const categoryParam = searchParams.get('category');
@@ -62,18 +58,6 @@ const PromptListPage = () => {
     { value: '-1', label: '전체 플랫폼' },
     ...platformOptions.map((opt) => ({ label: opt.label, value: opt.slug })),
   ];
-
-  const mergedPrompts = useMemo(() => {
-    if (!publicPrompts) return [];
-
-    const likedIdSet = new Set(likedIds || []);
-
-    return publicPrompts.map((prompt) => ({
-      ...prompt,
-      isLiked: likedIdSet.has(prompt.id),
-      isBookmarked: false, // 임시
-    }));
-  }, [publicPrompts, likedIds]);
 
   const handleSortChange = (newSort: string) => {
     const newParams = new URLSearchParams(searchParams);
@@ -153,13 +137,13 @@ const PromptListPage = () => {
         </div>
       </div>
 
-      {mergedPrompts.length === 0 ? (
+      {publicPrompts.length === 0 ? (
         <div className="flex justify-center py-20 text-gray-500">
           해당하는 프롬프트가 없습니다.
         </div>
       ) : (
         <div className="w-full grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {mergedPrompts.map((prompt) => (
+          {publicPrompts.map((prompt) => (
             <PromptCard
               key={prompt.id}
               prompt={prompt}

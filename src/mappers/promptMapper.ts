@@ -11,6 +11,8 @@ interface PromptMappedDTO {
     likeCount: string | number;
     copyCount: string | number;
     viewCount: string | number;
+    isLiked: boolean;
+    isBookmarked: boolean;
   };
 }
 
@@ -46,6 +48,8 @@ const mapPromptItemDTO = (item: PromptListItemResponse): PromptDTO => {
       likeCount: handleFormattedCount(stats.likeCount),
       copyCount: handleFormattedCount(stats.copyCount),
       viewCount: handleFormattedCount(stats.viewCount),
+      isLiked: stats.isLiked,
+      isBookmarked: stats.isBookmarked,
     },
     tags: {
       category: tags.categories.map((c) => c.name) || ['기타'],

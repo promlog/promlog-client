@@ -6,7 +6,6 @@ export * from './prompts/usePromptList';
 export * from './prompts/useUpdatePrompt';
 
 export * from './likes/useLikePrompt';
-export * from './likes/useMyLikedPromptIds';
 
 export * from './common/useMetaOptions';
 export * from './common/usePagination';

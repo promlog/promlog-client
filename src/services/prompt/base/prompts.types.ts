@@ -17,6 +17,8 @@ export interface PromptStats {
   likeCount: number;
   viewCount: number;
   copyCount: number;
+  isLiked: boolean;
+  isBookmarked: boolean;
 }
 
 export interface TagInfo {

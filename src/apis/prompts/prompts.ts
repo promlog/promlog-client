@@ -1,6 +1,5 @@
 import { API } from '@/config/api';
 import { PROMPT_ACTION_API, PROMPT_API } from '@/constants';
-
 import type {
   CopyPromptResponse,
   CreatePromptRequest,
@@ -10,7 +9,7 @@ import type {
   PromptLikeResponse,
   PromptListItemResponse,
   PromptListResponse,
-} from '../../services/prompt/prompts.types';
+} from '@/services';
 
 export const getPromptList = async ({
   sort = 'latest',
