@@ -55,10 +55,8 @@ const WithdrawDialog = ({ trigger }: DialogCommonProps) => {
     setIsLoading(true);
 
     try {
-      const result = await deleteAccount();
-
-      if (result) logout();
-      else logout();
+      await deleteAccount();
+      logout();
     } catch (error) {
       console.error('회원 탈퇴 실패:', error);
     } finally {
