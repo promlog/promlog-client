@@ -75,12 +75,6 @@ export const incrementCopyCount = async (
   return data;
 };
 
-export const getMyLikedPromptIds = async (): Promise<number[]> => {
-  const { data } = await API.get('/api/prompts/me/likes');
-
-  return data.data.items.map((item: PromptListItemResponse) => item.id);
-};
-
 export const likePrompt = async (
   promptId: number,
 ): Promise<PromptLikeResponse> => {
