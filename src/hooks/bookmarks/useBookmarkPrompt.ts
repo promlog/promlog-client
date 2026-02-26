@@ -79,19 +79,7 @@ export const useBookmarkPrompt = () => {
             ...oldData,
             data: {
               ...oldData.data,
-              items: oldData.data.items.map((item) => {
-                if (item.id === promptId) {
-                  return {
-                    ...item,
-                    stats: {
-                      ...item.stats,
-                      isBookmarked: !isBookmarked,
-                    },
-                  };
-                }
-
-                return item;
-              }),
+              items: oldData.data.items.filter((item) => item.id !== promptId),
             },
           };
         },
