@@ -3,13 +3,12 @@ import { useState } from 'react';
 
 import { Dialog as DialogPrimitive } from 'radix-ui';
 
-import { deleteAccount } from '../../../apis/auth/account';
-import { API_BASE_URL } from '../../../config/api';
-import { useAuth } from '../../../contexts/useAuth';
-import Button from '../../Button/Button';
-import { Dialog as DialogBasic } from '../../Dialog/Dialog';
-import type { DialogProps } from '../../Dialog/Dialog.types';
-import { IconLogo } from '../../Logo/Logo';
+import { deleteAccount } from '@/apis/auth/account';
+import { Button, Dialog as DialogBasic, IconLogo } from '@/components';
+import type { DialogProps } from '@/components/Dialog/Dialog.types';
+import { API_BASE_URL } from '@/config/api';
+import { useAuth } from '@/contexts/useAuth';
+
 import WithdrawIcon from './WithdrawIcon';
 
 type DialogCommonProps = Pick<DialogProps, 'trigger'>;

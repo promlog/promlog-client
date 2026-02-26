@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
 
-import Card from './Card';
+import { Card } from './Card';
 
 const MOCK_CONTENT = {
   title: 'ChatGPT로 블로그 글 작성하기',
