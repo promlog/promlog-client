@@ -1,4 +1,4 @@
-import { API } from '@/config/api';
+import { API } from '@/config/instance';
 import { PROMPT_ACTION_API, PROMPT_API } from '@/constants';
 
 import type { PromptListResponse } from '../base/prompts.types';
