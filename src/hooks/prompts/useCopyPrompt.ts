@@ -25,6 +25,7 @@ export const useCopyPrompt = () => {
             data: {
               ...old.data,
               stats: {
+                ...old.data.stats,
                 copyCount: old.data.stats.copyCount + 1,
               },
             },
