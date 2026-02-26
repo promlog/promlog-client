@@ -21,15 +21,17 @@ const PromptCard = ({ prompt, router }: PromptCardProps) => {
   const { mutate: toggleLike } = useLikePrompt();
   const { mutate: toogleBookmark } = useBookmarkPrompt();
 
+  const { id, content, stats, tags, author } = prompt;
+
   const badges: CardBadges[] = [
     {
-      id: `category-${prompt.id}`,
-      name: prompt.tags.category,
+      id: `category-${id}`,
+      name: tags.category,
       variant: 'category',
     },
     {
-      id: `tag-${prompt.id}`,
-      name: prompt.tags.platform,
+      id: `tag-${id}`,
+      name: tags.platform,
       variant: 'platform',
     },
   ];
@@ -42,8 +44,8 @@ const PromptCard = ({ prompt, router }: PromptCardProps) => {
       }
 
       toggleLike({
-        promptId: prompt.id,
-        isLiked: prompt.stats.isLiked,
+        promptId: id,
+        isLiked: stats.isLiked,
       });
     },
     bookmarkAction: () => {
@@ -53,25 +55,25 @@ const PromptCard = ({ prompt, router }: PromptCardProps) => {
       }
 
       toogleBookmark({
-        promptId: prompt.id,
-        isBookmarked: prompt.stats.isBookmarked,
+        promptId: id,
+        isBookmarked: stats.isBookmarked,
       });
     },
   };
 
   const active = {
-    isLiked: prompt.stats.isLiked,
-    isBookmarked: prompt.stats.isBookmarked,
+    isLiked: stats.isLiked,
+    isBookmarked: stats.isBookmarked,
   };
 
   return (
     <>
       <Card
-        id={prompt.id}
-        writer={prompt.author.nickname}
+        id={id}
+        writer={author.nickname}
         badges={badges}
-        content={prompt.content}
-        stats={prompt.stats}
+        content={content}
+        stats={stats}
         actions={actions}
         active={active}
         onClick={() => navigate(router)}

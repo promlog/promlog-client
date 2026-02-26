@@ -56,7 +56,7 @@ const PromptDetailHeader = ({ prompt }: PromptDetailHeaderProps) => {
 
       toogleBookmark({
         promptId: prompt.id,
-        isBookmarked: prompt.stats.isBookmarked,
+        isBookmarked: stats.isBookmarked,
       });
     },
   };
