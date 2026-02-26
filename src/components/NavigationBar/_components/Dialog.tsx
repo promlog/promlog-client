@@ -45,7 +45,7 @@ const LoginDialog = ({ trigger, open, onOpenChange }: LoginDialogProps) => {
 
 LoginDialog.displayName = 'Dialog.Login';
 
-// TODO: callout/checkbox 컴포넌트 추가 필요, button 컴포넌트 확장 필요
+// TODO: callout/checkbox 컴포넌트 추가 필요
 const WithdrawDialog = ({ trigger }: DialogCommonProps) => {
   const { logout } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
@@ -80,12 +80,6 @@ const WithdrawDialog = ({ trigger }: DialogCommonProps) => {
         </DialogPrimitive.Close>
       }
       secondaryAction={
-        // <button
-        //   type="button"
-        //   onClick={handleWithdraw}
-        //   className="flex-1 px-4 py-3 bg-red-600 rounded-lg hover:bg-red-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
-        //   <span className="text-white">탈퇴하기</span>
-        // </button>
         <Button
           onClick={handleWithdraw}
           variant="destructive"
