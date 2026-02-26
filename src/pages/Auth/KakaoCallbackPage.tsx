@@ -1,5 +1,4 @@
 import { useEffect, useRef } from 'react';
-
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
 import { postKakaoCode } from '../../apis/auth/kakao';
