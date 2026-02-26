@@ -1,43 +1,35 @@
-import { useQuery } from '@tanstack/react-query';
+import { useQueries } from '@tanstack/react-query';
 
-import { getCategories, getPlatforms } from '../../apis/common/meta';
-
-interface SelectOption {
-  slug: string;
-  value: number;
-  label: string;
-}
+import { QUERY_KEY } from '@/constants';
+import { mapToSelectOptions } from '@/mappers';
+import { getCategories, getPlatforms } from '@/services';
 
 export const useMetaOptions = () => {
-  const categoryQuery = useQuery({
-    queryKey: ['meta', 'categories'],
-    queryFn: getCategories,
-    staleTime: Infinity,
-    gcTime: Infinity,
-    select: (data): SelectOption[] =>
-      data.map((item) => ({
-        label: item.name,
-        value: item.id,
-        slug: item.slug,
-      })),
+  const metaOptions = useQueries({
+    queries: [
+      {
+        queryKey: QUERY_KEY.META.categories,
+        queryFn: getCategories,
+        staleTime: Infinity,
+        gcTime: Infinity,
+        select: mapToSelectOptions,
+      },
+      {
+        queryKey: QUERY_KEY.META.platforms,
+        queryFn: getPlatforms,
+        staleTime: Infinity,
+        gcTime: Infinity,
+        select: mapToSelectOptions,
+      },
+    ],
   });
 
-  const platformQuery = useQuery({
-    queryKey: ['meta', 'platforms'],
-    queryFn: getPlatforms,
-    staleTime: Infinity,
-    gcTime: Infinity,
-    select: (data): SelectOption[] =>
-      data.map((item) => ({
-        label: item.name,
-        value: item.id,
-        slug: item.slug,
-      })),
-  });
+  const [categoriesQuery, platformsQuery] = metaOptions;
 
   return {
-    categoryOptions: categoryQuery.data || [],
-    platformOptions: platformQuery.data || [],
-    isLoading: categoryQuery.isLoading || platformQuery.isLoading,
+    categoryOptions: categoriesQuery.data || [],
+    platformOptions: platformsQuery.data || [],
+    isLoading: categoriesQuery.isLoading || platformsQuery.isLoading,
+    isError: categoriesQuery.isError || platformsQuery.isError,
   };
 };

@@ -18,4 +18,9 @@ export const QUERY_KEY = {
   ACTION: {
     LIKES: ['prompts', 'likes'] as const,
   },
+  META: {
+    ALL: ['meta'] as const,
+    categories: ['meta', 'categories'] as const,
+    platforms: ['meta', 'platforms'] as const,
+  },
 };

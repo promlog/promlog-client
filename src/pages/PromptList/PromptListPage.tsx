@@ -1,14 +1,13 @@
 import { useSearchParams } from 'react-router-dom';
 
+import Banner from '@/components/Banner/Banner';
+import { Input } from '@/components/Input/Input';
+import { TextLabel } from '@/components/Label/Label';
+import Pagination from '@/components/Pagination/Pagination';
+import { SORT_OPTIONS } from '@/config/constants';
+import { useMetaOptions, usePromptList } from '@/hooks';
 import type { SortType } from '@/services';
 
-import Banner from '../../components/Banner/Banner';
-import { Input } from '../../components/Input/Input';
-import { TextLabel } from '../../components/Label/Label';
-import Pagination from '../../components/Pagination/Pagination';
-import { SORT_OPTIONS } from '../../config/constants';
-import { useMetaOptions } from '../../hooks/common/useMetaOptions';
-import { usePromptList } from '../../hooks/prompts/usePromptList';
 import PromptCard from './_components/PromptCard';
 
 const PromptListPage = () => {

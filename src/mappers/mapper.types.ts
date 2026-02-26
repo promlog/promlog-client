@@ -8,3 +8,9 @@ export interface PromptFormValues {
   tips: string;
   anonymous: boolean;
 }
+
+export interface SelectOption {
+  label: string;
+  value: number;
+  slug: string;
+}
