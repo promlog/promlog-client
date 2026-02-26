@@ -1,7 +1,6 @@
 import axios from 'axios';
 
 import { tokenManager } from '@/lib/tokenManager';
-import { refreshAccessToken } from '@/services/auth/auth.api';
 
 interface FailedRequest {
   resolve: (token: string | null) => void;
@@ -39,6 +38,8 @@ const processQueue = (error: unknown, token: string | null = null) => {
 API.interceptors.response.use(
   (response) => response,
   async (error) => {
+    const { refreshAccessToken } = await import('@/services/auth/auth.api');
+
     const originalRequest = error.config;
 
     if (error.response?.status === 401 && !originalRequest._retry) {
