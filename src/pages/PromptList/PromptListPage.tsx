@@ -1,20 +1,29 @@
+import { useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
 import Banner from '@/components/Banner/Banner';
+import Button from '@/components/Button/Button';
 import { Input } from '@/components/Input/Input';
 import { TextLabel } from '@/components/Label/Label';
 import Pagination from '@/components/Pagination/Pagination';
 import { SORT_OPTIONS } from '@/config/constants';
+import { useAuth } from '@/contexts/useAuth';
 import { useMetaOptions, usePromptList } from '@/hooks';
+import { useMyBookmarkList } from '@/hooks';
+import type { PromptDTO } from '@/mappers';
 import type { SortType } from '@/services';
 
 import PromptCard from './_components/PromptCard';
 
+type TabType = 'all' | 'bookmarks';
+
 const PromptListPage = () => {
+  const { isLoggedIn } = useAuth();
   const [searchParams, setSearchParams] = useSearchParams();
 
   const page = Number(searchParams.get('page')) || 1;
   const sortOrder = (searchParams.get('sort') as SortType) || 'latest';
+  const currentTab = (searchParams.get('tab') as TabType) || 'all';
 
   const { categoryOptions, platformOptions } = useMetaOptions();
 
@@ -22,58 +31,70 @@ const PromptListPage = () => {
   const platformParam = searchParams.get('platform');
 
   const selectedCategory = categoryOptions.find(
-    (option) => option.slug === categoryParam,
+    (opt) => opt.slug === categoryParam,
   );
   const selectedPlatform = platformOptions.find(
-    (option) => option.slug === platformParam,
+    (opt) => opt.slug === platformParam,
   );
 
-  const categoryIdParam = selectedCategory
-    ? Number(selectedCategory.value)
+  const categoryIds = selectedCategory
+    ? [Number(selectedCategory.value)]
     : undefined;
-  const platformIdParam = selectedPlatform
-    ? Number(selectedPlatform.value)
+  const platformIds = selectedPlatform
+    ? [Number(selectedPlatform.value)]
     : undefined;
 
-  const {
-    prompts: publicPrompts,
-    meta,
-    loading,
-    error,
-  } = usePromptList({
+  const allPromptsQuery = usePromptList({
     page,
     size: 21,
     sort: sortOrder,
-    categoryIds: categoryIdParam ? [categoryIdParam] : undefined,
-    platformIds: platformIdParam ? [platformIdParam] : undefined,
+    categoryIds,
+    platformIds,
   });
 
-  const formattedCategoryOptions = [
-    { value: '-1', label: '전체 카테고리' },
-    ...categoryOptions.map((opt) => ({ label: opt.label, value: opt.slug })),
-  ];
+  const bookmarksPromptsQuery = useMyBookmarkList({
+    page,
+    size: 21,
+    enabled: currentTab === 'bookmarks',
+  });
 
-  const formattedPlatformOptions = [
-    { value: '-1', label: '전체 플랫폼' },
-    ...platformOptions.map((opt) => ({ label: opt.label, value: opt.slug })),
-  ];
+  const { prompts, meta, loading, error } =
+    currentTab === 'bookmarks' ? bookmarksPromptsQuery : allPromptsQuery;
 
-  const handleSortChange = (newSort: string) => {
+  useEffect(() => {
+    if (!isLoggedIn && currentTab === 'bookmarks') {
+      const newParams = new URLSearchParams(searchParams);
+
+      newParams.set('tab', 'all');
+      newParams.set('page', '1');
+
+      setSearchParams(newParams);
+    }
+  }, [isLoggedIn, currentTab, searchParams, setSearchParams]);
+
+  const updateParams = (key: string, value: string) => {
     const newParams = new URLSearchParams(searchParams);
 
-    newParams.set('sort', newSort);
+    if (value) newParams.set(key, value);
+    else newParams.delete(key);
+
+    return newParams;
+  };
+
+  const handleTabChange = (newTab: string) => {
+    const newParams = new URLSearchParams(searchParams);
+
+    newParams.set('tab', newTab);
     newParams.set('page', '1');
 
     setSearchParams(newParams);
   };
 
-  const handlePageChange = (newPage: number) => {
-    const newParams = new URLSearchParams(searchParams);
+  const handleSortChange = (newSort: string) => {
+    const newParams = updateParams('sort', newSort);
 
-    newParams.set('page', String(newPage));
+    newParams.set('page', '1');
     setSearchParams(newParams);
-
-    window.scrollTo(0, 0);
   };
 
   const handleFilterChange = (key: string, value: string) => {
@@ -85,6 +106,23 @@ const PromptListPage = () => {
     newParams.set('page', '1');
     setSearchParams(newParams);
   };
+
+  const handlePageChange = (newPage: number) => {
+    const newParams = updateParams('page', String(newPage));
+
+    setSearchParams(newParams);
+    window.scrollTo(0, 0);
+  };
+
+  const formattedCategoryOptions = [
+    { value: '-1', label: '전체 카테고리' },
+    ...categoryOptions.map((opt) => ({ label: opt.label, value: opt.slug })),
+  ];
+
+  const formattedPlatformOptions = [
+    { value: '-1', label: '전체 플랫폼' },
+    ...platformOptions.map((opt) => ({ label: opt.label, value: opt.slug })),
+  ];
 
   if (loading) {
     return (
@@ -103,60 +141,95 @@ const PromptListPage = () => {
   }
 
   return (
-    <div className="space-y-6 flex flex-col flex-1">
-      <Banner
-        title="전체 프롬프트"
-        subtitle="다양한 AI 프롬프트를 공유하고 발견하세요"
-      />
-      <div className="flex justify-between gap-3 items-center">
-        <div className="flex items-center gap-3">
-          <Input.SelectField
-            placeholder="카테고리 선택"
-            value={categoryParam || '-1'}
-            options={formattedCategoryOptions}
-            onValueChange={(value) => handleFilterChange('category', value)}
-          />
-          <Input.SelectField
-            placeholder="플랫폼 선택"
-            value={platformParam || '-1'}
-            options={formattedPlatformOptions}
-            onValueChange={(value) => handleFilterChange('platform', value)}
+    <div className="space-y-6 flex flex-col flex-1 min-h-[calc(100vh-8rem)]">
+      <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+        <div className="flex-1">
+          <Banner
+            title="프롬프트 모음"
+            subtitle="다양한 AI 프롬프트를 공유하고 발견하세요"
           />
         </div>
-        <div className="flex gap-3 items-center">
-          <Input.SelectField
-            value={sortOrder}
-            options={SORT_OPTIONS}
-            onValueChange={handleSortChange}
-          />
-          <TextLabel className="flex">
-            <p className="pl-1 text-brand-purple">{meta.totalElements}</p>개의
-            프롬프트
-          </TextLabel>
-        </div>
+
+        {isLoggedIn ? (
+          <>
+            <div className="flex items-center gap-2">
+              <Button
+                variant={currentTab === 'all' ? 'primary' : 'tertiary'}
+                onClick={() => handleTabChange('all')}
+              >
+                전체
+              </Button>
+              <Button
+                icon="bookmark"
+                variant={currentTab === 'bookmarks' ? 'primary' : 'tertiary'}
+                onClick={() => handleTabChange('bookmarks')}
+              >
+                저장한 프롬프트
+              </Button>
+            </div>
+          </>
+        ) : undefined}
+      </div>
+      <div className="flex flex-col md:flex-row justify-between gap-3 md:items-center">
+        {currentTab === 'all' ? (
+          <>
+            <div className="flex items-center gap-3">
+              <Input.SelectField
+                placeholder="카테고리 선택"
+                value={categoryParam || '-1'}
+                options={formattedCategoryOptions}
+                onValueChange={(value) => handleFilterChange('category', value)}
+              />
+              <Input.SelectField
+                placeholder="플랫폼 선택"
+                value={platformParam || '-1'}
+                options={formattedPlatformOptions}
+                onValueChange={(value) => handleFilterChange('platform', value)}
+              />
+            </div>
+            <div className="flex gap-3 items-center justify-end">
+              <Input.SelectField
+                value={sortOrder}
+                options={SORT_OPTIONS}
+                onValueChange={handleSortChange}
+              />
+              <TextLabel className="flex whitespace-nowrap">
+                <p className="pl-1 text-brand-purple">{meta.totalElements}</p>
+                개의 프롬프트
+              </TextLabel>
+            </div>
+          </>
+        ) : undefined}
       </div>
 
-      {publicPrompts.length === 0 ? (
-        <div className="flex justify-center py-20 text-gray-500">
-          해당하는 프롬프트가 없습니다.
-        </div>
-      ) : (
-        <div className="w-full grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {publicPrompts.map((prompt) => (
-            <PromptCard
-              key={prompt.id}
-              prompt={prompt}
-              router={`/prompts/${prompt.id}`}
-            />
-          ))}
-        </div>
-      )}
-
-      <Pagination
-        currentPage={meta.page}
-        totalSize={meta.totalPages}
-        onPageChange={handlePageChange}
-      />
+      <div className="h-full flex">
+        {prompts.length === 0 ? (
+          <div className="flex flex-col items-center justify-center h-[calc(100vh-32rem)] text-gray-500 gap-2 flex-1">
+            <p>
+              {currentTab === 'bookmarks'
+                ? '아직 저장한 프롬프트가 없습니다.'
+                : '해당하는 프롬프트가 없습니다.'}
+            </p>
+          </div>
+        ) : (
+          <div className="w-full grid gap-4 md:grid-cols-2 lg:grid-cols-3 flex-1 content-start">
+            {prompts.map((prompt: PromptDTO) => (
+              <PromptCard
+                key={prompt.id}
+                prompt={prompt}
+                router={`/prompts/${prompt.id}`}
+              />
+            ))}
+          </div>
+        )}
+      </div>
+      <div className="mt-auto">
+        <Pagination
+          currentPage={meta.page}
+          totalSize={meta.totalPages}
+          onPageChange={handlePageChange}
+        />
+      </div>
     </div>
   );
 };

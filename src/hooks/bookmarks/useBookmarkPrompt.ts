@@ -26,6 +26,7 @@ export const useBookmarkPrompt = () => {
 
     onMutate: async ({ promptId, isBookmarked }) => {
       await queryClient.cancelQueries({ queryKey: QUERY_KEY.PROMPT.LISTS });
+      await queryClient.cancelQueries({ queryKey: QUERY_KEY.PROMPT.BOOKMARKS });
       await queryClient.cancelQueries({
         queryKey: QUERY_KEY.PROMPT.DETAIL(promptId),
       });
@@ -34,12 +35,43 @@ export const useBookmarkPrompt = () => {
         queryKey: QUERY_KEY.PROMPT.LISTS,
       });
 
+      const previousBookmarks = queryClient.getQueriesData({
+        queryKey: QUERY_KEY.PROMPT.BOOKMARKS,
+      });
+
       const previousDetail = queryClient.getQueryData(
         QUERY_KEY.PROMPT.DETAIL(promptId),
       );
 
       queryClient.setQueriesData(
         { queryKey: QUERY_KEY.PROMPT.LISTS },
+        (oldData: PromptListResponse | undefined) => {
+          if (!oldData?.data?.items) return oldData;
+
+          return {
+            ...oldData,
+            data: {
+              ...oldData.data,
+              items: oldData.data.items.map((item) => {
+                if (item.id === promptId) {
+                  return {
+                    ...item,
+                    stats: {
+                      ...item.stats,
+                      isBookmarked: !isBookmarked,
+                    },
+                  };
+                }
+
+                return item;
+              }),
+            },
+          };
+        },
+      );
+
+      queryClient.setQueriesData(
+        { queryKey: QUERY_KEY.PROMPT.BOOKMARKS },
         (oldData: PromptListResponse | undefined) => {
           if (!oldData?.data?.items) return oldData;
 
@@ -83,7 +115,7 @@ export const useBookmarkPrompt = () => {
         },
       );
 
-      return { previousLists, previousDetail };
+      return { previousLists, previousDetail, previousBookmarks };
     },
 
     onError: (_, { promptId }, context) => {
@@ -106,6 +138,7 @@ export const useBookmarkPrompt = () => {
       queryClient.invalidateQueries({
         queryKey: QUERY_KEY.PROMPT.DETAIL(promptId),
       });
+      queryClient.invalidateQueries({ queryKey: QUERY_KEY.PROMPT.BOOKMARKS });
     },
   });
 };
