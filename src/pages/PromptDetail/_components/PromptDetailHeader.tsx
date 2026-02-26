@@ -1,18 +1,13 @@
 import { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import Badge from '../../../components/Badge/Badge';
-import Button from '../../../components/Button/Button';
-import { TextLabel } from '../../../components/Label/Label';
-
-import { useAuth } from '../../../contexts/useAuth';
-import useLikePrompt from '../../../hooks/likes/useLikePrompt';
-import useMyLikedPromptIds from '../../../hooks/likes/useMyLikedPromptIds';
-
-import type { PromptDTO } from '../../../mappers/promptMapper';
-import { Dialog } from '../../../components/NavigationBar/_components/Dialog';
-import { useMyPromptIds } from '../../../hooks/prompts/usePromptList';
-import useDeletePrompt from '../../../hooks/prompts/useDeletePrompt';
+import Badge from '@/components/Badge/Badge';
+import Button from '@/components/Button/Button';
+import { TextLabel } from '@/components/Label/Label';
+import { Dialog } from '@/components/NavigationBar/_components/Dialog';
+import { useAuth } from '@/contexts/useAuth';
+import { useDeletePrompt, useLikePrompt, useMyPromptIds } from '@/hooks';
+import type { PromptDTO } from '@/mappers';
 
 interface PromptDetailHeaderProps {
   prompt: PromptDTO;
@@ -25,7 +20,6 @@ const PromptDetailHeader = ({ prompt }: PromptDetailHeaderProps) => {
 
   const { id, content, stats, tags, author } = prompt;
 
-  const { likedIds } = useMyLikedPromptIds();
   const { mutate: toggleLike } = useLikePrompt();
   const { myPromptIds } = useMyPromptIds();
   const { mutate: deleteMutate } = useDeletePrompt();
@@ -38,10 +32,6 @@ const PromptDetailHeader = ({ prompt }: PromptDetailHeaderProps) => {
     return myPromptIdset.has(id);
   }, [id, myPromptIds]);
 
-  const isLiked = useMemo(() => {
-    return likedIds.includes(id);
-  }, [likedIds, id]);
-
   const actions = {
     likeAction: () => {
       if (!isLoggedIn) {
@@ -51,7 +41,7 @@ const PromptDetailHeader = ({ prompt }: PromptDetailHeaderProps) => {
 
       toggleLike({
         promptId: id,
-        isLiked: isLiked,
+        isLiked: stats.isLiked,
       });
     },
     bookmarkAction: () => alert('북마크 기능 준비 중'),
@@ -64,7 +54,7 @@ const PromptDetailHeader = ({ prompt }: PromptDetailHeaderProps) => {
   };
 
   const handleEdit = () => {
-    navigate(`/edit/${id}`);
+    navigate(`/prompts/${id}/edit`);
   };
 
   return (
@@ -115,8 +105,9 @@ const PromptDetailHeader = ({ prompt }: PromptDetailHeaderProps) => {
               icon="heart"
               variant="tertiary"
               size="sm"
-              isActive={isLiked}
-              onClick={actions.likeAction}>
+              isActive={stats.isLiked}
+              onClick={actions.likeAction}
+            >
               {stats.likeCount}
             </Button>
             <Button
@@ -124,13 +115,17 @@ const PromptDetailHeader = ({ prompt }: PromptDetailHeaderProps) => {
               variant="tertiary"
               size="sm"
               isActive={false}
-              onClick={actions.bookmarkAction}>
+              onClick={actions.bookmarkAction}
+            >
               저장
             </Button>
           </div>
         </div>
       </div>
-      <Dialog.Login open={isLoginModalOpen} onOpenChange={setIsLoginModalOpen} />
+      <Dialog.Login
+        open={isLoginModalOpen}
+        onOpenChange={setIsLoginModalOpen}
+      />
     </>
   );
 };

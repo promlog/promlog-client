@@ -1,5 +1,10 @@
 import { Icon } from '../Icon/Icon';
-import { buttonActiveStyle, buttonSizeMap, buttonThemeMap, cn } from './Button.styles';
+import {
+  buttonActiveStyle,
+  buttonSizeMap,
+  buttonThemeMap,
+  cn,
+} from './Button.styles';
 import type { ButtonProps } from './Button.types';
 
 const Button = ({
@@ -13,10 +18,12 @@ const Button = ({
   isActive = false,
   ...restProps
 }: ButtonProps) => {
-  const hasChildren = children !== null && children !== undefined && children !== '';
+  const hasChildren =
+    children !== null && children !== undefined && children !== '';
   const isIconOnly = icon && !hasChildren;
 
-  const activeStyle = isActive && variant === 'tertiary' ? buttonActiveStyle[variant] : '';
+  const activeStyle =
+    isActive && variant === 'tertiary' ? buttonActiveStyle[variant] : '';
 
   return (
     <button
@@ -27,9 +34,10 @@ const Button = ({
         isIconOnly ? undefined : buttonSizeMap[size],
         buttonThemeMap[variant],
         activeStyle,
-        className
+        className,
       )}
-      {...restProps}>
+      {...restProps}
+    >
       {icon && (
         <Icon
           name={icon}

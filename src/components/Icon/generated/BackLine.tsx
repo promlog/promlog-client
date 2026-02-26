@@ -12,7 +12,8 @@ const SvgBackLine = (props: SVGProps<SVGSVGElement>) => (
     strokeWidth={2}
     aria-hidden="true"
     viewBox="0 0 24 24"
-    {...props}>
+    {...props}
+  >
     <path d="m12 19-7-7 7-7M19 12H5" />
   </svg>
 );

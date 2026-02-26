@@ -13,7 +13,8 @@ const SvgLink = (props: SVGProps<SVGSVGElement>) => (
     aria-hidden="true"
     className="link_svg__lucide link_svg__lucide-link link_svg__w-4 link_svg__h-4"
     viewBox="0 0 24 24"
-    {...props}>
+    {...props}
+  >
     <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
     <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
   </svg>

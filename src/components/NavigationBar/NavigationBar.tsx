@@ -1,16 +1,23 @@
-import Button from '../Button/Button';
-import { Dialog } from './_components/Dialog';
-import { BasicLogo } from '../Logo/Logo';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 // import { Icon } from '../Icon/Icon';
 import { useAuth } from '../../contexts/useAuth';
-import { useNavigate } from 'react-router-dom';
+import Button from '../Button/Button';
+import { BasicLogo } from '../Logo/Logo';
+import { Dialog } from './_components/Dialog';
 
 const AddPromptButton = () => <Button icon="addLine">프롬프트 등록</Button>;
 
 const LoginButton = () => <Button variant="tertiary">로그인</Button>;
 
-const UserMenuButton = ({ name, onClick }: { name: string; onClick: () => void }) => {
+const UserMenuButton = ({
+  name,
+  onClick,
+}: {
+  name: string;
+  onClick: () => void;
+}) => {
   return (
     <Button variant="tertiary" onClick={onClick}>
       <span>{name}</span>
@@ -24,7 +31,8 @@ const UserDropdown = ({ onLogout }: { onLogout: () => void }) => {
       <button
         type="button"
         onClick={onLogout}
-        className="w-full px-4 py-2 text-left text-gray-700 hover:bg-gray-50 flex items-center gap-2">
+        className="w-full px-4 py-2 text-left text-gray-700 hover:bg-gray-50 flex items-center gap-2"
+      >
         {/* <Icon name="logout" size="sm" aria-hidden /> */}
         <span>로그아웃</span>
       </button>
@@ -32,7 +40,8 @@ const UserDropdown = ({ onLogout }: { onLogout: () => void }) => {
         trigger={
           <button
             type="button"
-            className="w-full px-4 py-2 text-left text-red-600 hover:bg-red-50 flex items-center gap-2">
+            className="w-full px-4 py-2 text-left text-red-600 hover:bg-red-50 flex items-center gap-2"
+          >
             {/* <Icon name="userX" size="sm" aria-hidden /> */}
             <span>회원 탈퇴</span>
           </button>
@@ -67,7 +76,10 @@ const NavigationBar = () => {
             )}
             {isLoggedIn && user ? (
               <div className="relative">
-                <UserMenuButton name={user.name} onClick={() => setMenuOpen((prev) => !prev)} />
+                <UserMenuButton
+                  name={user.name}
+                  onClick={() => setMenuOpen((prev) => !prev)}
+                />
                 {menuOpen && <UserDropdown onLogout={handleLogout} />}
               </div>
             ) : (

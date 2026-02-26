@@ -16,7 +16,8 @@ export const BasicLogo = ({ ...restProps }: BasicLogoProps) => {
     <div
       className="flex items-center gap-1 cursor-pointer"
       onClick={() => navigate('/')}
-      {...restProps}>
+      {...restProps}
+    >
       <IconLogo />
       <span className="text-xl font-bold text-gray-900">프롬로그</span>
     </div>

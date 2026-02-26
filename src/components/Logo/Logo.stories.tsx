@@ -1,6 +1,8 @@
-import type { Meta, StoryObj } from '@storybook/react-vite';
 import { MemoryRouter } from 'react-router-dom';
-import { IconLogo, BasicLogo } from './Logo';
+
+import type { Meta, StoryObj } from '@storybook/react-vite';
+
+import { BasicLogo, IconLogo } from './Logo';
 
 const meta: Meta<typeof IconLogo> = {
   title: 'Components/Logo',

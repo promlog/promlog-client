@@ -1,14 +1,16 @@
 /* eslint-disable react-refresh/only-export-components */
 import { useState } from 'react';
+
 import { Dialog as DialogPrimitive } from 'radix-ui';
+
+import { deleteAccount } from '../../../apis/auth/account';
 import { API_BASE_URL } from '../../../config/api';
+import { useAuth } from '../../../contexts/useAuth';
+import Button from '../../Button/Button';
 import { Dialog as DialogBasic } from '../../Dialog/Dialog';
 import type { DialogProps } from '../../Dialog/Dialog.types';
 import { IconLogo } from '../../Logo/Logo';
 import WithdrawIcon from './WithdrawIcon';
-import { deleteAccount } from '../../../apis/auth/account';
-import { useAuth } from '../../../contexts/useAuth';
-import Button from '../../Button/Button';
 
 type DialogCommonProps = Pick<DialogProps, 'trigger'>;
 type DialogOpenProps = Pick<DialogProps, 'onOpenChange' | 'open'>;
@@ -33,7 +35,8 @@ const LoginDialog = ({ trigger, open, onOpenChange }: LoginDialogProps) => {
         <button
           type="button"
           onClick={handleKakaoLogin}
-          className="w-full flex items-center justify-center gap-3 px-6 py-4 bg-[#FEE500] text-[#000000] rounded-lg hover:bg-[#FDD835] transition-colors">
+          className="w-full flex items-center justify-center gap-3 px-6 py-4 bg-[#FEE500] text-[#000000] rounded-lg hover:bg-[#FDD835] transition-colors"
+        >
           <span>카카오 로그인</span>
         </button>
       }
@@ -84,8 +87,14 @@ const WithdrawDialog = ({ trigger }: DialogCommonProps) => {
         //   className="flex-1 px-4 py-3 bg-red-600 rounded-lg hover:bg-red-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
         //   <span className="text-white">탈퇴하기</span>
         // </button>
-        <Button onClick={handleWithdraw} variant="destructive" className="flex-1" size="lg">
-          탈퇴하기
+        <Button
+          onClick={handleWithdraw}
+          variant="destructive"
+          className="flex-1"
+          size="lg"
+          disabled={isLoading}
+        >
+          {isLoading ? '처리 중...' : '탈퇴하기'}
         </Button>
       }
     />

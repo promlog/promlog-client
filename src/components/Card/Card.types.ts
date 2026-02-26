@@ -1,4 +1,5 @@
 import type { ComponentPropsWithRef } from 'react';
+
 import type { BadgeVariants } from '../Badge/Badge.types';
 
 export interface CardBadges {
@@ -29,7 +30,10 @@ interface ButtonActions {
   bookmarkAction: () => void;
 }
 
-export interface CardProps extends Omit<ComponentPropsWithRef<'article'>, 'id' | 'content'> {
+export interface CardProps extends Omit<
+  ComponentPropsWithRef<'article'>,
+  'id' | 'content'
+> {
   id: number;
   writer: string;
   content: CardContent;

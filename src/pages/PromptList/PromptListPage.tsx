@@ -1,17 +1,14 @@
-import { useMemo } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
-import Banner from '../../components/Banner/Banner';
-import PromptCard from './_components/PromptCard';
-import Pagination from '../../components/Pagination/Pagination';
-import { Input } from '../../components/Input/Input';
-import { TextLabel } from '../../components/Label/Label';
+import Banner from '@/components/Banner/Banner';
+import { Input } from '@/components/Input/Input';
+import { TextLabel } from '@/components/Label/Label';
+import Pagination from '@/components/Pagination/Pagination';
+import { SORT_OPTIONS } from '@/config/constants';
+import { useMetaOptions, usePromptList } from '@/hooks';
+import type { SortType } from '@/services';
 
-import { SORT_OPTIONS } from '../../config/constants';
-import { usePromptList } from '../../hooks/prompts/usePromptList';
-import useMyLikedPromptIds from '../../hooks/likes/useMyLikedPromptIds';
-import { useMetaOptions } from '../../hooks/common/useMetaOptions';
-import type { SortType } from '../../apis/prompts/prompts.types';
+import PromptCard from './_components/PromptCard';
 
 const PromptListPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -19,17 +16,24 @@ const PromptListPage = () => {
   const page = Number(searchParams.get('page')) || 1;
   const sortOrder = (searchParams.get('sort') as SortType) || 'latest';
 
-  const { likedIds } = useMyLikedPromptIds();
   const { categoryOptions, platformOptions } = useMetaOptions();
 
   const categoryParam = searchParams.get('category');
   const platformParam = searchParams.get('platform');
 
-  const selectedCategory = categoryOptions.find((option) => option.slug === categoryParam);
-  const selectedPlatform = platformOptions.find((option) => option.slug === platformParam);
+  const selectedCategory = categoryOptions.find(
+    (option) => option.slug === categoryParam,
+  );
+  const selectedPlatform = platformOptions.find(
+    (option) => option.slug === platformParam,
+  );
 
-  const categoryIdParam = selectedCategory ? Number(selectedCategory.value) : undefined;
-  const platformIdParam = selectedPlatform ? Number(selectedPlatform.value) : undefined;
+  const categoryIdParam = selectedCategory
+    ? Number(selectedCategory.value)
+    : undefined;
+  const platformIdParam = selectedPlatform
+    ? Number(selectedPlatform.value)
+    : undefined;
 
   const {
     prompts: publicPrompts,
@@ -53,18 +57,6 @@ const PromptListPage = () => {
     { value: '-1', label: '전체 플랫폼' },
     ...platformOptions.map((opt) => ({ label: opt.label, value: opt.slug })),
   ];
-
-  const mergedPrompts = useMemo(() => {
-    if (!publicPrompts) return [];
-
-    const likedIdSet = new Set(likedIds || []);
-
-    return publicPrompts.map((prompt) => ({
-      ...prompt,
-      isLiked: likedIdSet.has(prompt.id),
-      isBookmarked: false, // 임시
-    }));
-  }, [publicPrompts, likedIds]);
 
   const handleSortChange = (newSort: string) => {
     const newParams = new URLSearchParams(searchParams);
@@ -112,7 +104,10 @@ const PromptListPage = () => {
 
   return (
     <div className="space-y-6 flex flex-col flex-1">
-      <Banner title="전체 프롬프트" subtitle="다양한 AI 프롬프트를 공유하고 발견하세요" />
+      <Banner
+        title="전체 프롬프트"
+        subtitle="다양한 AI 프롬프트를 공유하고 발견하세요"
+      />
       <div className="flex justify-between gap-3 items-center">
         <div className="flex items-center gap-3">
           <Input.SelectField
@@ -135,17 +130,24 @@ const PromptListPage = () => {
             onValueChange={handleSortChange}
           />
           <TextLabel className="flex">
-            <p className="pl-1 text-brand-purple">{meta.totalElements}</p>개의 프롬프트
+            <p className="pl-1 text-brand-purple">{meta.totalElements}</p>개의
+            프롬프트
           </TextLabel>
         </div>
       </div>
 
-      {mergedPrompts.length === 0 ? (
-        <div className="flex justify-center py-20 text-gray-500">해당하는 프롬프트가 없습니다.</div>
+      {publicPrompts.length === 0 ? (
+        <div className="flex justify-center py-20 text-gray-500">
+          해당하는 프롬프트가 없습니다.
+        </div>
       ) : (
         <div className="w-full grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {mergedPrompts.map((prompt) => (
-            <PromptCard key={prompt.id} prompt={prompt} router={`/prompts/${prompt.id}`} />
+          {publicPrompts.map((prompt) => (
+            <PromptCard
+              key={prompt.id}
+              prompt={prompt}
+              router={`/prompts/${prompt.id}`}
+            />
           ))}
         </div>
       )}

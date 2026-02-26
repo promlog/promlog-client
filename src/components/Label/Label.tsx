@@ -1,6 +1,6 @@
 import { Icon } from '../Icon/Icon';
 import { LabelCommonFontStyle, textLabelSizeMap } from './Label.styles';
-import type { TextLabelProps, InputLabelProps } from './Label.types';
+import type { InputLabelProps, TextLabelProps } from './Label.types';
 
 export const InputLabel = ({
   required = false,
@@ -13,10 +13,14 @@ export const InputLabel = ({
     <label
       className={`${LabelCommonFontStyle} flex items-center gap-1 text-lg ${className}`}
       htmlFor={htmlFor}
-      {...restProps}>
+      {...restProps}
+    >
       {children}
       {required && (
-        <span className="text-feedback-red-500 text-sm align-top" aria-hidden="true">
+        <span
+          className="text-feedback-red-500 text-sm align-top"
+          aria-hidden="true"
+        >
           *
         </span>
       )}
@@ -34,9 +38,14 @@ export const TextLabel = ({
   ...restProps
 }: TextLabelProps) => {
   return (
-    <div className={`flex items-center gap-1 ${LabelCommonFontStyle}`} {...restProps}>
+    <div
+      className={`flex items-center gap-1 ${LabelCommonFontStyle}`}
+      {...restProps}
+    >
       {icon && <Icon name={icon} size={size} aria-hidden="true" />}
-      <span className={`${textLabelSizeMap[size]} ${className}`}>{children}</span>
+      <span className={`${textLabelSizeMap[size]} ${className}`}>
+        {children}
+      </span>
     </div>
   );
 };

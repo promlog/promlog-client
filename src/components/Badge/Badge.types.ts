@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+
 import type { badgeSizeMap, variantStyleMap } from './Badge.styles';
 
 export type BadgeVariants = keyof typeof variantStyleMap;

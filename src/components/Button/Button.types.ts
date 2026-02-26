@@ -1,4 +1,4 @@
-import type { ReactNode, ComponentPropsWithRef } from 'react';
+import type { ComponentPropsWithRef, ReactNode } from 'react';
 
 import type { IconName } from '../Icon/Icon.types';
 import type { buttonSizeMap, buttonThemeMap } from './Button.styles';

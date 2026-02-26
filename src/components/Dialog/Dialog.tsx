@@ -1,6 +1,7 @@
 import { Dialog as DialogPrimitive } from 'radix-ui';
-import type { DialogProps } from './Dialog.types';
+
 import Button from '../Button/Button';
+import type { DialogProps } from './Dialog.types';
 
 // TODO: primaryAction, secondaryAction 네이밍 고민 필요
 export const Dialog = ({
@@ -17,13 +18,19 @@ export const Dialog = ({
 }: DialogProps) => {
   return (
     <DialogPrimitive.Root open={open} onOpenChange={onOpenChange}>
-      {trigger && <DialogPrimitive.Trigger asChild>{trigger}</DialogPrimitive.Trigger>}
+      {trigger && (
+        <DialogPrimitive.Trigger asChild>{trigger}</DialogPrimitive.Trigger>
+      )}
       <DialogPrimitive.Portal>
         <DialogPrimitive.Overlay className="fixed inset-0 bg-black/50 z-50" />
         <div className="fixed inset-0 flex items-center justify-center z-50 p-4">
           <DialogPrimitive.Content className="bg-white rounded-xl max-w-md w-full p-8 relative focus:outline-none">
             <DialogPrimitive.Close asChild>
-              <Button icon="close" variant="ghost" className="absolute top-4 right-4 p-2" />
+              <Button
+                icon="close"
+                variant="ghost"
+                className="absolute top-4 right-4 p-2"
+              />
             </DialogPrimitive.Close>
             <div className="flex flex-col gap-6">
               <div className="flex justify-center">{icon}</div>
@@ -40,7 +47,9 @@ export const Dialog = ({
                 {primaryAction}
                 {secondaryAction}
               </div>
-              {caption && <p className="text-center text-gray-500 text-sm">{caption}</p>}
+              {caption && (
+                <p className="text-center text-gray-500 text-sm">{caption}</p>
+              )}
             </div>
           </DialogPrimitive.Content>
         </div>

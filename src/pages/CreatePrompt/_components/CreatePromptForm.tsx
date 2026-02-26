@@ -1,118 +1,49 @@
-import { useEffect } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { useQuery } from '@tanstack/react-query';
 
-import Button from '../../../components/Button/Button';
-import FormField from '../../../components/Form/FormField';
-import { Input } from '../../../components/Input/Input';
+import Button from '@/components/Button/Button';
+import FormField from '@/components/Form/FormField';
+import { Input } from '@/components/Input/Input';
+import { useMetaOptions } from '@/hooks/common/useMetaOptions';
+import type { PromptFormValues } from '@/mappers';
 
-import useCreatePrompt from '../../../hooks/prompts/useCreatePrompt';
-import { useUpdatePrompt } from '../../../hooks/prompts/useUpdatePrompt';
-import { useMetaOptions } from '../../../hooks/common/useMetaOptions';
-import { getPromptDetail } from '../../../apis/prompts/prompts';
-
-interface PromptFormValues {
-  title: string;
-  category: string;
-  platform: string;
-  body: string;
-  description: string;
-  source: string;
-  tips: string;
-  anonymous: boolean;
-}
+import { usePromptFormController } from '../_hooks/usePromptFormController';
 
 interface CreatePromptFormProps {
   promptId?: string;
-  isEditMode?: boolean;
 }
 
-const CreatePromptForm = ({ promptId, isEditMode = false }: CreatePromptFormProps) => {
+const CreatePromptForm = ({ promptId }: CreatePromptFormProps) => {
   const navigate = useNavigate();
 
+  const { isEditMode, isFetching, isPending, defaultValues, submitHandler } =
+    usePromptFormController(promptId);
   const { categoryOptions, platformOptions } = useMetaOptions();
 
-  const { mutate: createMutate, isPending: isCreating } = useCreatePrompt();
-  const { mutate: updateMutate, isPending: isUpdating } = useUpdatePrompt();
-
-  const isPending = isCreating || isUpdating;
-
-  const { control, register, handleSubmit, reset } = useForm<PromptFormValues>({
-    defaultValues: {
-      anonymous: false,
-      category: '',
-      platform: '',
-    },
+  const { control, register, handleSubmit } = useForm<PromptFormValues>({
+    values: defaultValues,
   });
 
-  const safeCategoryOptions = categoryOptions.map((opt) => ({
-    ...opt,
-    value: String(opt.value),
+  const safeCategoryOptions = categoryOptions.map((option) => ({
+    ...option,
+    value: String(option.value),
   }));
 
-  const safePlatformOptions = platformOptions.map((opt) => ({
-    ...opt,
-    value: String(opt.value),
+  const safePlatformOptions = platformOptions.map((option) => ({
+    ...option,
+    value: String(option.value),
   }));
-
-  const { data: promptData, isLoading: isFetching } = useQuery({
-    queryKey: ['prompt', promptId],
-    queryFn: () => getPromptDetail(Number(promptId)),
-    enabled: isEditMode && !!promptId,
-  });
-
-  useEffect(() => {
-    if (isEditMode && promptData) {
-      const categoryId = promptData.data.tags.categories[0]?.id ?? '';
-      const platformId = promptData.data.tags.platforms[0]?.id ?? '';
-
-      reset({
-        title: promptData.data.content.title,
-        category: String(categoryId),
-        platform: String(platformId),
-        body: promptData.data.content.prompt,
-        description: promptData.data.content.description,
-        source: promptData.data.content.sourceUrl || '',
-        tips: promptData.data.content.tip || '',
-        anonymous: promptData.data.author.isAnonymous,
-      });
-    }
-  }, [promptData, isEditMode, reset]);
-
-  const onSubmit = (formValues: PromptFormValues) => {
-    const categoryId = Number(formValues.category);
-    const platformId = Number(formValues.platform);
-
-    const formattedSourceUrl = formValues.source?.startsWith('https://') ? formValues.source : null;
-
-    const prompt = {
-      title: formValues.title,
-      description: formValues.description,
-      prompt: formValues.body,
-      tip: formValues.tips,
-      sourceUrl: formattedSourceUrl,
-      isAnonymous: formValues.anonymous,
-      categoryIds: [categoryId],
-      platformIds: [platformId],
-    };
-
-    if (isEditMode && promptId) {
-      updateMutate({
-        promptId: Number(promptId),
-        prompt: prompt,
-      });
-    } else {
-      createMutate(prompt);
-    }
-  };
 
   if (isEditMode && isFetching) {
-    return <div className="py-10 text-center text-gray-500">데이터를 불러오는 중...</div>;
+    return (
+      <div className="py-10 text-center text-gray-500">
+        데이터를 불러오는 중...
+      </div>
+    );
   }
 
   return (
-    <form className="space-y-6" onSubmit={handleSubmit(onSubmit)}>
+    <form className="space-y-6" onSubmit={handleSubmit(submitHandler)}>
       <FormField htmlFor="title" label="제목" required>
         <Input.InputField
           id="title"
@@ -160,7 +91,7 @@ const CreatePromptForm = ({ promptId, isEditMode = false }: CreatePromptFormProp
       <FormField htmlFor="description" label="설명">
         <Input.TextField
           id="description"
-          placeholder="프롬프트 내용을 입력해 주세요"
+          placeholder="프롬프트 설명을 입력해 주세요"
           {...register('description')}
         />
       </FormField>
@@ -195,10 +126,16 @@ const CreatePromptForm = ({ promptId, isEditMode = false }: CreatePromptFormProp
           variant="secondary"
           type="button"
           onClick={() => navigate(-1)}
-          disabled={isPending}>
+          disabled={isPending}
+        >
           취소
         </Button>
-        <Button className="w-full" variant="primary" type="submit" disabled={isPending}>
+        <Button
+          className="w-full"
+          variant="primary"
+          type="submit"
+          disabled={isPending}
+        >
           {isPending ? '저장 중...' : isEditMode ? '수정하기' : '등록하기'}
         </Button>
       </div>

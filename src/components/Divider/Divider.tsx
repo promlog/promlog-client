@@ -1,8 +1,13 @@
 import type { DividerProps } from './Divider.types';
 
-const Divider = ({ orientation = 'horizontal', className = '' }: DividerProps) => {
+const Divider = ({
+  orientation = 'horizontal',
+  className = '',
+}: DividerProps) => {
   const baseStyle =
-    orientation === 'horizontal' ? 'w-full h-px' : 'h-auto w-px min-h-[1rem] self-stretch';
+    orientation === 'horizontal'
+      ? 'w-full h-px'
+      : 'h-auto w-px min-h-[1rem] self-stretch';
 
   return (
     <div

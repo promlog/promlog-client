@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+
 import type { IconName } from '../Icon/Icon.types';
 import type { textLabelSizeMap } from './Label.styles';
 

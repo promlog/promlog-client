@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react-vite';
+
 import { InputLabel, TextLabel } from './Label';
 
 const meta: Meta = {
@@ -7,7 +8,10 @@ const meta: Meta = {
   tags: ['autodocs'],
   argTypes: {
     children: { control: 'text', description: '라벨 텍스트' },
-    className: { control: 'text', description: '추가 스타일 (Tailwind Classes)' },
+    className: {
+      control: 'text',
+      description: '추가 스타일 (Tailwind Classes)',
+    },
   },
 };
 

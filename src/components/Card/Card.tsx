@@ -1,10 +1,10 @@
 import type { MouseEvent } from 'react';
-import type { CardProps } from './Card.types';
 
-import { TextLabel } from '../Label/Label';
-import Divider from '../Divider/Divider';
 import Badge from '../Badge/Badge';
 import Button from '../Button/Button';
+import Divider from '../Divider/Divider';
+import { TextLabel } from '../Label/Label';
+import type { CardProps } from './Card.types';
 
 const stopPropagation = (e: MouseEvent<HTMLElement>) => {
   e.stopPropagation();
@@ -20,7 +20,10 @@ const CardHeader = ({ badges }: Pick<CardProps, 'badges'>) => (
   </header>
 );
 
-const CardMain = ({ writer, content }: Pick<CardProps, 'writer' | 'content'>) => {
+const CardMain = ({
+  writer,
+  content,
+}: Pick<CardProps, 'writer' | 'content'>) => {
   const { title, createdAt, description } = content;
 
   return (
@@ -35,7 +38,9 @@ const CardMain = ({ writer, content }: Pick<CardProps, 'writer' | 'content'>) =>
           <TextLabel size="xs">{createdAt}</TextLabel>
         </div>
       </div>
-      <p className="text-gray-600 text-sm line-clamp-2 leading-relaxed">{description}</p>
+      <p className="text-gray-600 text-sm line-clamp-2 leading-relaxed">
+        {description}
+      </p>
     </main>
   );
 };
@@ -62,7 +67,13 @@ const CardFooter = ({
           </TextLabel>
         </div>
         <div className="flex gap-1.5" onClick={stopPropagation}>
-          <Button icon="heart" variant="tertiary" size="xs" isActive={isLiked} onClick={likeAction}>
+          <Button
+            icon="heart"
+            variant="tertiary"
+            size="xs"
+            isActive={isLiked}
+            onClick={likeAction}
+          >
             {likeCount}
           </Button>
           <Button
@@ -78,12 +89,22 @@ const CardFooter = ({
     </footer>
   );
 };
-const Card = ({ id, badges, writer, content, stats, actions, active, ...restProps }: CardProps) => {
+const Card = ({
+  id,
+  badges,
+  writer,
+  content,
+  stats,
+  actions,
+  active,
+  ...restProps
+}: CardProps) => {
   return (
     <article
       key={id}
       className="flex flex-col h-58 gap-3 px-5 pt-5 pb-4 group bg-white rounded-2xl border border-gray-200 overflow-hidden cursor-pointer transition-all shadow-[0_1px_3px_0_rgba(0,0,0,0.04)] hover:shadow-[0_8px_24px_-4px_rgba(109,91,208,0.12),0_4px_8px_-2px_rgba(109,91,208,0.08)] hover:translate-y-0.5 hover:border-brand-purple-border"
-      {...restProps}>
+      {...restProps}
+    >
       <CardHeader badges={badges} />
       <CardMain writer={writer} content={content} />
       <CardFooter active={active} stats={stats} actions={actions} />
