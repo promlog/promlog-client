@@ -1,6 +1,7 @@
 import { Dialog as DialogPrimitive } from 'radix-ui';
 
-import Button from '../Button/Button';
+import { Button } from '@/components';
+
 import type { DialogProps } from './Dialog.types';
 
 // TODO: primaryAction, secondaryAction 네이밍 고민 필요

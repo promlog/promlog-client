@@ -1,9 +1,7 @@
 import { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import Badge from '@/components/Badge/Badge';
-import Button from '@/components/Button/Button';
-import { TextLabel } from '@/components/Label/Label';
+import { Badge, Button, TextLabel } from '@/components';
 import { Dialog } from '@/components/NavigationBar/_components/Dialog';
 import { useAuth } from '@/contexts/useAuth';
 import {

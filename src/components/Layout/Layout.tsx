@@ -1,8 +1,9 @@
 import { Outlet, useLocation } from 'react-router-dom';
 
-import { useMetaOptions } from '../../hooks/common/useMetaOptions';
+import { NavigationBar } from '@/components';
+import { useMetaOptions } from '@/hooks';
+
 import { cn } from '../Button/Button.styles';
-import NavigationBar from '../NavigationBar/NavigationBar';
 
 const Layout = () => {
   useMetaOptions();

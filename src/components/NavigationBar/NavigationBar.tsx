@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import { BasicLogo, Button } from '@/components';
 // import { Icon } from '../Icon/Icon';
-import { useAuth } from '../../contexts/useAuth';
-import Button from '../Button/Button';
-import { BasicLogo } from '../Logo/Logo';
+import { useAuth } from '@/contexts/useAuth';
+
 import { Dialog } from './_components/Dialog';
 
 const AddPromptButton = () => <Button icon="addLine">프롬프트 등록</Button>;
@@ -51,7 +51,7 @@ const UserDropdown = ({ onLogout }: { onLogout: () => void }) => {
   );
 };
 
-const NavigationBar = () => {
+export const NavigationBar = () => {
   const { isLoggedIn, user, logout } = useAuth();
   const [menuOpen, setMenuOpen] = useState(false);
   const navigate = useNavigate();
@@ -91,5 +91,3 @@ const NavigationBar = () => {
     </header>
   );
 };
-
-export default NavigationBar;

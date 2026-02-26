@@ -1,4 +1,5 @@
-import { Icon } from '../Icon/Icon';
+import { Icon } from '@/components';
+
 import { LabelCommonFontStyle, textLabelSizeMap } from './Label.styles';
 import type { InputLabelProps, TextLabelProps } from './Label.types';
 

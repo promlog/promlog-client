@@ -1,7 +1,8 @@
 import { useParams } from 'react-router-dom';
 
-import Divider from '../../components/Divider/Divider';
-import { usePromptDetail } from '../../hooks/prompts/usePromptDetail';
+import { Divider } from '@/components';
+import { usePromptDetail } from '@/hooks';
+
 import BackToListButton from './_components/BackToListButton';
 import PromptContentBox from './_components/PromptContentBox';
 import PromptDetailHeader from './_components/PromptDetailHeader';

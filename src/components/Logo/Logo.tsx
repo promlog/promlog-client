@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 
-import { Icon } from '../Icon/Icon';
+import { Icon } from '@/components';
+
 import type { BasicLogoProps, IconLogoProps } from './Logo.types';
 
 export const IconLogo = ({ size = 'xl' }: IconLogoProps) => {

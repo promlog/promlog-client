@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import Card from '@/components/Card/Card';
+import { Card } from '@/components';
 import type { CardBadges } from '@/components/Card/Card.types';
 import { Dialog } from '@/components/NavigationBar/_components/Dialog';
 import { useAuth } from '@/contexts/useAuth';

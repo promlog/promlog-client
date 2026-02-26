@@ -1,10 +1,8 @@
 import { Controller, useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
-import Button from '@/components/Button/Button';
-import FormField from '@/components/Form/FormField';
-import { Input } from '@/components/Input/Input';
-import { useMetaOptions } from '@/hooks/common/useMetaOptions';
+import { Button, FormField, Input } from '@/components';
+import { useMetaOptions } from '@/hooks';
 import type { PromptFormValues } from '@/mappers';
 
 import { usePromptFormController } from '../_hooks/usePromptFormController';

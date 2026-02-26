@@ -1,4 +1,4 @@
-import Button from '@/components/Button/Button';
+import { Button } from '@/components';
 import { useCopyPrompt } from '@/hooks';
 import copyToClipboard from '@/utils/clipboard';
 

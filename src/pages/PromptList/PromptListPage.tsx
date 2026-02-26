@@ -1,11 +1,7 @@
 import { useEffect } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
-import Banner from '@/components/Banner/Banner';
-import Button from '@/components/Button/Button';
-import { Input } from '@/components/Input/Input';
-import { TextLabel } from '@/components/Label/Label';
-import Pagination from '@/components/Pagination/Pagination';
+import { Banner, Button, Input, Pagination, TextLabel } from '@/components';
 import { SORT_OPTIONS } from '@/config/constants';
 import { useAuth } from '@/contexts/useAuth';
 import { useMetaOptions, usePromptList } from '@/hooks';

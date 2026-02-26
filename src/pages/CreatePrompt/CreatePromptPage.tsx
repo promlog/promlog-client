@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from 'react-router-dom';
 
-import Button from '@/components/Button/Button';
+import { Button } from '@/components';
 
 import CreatePromptForm from './_components/CreatePromptForm';
 

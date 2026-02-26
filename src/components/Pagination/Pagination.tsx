@@ -1,10 +1,11 @@
-import { DOTS } from '../../config/constants';
-import { usePagination } from '../../hooks/common/usePagination';
-import Button from '../Button/Button';
+import { Button } from '@/components';
+import { DOTS } from '@/config/constants';
+import { usePagination } from '@/hooks';
+
 import { ButtonStyles } from './Pagination.styles';
 import type { PaginationProps } from './Pagination.types';
 
-const Pagination = ({
+export const Pagination = ({
   totalSize,
   siblingCount = 1,
   currentPage,
@@ -79,5 +80,3 @@ const Pagination = ({
     </div>
   );
 };
-
-export default Pagination;
