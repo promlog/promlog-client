@@ -9,7 +9,7 @@ import type {
   PromptListResponse,
 } from './prompts.types';
 
-const promptApi = {
+export const promptApi = {
   getList: async (
     params: GetPromptListParams = {},
   ): Promise<PromptListResponse> => {
@@ -47,5 +47,3 @@ const promptApi = {
     return data;
   },
 };
-
-export default promptApi;
