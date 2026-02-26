@@ -1,13 +1,14 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 import { QUERY_KEY } from '@/constants';
-import { type PromptDetailResponse, actionApi } from '@/services';
+import { type PromptDetailResponse, promptActionApi } from '@/services';
 
 export const useCopyPrompt = () => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (promptId: number) => actionApi.incrementCopyCount(promptId),
+    mutationFn: (promptId: number) =>
+      promptActionApi.incrementCopyCount(promptId),
     onMutate: async (promptId) => {
       await queryClient.cancelQueries({
         queryKey: QUERY_KEY.PROMPT.DETAIL(promptId),

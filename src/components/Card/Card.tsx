@@ -1,9 +1,7 @@
 import type { MouseEvent } from 'react';
 
-import Badge from '../Badge/Badge';
-import Button from '../Button/Button';
-import Divider from '../Divider/Divider';
-import { TextLabel } from '../Label/Label';
+import { Badge, Button, Divider, TextLabel } from '@/components';
+
 import type { CardProps } from './Card.types';
 
 const stopPropagation = (e: MouseEvent<HTMLElement>) => {
@@ -89,7 +87,8 @@ const CardFooter = ({
     </footer>
   );
 };
-const Card = ({
+
+export const Card = ({
   id,
   badges,
   writer,
@@ -111,5 +110,3 @@ const Card = ({
     </article>
   );
 };
-
-export default Card;

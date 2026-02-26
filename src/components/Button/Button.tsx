@@ -7,7 +7,7 @@ import {
 } from './Button.styles';
 import type { ButtonProps } from './Button.types';
 
-const Button = ({
+export const Button = ({
   type = 'button',
   size = 'md',
   variant = 'primary',
@@ -50,5 +50,3 @@ const Button = ({
     </button>
   );
 };
-
-export default Button;

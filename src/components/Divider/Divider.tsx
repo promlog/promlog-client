@@ -1,6 +1,6 @@
 import type { DividerProps } from './Divider.types';
 
-const Divider = ({
+export const Divider = ({
   orientation = 'horizontal',
   className = '',
 }: DividerProps) => {
@@ -17,5 +17,3 @@ const Divider = ({
     />
   );
 };
-
-export default Divider;

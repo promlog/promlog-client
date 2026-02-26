@@ -3,7 +3,8 @@ import { type ComponentPropsWithRef } from 'react';
 
 import * as SelectPrimitive from '@radix-ui/react-select';
 
-import { Icon } from '../Icon/Icon';
+import { Icon } from '@/components';
+
 import { CommonStyle } from './Input.styles';
 import type {
   InputFieldProps,

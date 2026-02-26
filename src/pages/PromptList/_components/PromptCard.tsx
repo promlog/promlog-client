@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import Card from '@/components/Card/Card';
+import { Card } from '@/components';
 import type { CardBadges } from '@/components/Card/Card.types';
 import { Dialog } from '@/components/NavigationBar/_components/Dialog';
 import { useAuth } from '@/contexts/useAuth';
-import { useLikePrompt } from '@/hooks';
+import { useBookmarkPrompt, useLikePrompt } from '@/hooks';
 import type { PromptDTO } from '@/mappers';
 
 export interface PromptCardProps {
@@ -19,16 +19,19 @@ const PromptCard = ({ prompt, router }: PromptCardProps) => {
 
   const { isLoggedIn } = useAuth();
   const { mutate: toggleLike } = useLikePrompt();
+  const { mutate: toggleBookmark } = useBookmarkPrompt();
+
+  const { id, content, stats, tags, author } = prompt;
 
   const badges: CardBadges[] = [
     {
-      id: `category-${prompt.id}`,
-      name: prompt.tags.category,
+      id: `category-${id}`,
+      name: tags.category,
       variant: 'category',
     },
     {
-      id: `tag-${prompt.id}`,
-      name: prompt.tags.platform,
+      id: `tag-${id}`,
+      name: tags.platform,
       variant: 'platform',
     },
   ];
@@ -41,26 +44,36 @@ const PromptCard = ({ prompt, router }: PromptCardProps) => {
       }
 
       toggleLike({
-        promptId: prompt.id,
-        isLiked: prompt.stats.isLiked,
+        promptId: id,
+        isLiked: stats.isLiked,
       });
     },
-    bookmarkAction: () => alert('북마크 기능 준비 중'),
+    bookmarkAction: () => {
+      if (!isLoggedIn) {
+        setIsLoginModalOpen(true);
+        return;
+      }
+
+      toggleBookmark({
+        promptId: id,
+        isBookmarked: stats.isBookmarked,
+      });
+    },
   };
 
   const active = {
-    isLiked: prompt.stats.isLiked,
-    isBookmarked: prompt.stats.isBookmarked,
+    isLiked: stats.isLiked,
+    isBookmarked: stats.isBookmarked,
   };
 
   return (
     <>
       <Card
-        id={prompt.id}
-        writer={prompt.author.nickname}
+        id={id}
+        writer={author.nickname}
         badges={badges}
-        content={prompt.content}
-        stats={prompt.stats}
+        content={content}
+        stats={stats}
         actions={actions}
         active={active}
         onClick={() => navigate(router)}

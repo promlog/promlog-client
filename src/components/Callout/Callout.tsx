@@ -65,5 +65,3 @@ export const Callout = Object.assign(CalloutMain, {
   List: CalloutList,
   Item: CalloutListItem,
 });
-
-export default Callout;

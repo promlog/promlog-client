@@ -1,4 +1,4 @@
-import type { GetPromptListParams } from '@/services';
+import type { GetMyBookmarkListParams, GetPromptListParams } from '@/services';
 
 export const QUERY_KEY = {
   PROMPT: {
@@ -14,6 +14,9 @@ export const QUERY_KEY = {
 
     // 3. ME
     ME: ['prompts', 'me'] as const,
+    BOOKMARKS: ['prompts', 'bookmarks'] as const,
+    BOOKMARK: (params: GetMyBookmarkListParams) =>
+      ['prompts', 'bookmarks', params] as const,
   },
   ACTION: {
     LIKES: ['prompts', 'likes'] as const,

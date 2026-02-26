@@ -3,7 +3,7 @@ import { PROMPT_ACTION_API } from '@/constants';
 
 import type { PromptLikeResponse } from './likes.types';
 
-const promptLikeApi = {
+export const promptLikeApi = {
   like: async (promptId: number): Promise<PromptLikeResponse> => {
     const { data } = await API.post(PROMPT_ACTION_API.LIKE(promptId));
     return data;
@@ -14,5 +14,3 @@ const promptLikeApi = {
     return data;
   },
 };
-
-export default promptLikeApi;

@@ -1,7 +1,7 @@
 import type { BannerProps } from './Banner.types';
 
 // TODO: Tab 컴포넌트 추가 필요
-const Banner = ({ title, subtitle }: BannerProps) => {
+export const Banner = ({ title, subtitle }: BannerProps) => {
   return (
     <section className="flex w-full items-center justify-between">
       <div className="flex pt-11 flex-col gap-3">
@@ -13,5 +13,3 @@ const Banner = ({ title, subtitle }: BannerProps) => {
     </section>
   );
 };
-
-export default Banner;

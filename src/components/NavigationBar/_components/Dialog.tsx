@@ -3,13 +3,12 @@ import { useState } from 'react';
 
 import { Dialog as DialogPrimitive } from 'radix-ui';
 
-import { deleteAccount } from '../../../apis/auth/account';
-import { API_BASE_URL } from '../../../config/api';
-import { useAuth } from '../../../contexts/useAuth';
-import Button from '../../Button/Button';
-import { Dialog as DialogBasic } from '../../Dialog/Dialog';
-import type { DialogProps } from '../../Dialog/Dialog.types';
-import { IconLogo } from '../../Logo/Logo';
+import { deleteAccount } from '@/apis/auth/account';
+import { Button, Dialog as DialogBasic, IconLogo } from '@/components';
+import type { DialogProps } from '@/components/Dialog/Dialog.types';
+import { API_BASE_URL } from '@/config/api';
+import { useAuth } from '@/contexts/useAuth';
+
 import WithdrawIcon from './WithdrawIcon';
 
 type DialogCommonProps = Pick<DialogProps, 'trigger'>;
@@ -46,7 +45,7 @@ const LoginDialog = ({ trigger, open, onOpenChange }: LoginDialogProps) => {
 
 LoginDialog.displayName = 'Dialog.Login';
 
-// TODO: callout/checkbox 컴포넌트 추가 필요, button 컴포넌트 확장 필요
+// TODO: callout/checkbox 컴포넌트 추가 필요
 const WithdrawDialog = ({ trigger }: DialogCommonProps) => {
   const { logout } = useAuth();
   const [isLoading, setIsLoading] = useState(false);
@@ -56,10 +55,8 @@ const WithdrawDialog = ({ trigger }: DialogCommonProps) => {
     setIsLoading(true);
 
     try {
-      const result = await deleteAccount();
-
-      if (result) logout();
-      else logout();
+      await deleteAccount();
+      logout();
     } catch (error) {
       console.error('회원 탈퇴 실패:', error);
     } finally {
@@ -81,12 +78,6 @@ const WithdrawDialog = ({ trigger }: DialogCommonProps) => {
         </DialogPrimitive.Close>
       }
       secondaryAction={
-        // <button
-        //   type="button"
-        //   onClick={handleWithdraw}
-        //   className="flex-1 px-4 py-3 bg-red-600 rounded-lg hover:bg-red-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed">
-        //   <span className="text-white">탈퇴하기</span>
-        // </button>
         <Button
           onClick={handleWithdraw}
           variant="destructive"

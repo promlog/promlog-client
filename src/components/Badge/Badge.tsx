@@ -2,7 +2,7 @@ import { Icon } from '../Icon/Icon';
 import { badgeSizeMap, variantIconMap, variantStyleMap } from './Badge.styles';
 import type { BadgeProps } from './Badge.types';
 
-const Badge = ({ size = 'md', variant, children }: BadgeProps) => {
+export const Badge = ({ size = 'md', variant, children }: BadgeProps) => {
   const containerStyle = `${badgeSizeMap[size]} ${variantStyleMap[variant]}`;
   const iconName = variantIconMap[variant];
 
@@ -15,5 +15,3 @@ const Badge = ({ size = 'md', variant, children }: BadgeProps) => {
     </div>
   );
 };
-
-export default Badge;
