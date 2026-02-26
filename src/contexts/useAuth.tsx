@@ -31,7 +31,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   useEffect(() => {
     const initAuth = async () => {
-      if (window.location.pathname.includes('/callback')) {
+      if (window.location.pathname.includes('/oauth/callback')) {
         setIsLoading(false);
         return;
       }

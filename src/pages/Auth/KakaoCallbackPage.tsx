@@ -30,6 +30,7 @@ const KakaoCallbackPage = () => {
         console.error('카카오 로그인 실패', error);
 
         alert('로그인 처리에 실패했습니다.');
+        requestRef.current = false;
 
         navigate('/', { replace: true });
       }

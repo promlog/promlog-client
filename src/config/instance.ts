@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+import { AUTH_API } from '@/constants';
 import { tokenManager } from '@/lib/tokenManager';
 
 interface FailedRequest {
@@ -43,7 +44,7 @@ API.interceptors.response.use(
     const originalRequest = error.config;
 
     if (error.response?.status === 401 && !originalRequest._retry) {
-      if (originalRequest.url?.includes('/auth/refresh')) {
+      if (originalRequest.url?.endsWith(AUTH_API.REFRESH_TOKEN)) {
         return Promise.reject(error);
       }
 

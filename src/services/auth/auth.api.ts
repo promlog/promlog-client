@@ -23,6 +23,5 @@ export const logoutApi = async (): Promise<void> => {
 };
 
 export const deleteAccount = async () => {
-  const { data } = await API.delete(AUTH_API.USER);
-  return data;
+  await API.delete(AUTH_API.USER);
 };
