@@ -15,3 +15,10 @@ export const META_API = {
   CATEGORIES: '/api/categories',
   PLATFORMS: '/api/platforms',
 } as const;
+
+export const AUTH_API = {
+  KAKAO_OAUTH: '/api/auth/oauth/kakao/code',
+  REFRESH_TOKEN: '/api/auth/refresh',
+  USER: '/api/accounts/me',
+  LOGOUT: '/api/auth/logout',
+};

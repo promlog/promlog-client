@@ -1,62 +1,46 @@
 import { useEffect, useRef } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
-import { postKakaoCode } from '../../apis/auth/kakao';
-import { useAuth } from '../../contexts/useAuth';
-import { authStorage } from '../../lib/authStorage';
+import { useAuth } from '@/contexts/useAuth';
+import { kakaoLogin } from '@/services';
 
 const KakaoCallbackPage = () => {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
-  const calledRef = useRef(false);
-  const { setUser } = useAuth();
+  const { login } = useAuth();
+  const requestRef = useRef(false);
 
   useEffect(() => {
     const code = searchParams.get('code');
-    const error = searchParams.get('error');
-    const errorDescription = searchParams.get('error_description');
 
-    if (error) {
-      console.error('Kakao OAuth:', error, errorDescription);
-      navigate('/', { replace: true });
+    if (!code || requestRef.current) return;
+    requestRef.current = true;
 
-      return;
-    }
-
-    if (!code) {
-      console.error('Kakao OAuth: code를 찾을 수 없습니다.');
-      navigate('/', { replace: true });
-
-      return;
-    }
-
-    if (calledRef.current) return;
-    calledRef.current = true;
-
-    (async () => {
+    const handleLogin = async () => {
       try {
-        const { data } = await postKakaoCode(code);
+        const { accessToken, account } = await kakaoLogin(code);
 
-        setUser({
-          id: data.account.id,
-          name: data.account.nickname,
+        login(accessToken, {
+          id: account.id,
+          name: account.nickname,
         });
-
-        authStorage.setTokens(data.accessToken, data.refreshToken);
 
         navigate('/', { replace: true });
       } catch (error) {
-        console.error('code가 유효하지 않습니다.', error);
+        console.error('카카오 로그인 실패', error);
+
+        alert('로그인 처리에 실패했습니다.');
+
         navigate('/', { replace: true });
       }
-    })();
-  }, [searchParams, navigate]);
+    };
+
+    handleLogin();
+  }, [searchParams, navigate, login]);
 
   return (
     <div className="flex min-h-screen items-center justify-center">
-      <div className="rounded-xl border border-gray-200 px-6 py-4 text-gray-700">
-        로그인 중입니다...
-      </div>
+      <div className="text-gray-500">로그인 중...</div>
     </div>
   );
 };

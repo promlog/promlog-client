@@ -15,6 +15,17 @@ export default defineConfig({
   plugins: [react(), tailwindcss()],
   server: {
     port: 3000,
+    // 로컬일 때 사용
+    // proxy: {
+    //   '/api': {
+    //     target: 'SERVER',
+    //     cookieDomainRewrite: {
+    //       '*': '',
+    //     },
+    //     changeOrigin: true,
+    //     secure: false,
+    //   },
+    // },
   },
   resolve: {
     alias: {

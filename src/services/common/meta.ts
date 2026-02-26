@@ -1,4 +1,4 @@
-import { API } from '@/config/api';
+import { API } from '@/config/instance';
 import { META_API } from '@/constants';
 
 import type { MetaItemResponse } from './meta.types';

@@ -3,11 +3,11 @@ import { useState } from 'react';
 
 import { Dialog as DialogPrimitive } from 'radix-ui';
 
-import { deleteAccount } from '@/apis/auth/account';
 import { Button, Dialog as DialogBasic, IconLogo } from '@/components';
 import type { DialogProps } from '@/components/Dialog/Dialog.types';
-import { API_BASE_URL } from '@/config/api';
+import { API_BASE_URL } from '@/config/instance';
 import { useAuth } from '@/contexts/useAuth';
+import { deleteAccount } from '@/services';
 
 import WithdrawIcon from './WithdrawIcon';
 

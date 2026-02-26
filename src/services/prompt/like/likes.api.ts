@@ -1,4 +1,4 @@
-import { API } from '@/config/api';
+import { API } from '@/config/instance';
 import { PROMPT_ACTION_API } from '@/constants';
 
 import type { PromptLikeResponse } from './likes.types';
