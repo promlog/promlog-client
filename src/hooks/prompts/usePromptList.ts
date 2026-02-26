@@ -60,6 +60,6 @@ export const useMyPromptIds = () => {
 
   return {
     ...query,
-    myPromptIds: query.data?.id ?? [],
+    myPromptIds: isLoggedIn ? (query.data?.id ?? []) : [],
   };
 };
