@@ -26,7 +26,7 @@ const PromptDetailHeader = ({ prompt }: PromptDetailHeaderProps) => {
   const { mutate: toggleLike } = useLikePrompt();
   const { myPromptIds } = useMyPromptIds();
   const { mutate: deleteMutate } = useDeletePrompt();
-  const { mutate: toogleBookmark } = useBookmarkPrompt();
+  const { mutate: toggleBookmark } = useBookmarkPrompt();
 
   const isMyPrompt = useMemo(() => {
     if (!id || !myPromptIds) return false;
@@ -54,7 +54,7 @@ const PromptDetailHeader = ({ prompt }: PromptDetailHeaderProps) => {
         return;
       }
 
-      toogleBookmark({
+      toggleBookmark({
         promptId: prompt.id,
         isBookmarked: stats.isBookmarked,
       });

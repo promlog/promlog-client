@@ -19,7 +19,7 @@ const PromptCard = ({ prompt, router }: PromptCardProps) => {
 
   const { isLoggedIn } = useAuth();
   const { mutate: toggleLike } = useLikePrompt();
-  const { mutate: toogleBookmark } = useBookmarkPrompt();
+  const { mutate: toggleBookmark } = useBookmarkPrompt();
 
   const { id, content, stats, tags, author } = prompt;
 
@@ -54,7 +54,7 @@ const PromptCard = ({ prompt, router }: PromptCardProps) => {
         return;
       }
 
-      toogleBookmark({
+      toggleBookmark({
         promptId: id,
         isBookmarked: stats.isBookmarked,
       });
