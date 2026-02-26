@@ -113,6 +113,12 @@ export const useBookmarkPrompt = () => {
         });
       }
 
+      if (context?.previousBookmarks) {
+        context.previousBookmarks.forEach(([queryKey, data]) => {
+          queryClient.setQueryData(queryKey, data);
+        });
+      }
+
       if (context?.previousDetail) {
         queryClient.setQueryData(
           QUERY_KEY.PROMPT.DETAIL(promptId),
