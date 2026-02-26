@@ -92,8 +92,9 @@ const WithdrawDialog = ({ trigger }: DialogCommonProps) => {
           variant="destructive"
           className="flex-1"
           size="lg"
+          disabled={isLoading}
         >
-          탈퇴하기
+          {isLoading ? '처리 중...' : '탈퇴하기'}
         </Button>
       }
     />
