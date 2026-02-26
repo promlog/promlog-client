@@ -5,7 +5,7 @@ import { Dialog as DialogPrimitive } from 'radix-ui';
 
 import { Button, Dialog as DialogBasic, IconLogo } from '@/components';
 import type { DialogProps } from '@/components/Dialog/Dialog.types';
-import { API_BASE_URL } from '@/config/instance';
+import { KAKAO_AUTH_URL } from '@/constants/auth';
 import { useAuth } from '@/contexts/useAuth';
 import { deleteAccount } from '@/services';
 
@@ -18,7 +18,7 @@ type LoginDialogProps = DialogOpenProps & DialogCommonProps;
 
 const LoginDialog = ({ trigger, open, onOpenChange }: LoginDialogProps) => {
   const handleKakaoLogin = () => {
-    window.location.href = `${API_BASE_URL}/api/auth/oauth/kakao/authorize`;
+    window.location.href = KAKAO_AUTH_URL;
   };
 
   return (
