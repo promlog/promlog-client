@@ -19,7 +19,9 @@ const PromptListPage = () => {
 
   const page = Number(searchParams.get('page')) || 1;
   const sortOrder = (searchParams.get('sort') as SortType) || 'latest';
-  const currentTab = (searchParams.get('tab') as TabType) || 'all';
+
+  const tabParam = searchParams.get('tab');
+  const currentTab: TabType = tabParam === 'bookmarks' ? 'bookmarks' : 'all';
 
   const { categoryOptions, platformOptions } = useMetaOptions();
 
@@ -78,7 +80,7 @@ const PromptListPage = () => {
     return newParams;
   };
 
-  const handleTabChange = (newTab: string) => {
+  const handleTabChange = (newTab: TabType) => {
     const newParams = new URLSearchParams(searchParams);
 
     newParams.set('tab', newTab);
@@ -87,7 +89,7 @@ const PromptListPage = () => {
     setSearchParams(newParams);
   };
 
-  const handleSortChange = (newSort: string) => {
+  const handleSortChange = (newSort: SortType) => {
     const newParams = updateParams('sort', newSort);
 
     newParams.set('page', '1');
