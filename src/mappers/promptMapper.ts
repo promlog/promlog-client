@@ -27,6 +27,7 @@ const mapPromptItemDTO = (item: PromptListItemResponse): PromptDTO => {
 
   const handleFormattedCount = (count: number) => {
     if (!count) return 0;
+
     return new Intl.NumberFormat('ko-KR', {
       notation: 'compact',
       maximumFractionDigits: 1,

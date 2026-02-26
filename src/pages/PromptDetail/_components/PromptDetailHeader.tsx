@@ -55,7 +55,7 @@ const PromptDetailHeader = ({ prompt }: PromptDetailHeaderProps) => {
   };
 
   const handleEdit = () => {
-    navigate(`/edit/${id}`);
+    navigate(`/prompts/${id}/edit`);
   };
 
   return (
