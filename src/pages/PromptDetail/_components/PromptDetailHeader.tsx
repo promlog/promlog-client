@@ -6,7 +6,12 @@ import Button from '@/components/Button/Button';
 import { TextLabel } from '@/components/Label/Label';
 import { Dialog } from '@/components/NavigationBar/_components/Dialog';
 import { useAuth } from '@/contexts/useAuth';
-import { useDeletePrompt, useLikePrompt, useMyPromptIds } from '@/hooks';
+import {
+  useBookmarkPrompt,
+  useDeletePrompt,
+  useLikePrompt,
+  useMyPromptIds,
+} from '@/hooks';
 import type { PromptDTO } from '@/mappers';
 
 interface PromptDetailHeaderProps {
@@ -23,6 +28,7 @@ const PromptDetailHeader = ({ prompt }: PromptDetailHeaderProps) => {
   const { mutate: toggleLike } = useLikePrompt();
   const { myPromptIds } = useMyPromptIds();
   const { mutate: deleteMutate } = useDeletePrompt();
+  const { mutate: toogleBookmark } = useBookmarkPrompt();
 
   const isMyPrompt = useMemo(() => {
     if (!id || !myPromptIds) return false;
@@ -44,7 +50,17 @@ const PromptDetailHeader = ({ prompt }: PromptDetailHeaderProps) => {
         isLiked: stats.isLiked,
       });
     },
-    bookmarkAction: () => alert('북마크 기능 준비 중'),
+    bookmarkAction: () => {
+      if (!isLoggedIn) {
+        setIsLoginModalOpen(true);
+        return;
+      }
+
+      toogleBookmark({
+        promptId: prompt.id,
+        isBookmarked: prompt.stats.isBookmarked,
+      });
+    },
   };
 
   const handleDelete = () => {
@@ -114,7 +130,7 @@ const PromptDetailHeader = ({ prompt }: PromptDetailHeaderProps) => {
               icon="bookmark"
               variant="tertiary"
               size="sm"
-              isActive={false}
+              isActive={stats.isBookmarked}
               onClick={actions.bookmarkAction}
             >
               저장

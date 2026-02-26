@@ -5,7 +5,7 @@ import Card from '@/components/Card/Card';
 import type { CardBadges } from '@/components/Card/Card.types';
 import { Dialog } from '@/components/NavigationBar/_components/Dialog';
 import { useAuth } from '@/contexts/useAuth';
-import { useLikePrompt } from '@/hooks';
+import { useBookmarkPrompt, useLikePrompt } from '@/hooks';
 import type { PromptDTO } from '@/mappers';
 
 export interface PromptCardProps {
@@ -19,6 +19,7 @@ const PromptCard = ({ prompt, router }: PromptCardProps) => {
 
   const { isLoggedIn } = useAuth();
   const { mutate: toggleLike } = useLikePrompt();
+  const { mutate: toogleBookmark } = useBookmarkPrompt();
 
   const badges: CardBadges[] = [
     {
@@ -45,7 +46,17 @@ const PromptCard = ({ prompt, router }: PromptCardProps) => {
         isLiked: prompt.stats.isLiked,
       });
     },
-    bookmarkAction: () => alert('북마크 기능 준비 중'),
+    bookmarkAction: () => {
+      if (!isLoggedIn) {
+        setIsLoginModalOpen(true);
+        return;
+      }
+
+      toogleBookmark({
+        promptId: prompt.id,
+        isBookmarked: prompt.stats.isBookmarked,
+      });
+    },
   };
 
   const active = {
