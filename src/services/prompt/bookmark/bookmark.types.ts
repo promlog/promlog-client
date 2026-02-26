@@ -1,5 +1,3 @@
-import type { SortType } from '../base/prompts.types';
-
 export interface PromptBookmarkResponse {
   success: boolean;
   data: {
@@ -9,6 +7,6 @@ export interface PromptBookmarkResponse {
 }
 
 export interface GetMyBookmarkListParams {
-  sort?: SortType;
   page?: number;
+  size?: number;
 }

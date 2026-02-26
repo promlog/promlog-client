@@ -2,10 +2,10 @@ import { keepPreviousData, useQuery } from '@tanstack/react-query';
 
 import { QUERY_KEY } from '@/constants';
 import { mapPromptListItemDTO } from '@/mappers';
-import { type GetPromptListParams, getMyBookmarks } from '@/services';
+import { type GetMyBookmarkListParams, getMyBookmarks } from '@/services';
 
 export const useMyBookmarkList = (
-  params: Pick<GetPromptListParams, 'page' | 'size'> & { enabled?: boolean },
+  params: GetMyBookmarkListParams & { enabled?: boolean },
 ) => {
   const { enabled = true, ...queryParams } = params;
 
