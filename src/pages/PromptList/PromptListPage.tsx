@@ -46,6 +46,7 @@ const PromptListPage = () => {
     sort: sortOrder,
     categoryIds,
     platformIds,
+    enabled: currentTab === 'all',
   });
 
   const bookmarksPromptsQuery = useMyBookmarkList({

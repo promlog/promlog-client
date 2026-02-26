@@ -24,8 +24,10 @@ const defaultMeta: PromptListMeta = {
   hasNext: false,
 };
 
-export const usePromptList = (params?: GetPromptListParams) => {
-  const queryParams = { ...defaultParams, ...params };
+export const usePromptList = (
+  params: GetPromptListParams & { enabled?: boolean },
+) => {
+  const { enabled = true, ...queryParams } = params;
 
   const query = useQuery({
     queryKey: QUERY_KEY.PROMPT.LIST(queryParams),
@@ -35,6 +37,7 @@ export const usePromptList = (params?: GetPromptListParams) => {
       meta: response.data.meta,
     }),
     placeholderData: keepPreviousData,
+    enabled,
   });
 
   return {
