@@ -54,7 +54,7 @@ const PromptListPage = () => {
   const bookmarksPromptsQuery = useMyBookmarkList({
     page,
     size: 21,
-    enabled: currentTab === 'bookmarks',
+    enabled: isLoggedIn && currentTab === 'bookmarks',
   });
 
   const { prompts, meta, loading, error } =
