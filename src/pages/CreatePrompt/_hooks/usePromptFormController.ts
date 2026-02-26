@@ -8,8 +8,14 @@ import {
 } from '@/mappers';
 
 export const usePromptFormController = (promptId?: string) => {
-  const isEditMode = !!promptId;
   const parsedPromptId = promptId ? Number(promptId) : null;
+
+  const isValidPromptId =
+    parsedPromptId !== null &&
+    Number.isInteger(parsedPromptId) &&
+    parsedPromptId > 0;
+
+  const isEditMode = isValidPromptId;
 
   const { detailedPrompt, loading: isFetching } =
     usePromptDetail(parsedPromptId);
@@ -27,7 +33,7 @@ export const usePromptFormController = (promptId?: string) => {
   const submitHandler = (formValues: PromptFormValues) => {
     const requestPayload = mapToPromptRequest(formValues);
 
-    if (isEditMode && parsedPromptId) {
+    if (isEditMode && parsedPromptId !== null) {
       updatePrompt({ promptId: parsedPromptId, prompt: requestPayload });
     } else {
       createPrompt(requestPayload);
