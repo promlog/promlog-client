@@ -15,7 +15,10 @@ COPY . .
 
 # 외부에서 --build-arg로 받은 값을 내부 환경변수로 설정
 ARG VITE_API_BASE_URL
+ARG VITE_KAKAO_API_KEY
+
 ENV VITE_API_BASE_URL=$VITE_API_BASE_URL
+ENV VITE_KAKAO_API_KEY=$VITE_KAKAO_API_KEY
 
 # 빌드 실행
 RUN npm run build
