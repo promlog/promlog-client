@@ -1,10 +1,14 @@
 import { API } from '@/config/instance';
 import { AUTH_API } from '@/constants';
+import { KAKAO_REDIRECT_URI } from '@/constants/auth';
 
 import type { AccountInfo, LoginResult, TokenResult } from './auth.types';
 
 export const kakaoLogin = async (code: string): Promise<LoginResult> => {
-  const { data } = await API.post(AUTH_API.KAKAO_OAUTH, { code });
+  const { data } = await API.post(AUTH_API.KAKAO_OAUTH, {
+    code,
+    redirectUri: KAKAO_REDIRECT_URI,
+  });
   return data.data;
 };
 
